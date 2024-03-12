@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1054363556119",
+    "project_id": "dohwaji-400c9",
+    "storage_bucket": "dohwaji-400c9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1054363556119:android:539be866c9c36caed4ff52",
+        "android_client_info": {
+          "package_name": "com.woong.dohwaji"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBQx_n1fIsFBGqrr8Oc0Q8tFtvBqTN-mc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
