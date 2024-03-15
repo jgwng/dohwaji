@@ -19,13 +19,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="dohwaji">
+  <meta name="apple-mobile-web-app-title" content="도화지">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="apple-touch-startup-image" href="icons/Icon-192.png">
+
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>dohwaji</title>
+  <title>도화지</title>
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" type='text/css' href="styles.css">
   <script src="app.js" defer></script>
@@ -57,7 +59,7 @@
            const appRunner = await engineInitializer.initializeEngine();
            var loaderContent = document.querySelector('#loader');
            loaderContent.style.opacity = "0";
-           await delay(400);
+           await delay();
            appRunner.runApp().then((_) => {
           document.querySelector('meta[name="viewport"]').setAttribute('content', "width=device-width, initial-scale=1.0, viewport-fit=cover");
           });
