@@ -18,23 +18,26 @@ import 'package:http/http.dart' as http;
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 class FloodFillRasterScreen extends StatelessWidget {
-  const FloodFillRasterScreen({super.key});
+  FloodFillRasterScreen({super.key,required this.index});
+  final String index;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
       appBar: AppBar(
-        title: const Text('Flood Fill Raster'),
+        title: const Text('색칠하기'),
       ),
-      body: const Center(child: FloodFillRaster()),
+      body:  Center(child: FloodFillRaster(
+          imageIndex: index
+      )),
     );
   }
 }
 
 class FloodFillRaster extends StatefulWidget {
-  const FloodFillRaster({super.key});
-
+  const FloodFillRaster({super.key,required this.imageIndex});
+  final String imageIndex;
   @override
   State<FloodFillRaster> createState() => _FloodFillRasterState();
 }
@@ -107,8 +110,10 @@ class _FloodFillRasterState extends State<FloodFillRaster> with SingleTickerProv
       // // final http.Response result = await http.get(Uri.parse('https://upload.wikimedia.org/wikipedia/commons/b/b4/Chess_ndd45.svg'));
 
       // final response = await http.get(Uri.parse(url));
+      int index = int.tryParse(widget.imageIndex ?? '0') ?? -1;
+      if(index<0) index = 0;
 
-      final ByteData testData = await rootBundle.load('assets/example_image.jpg');
+      final ByteData testData = await rootBundle.load('assets/images/example_image_${index ?? 0}.jpg');
       colorImage = testData.buffer.asUint8List();
     }
 

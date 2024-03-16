@@ -1,9 +1,12 @@
-import 'package:dohwaji/core/router.dart';
+import 'package:dohwaji/core/resources.dart';
+import 'package:dohwaji/core/routes.dart';
 import 'package:dohwaji/init_setting.dart';
 import 'package:dohwaji/ui/home_page.dart';
+import 'package:dohwaji/util/common_util.dart';
 import 'package:dohwaji/util/platform_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_web_frame/flutter_web_frame.dart';
 import 'package:get/get.dart';
 
 void main() async{
@@ -18,7 +21,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (PlatformUtil.isWeb) {
-      return buildApp().animate().fadeIn(duration: 400.ms);
+      return FlutterWebFrame(
+        maximumSize: const Size(600,800),
+        backgroundColor: AppThemes.mobileBackgroundColor,
+        builder: (context){
+          return buildApp();
+        },
+      ).animate().fadeIn(duration: 400.ms);
     }
     return buildApp();
   }
@@ -35,6 +44,8 @@ class MyApp extends StatelessWidget {
         splashColor: Colors.transparent,
         hoverColor: Colors.transparent,
         brightness: Brightness.light,
+        //초기 StatusBar 색상 설정 되는 값
+        primarySwatch: CommonUtil().createMaterialColor(AppThemes.backgroundColor),
         useMaterial3: false,
         scaffoldBackgroundColor: Colors.white,
         fontFamilyFallback: const ['Noto Sans SC'],

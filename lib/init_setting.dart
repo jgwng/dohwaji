@@ -8,15 +8,15 @@ Future<void> initAppSetting() async {
   // 서버나 SharedPreferences 등 비동기로 데이터를 다룬 다음 runApp을 실행해야하는 경우
   final binding = WidgetsFlutterBinding.ensureInitialized();
 
-  binding.deferFirstFrame();
-  binding.addPostFrameCallback((_) async {
-    Future.wait([
-      CommonUtil().loadFont(AppFonts.bold),
-      CommonUtil().loadFont(AppFonts.medium),
-      CommonUtil().loadFont(AppFonts.regular),
-      CommonUtil().loadFont(AppFonts.semiBold),
-    ]);
-    binding.allowFirstFrame();
-  });
+  // binding.deferFirstFrame();
+  // binding.addPostFrameCallback((_) async {
+  //   Future.wait([
+  //     CommonUtil().loadFont(AppFonts.bold),
+  //     CommonUtil().loadFont(AppFonts.medium),
+  //     // CommonUtil().loadFont(AppFonts.regular),
+  //     // CommonUtil().loadFont(AppFonts.semiBold),
+  //   ]);
+  //   binding.allowFirstFrame();
+  // });
   GestureBinding.instance.resamplingEnabled = false;
 }
