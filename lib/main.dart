@@ -1,10 +1,13 @@
+import 'package:dohwaji/core/router.dart';
+import 'package:dohwaji/init_setting.dart';
 import 'package:dohwaji/ui/home_page.dart';
 import 'package:dohwaji/util/platform_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 
-void main() {
+void main() async{
+  await initAppSetting();
   runApp(const MyApp());
 }
 
@@ -21,13 +24,22 @@ class MyApp extends StatelessWidget {
   }
 
   Widget buildApp() {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Demo',
+      routeInformationParser: appRouter.routeInformationParser,
+      routerDelegate: appRouter.routerDelegate,
+      routeInformationProvider: appRouter.routeInformationProvider,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        brightness: Brightness.light,
+        useMaterial3: false,
+        scaffoldBackgroundColor: Colors.white,
+        fontFamilyFallback: const ['Noto Sans SC'],
+        canvasColor: Colors.white,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }

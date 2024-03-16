@@ -1,7 +1,6 @@
 import 'package:dohwaji/util/device_padding.dart';
 import 'package:dohwaji/util/platform_util.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:safe_area_insets/safe_area_insets.dart';
 
 class PlatformSafeArea extends StatefulWidget{
   PlatformSafeArea({

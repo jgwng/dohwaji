@@ -1,10 +1,14 @@
-import "generic_platform_specific.dart"
-if (dart.library.html) 'web_platform_specific.dart';
+import 'package:dohwaji/interface/common_interface.dart';
+import 'package:dohwaji/util/general/generic_platform_specific.dart';
+import 'package:dohwaji/util/web/web_platform_specific.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 class PlatformUtil {
+
+  static PlatformInterface get _platformInterface => (kIsWeb) ? WebUtil() : GeneralUtil();
+
   static bool get isWeb {
     return kIsWeb;
   }
@@ -39,6 +43,14 @@ class PlatformUtil {
   }
 
   static bool get isPWA {
-   return isPWAMode;
+   return _platformInterface.isPWAMode;
+  }
+
+  static void addEventListener(String type, Function? listener) {
+    _platformInterface.addEventListener(type, listener);
+  }
+
+  static void removeEventListener(String type, Function? listener) {
+    _platformInterface.removeEventListener(type, listener);
   }
 }

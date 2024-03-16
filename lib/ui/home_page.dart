@@ -1,11 +1,10 @@
 import 'package:dohwaji/ui/widget/platform_safe_area.dart';
 import 'package:dohwaji/util/device_padding.dart';
 import 'package:dohwaji/util/platform_util.dart';
-import 'package:dohwaji/util/web_platform_specific.dart';
+import 'package:dohwaji/util/web/web_platform_specific.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'dart:html' as html;
-import 'dart:js' as js;
+
 
 
 class MyHomePage extends StatefulWidget {
