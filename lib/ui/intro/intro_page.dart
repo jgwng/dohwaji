@@ -27,6 +27,7 @@ class _IntroPageState extends State<IntroPage> {
     // const loader = SvgAssetLoader('assets/svgs/check.svg');
     // svg.cache.putIfAbsent(loader.cacheKey(null), () => loader.loadBytes(null));
     titleIndex = Random().nextInt(introTitleList.length);
+
     super.initState();
   }
 
@@ -81,7 +82,7 @@ class _IntroPageState extends State<IntroPage> {
     return Container(
       padding: const EdgeInsets.only(left: 30),
       child:  Text(
-        title ?? '',
+        title,
         textAlign: TextAlign.left,
         style: TextStyle(
             fontSize: fontSize,

@@ -1,18 +1,20 @@
 import 'dart:ui' as ui;
 
+import 'package:dohwaji/util/platform_util.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'dart:js' as js;
 
 class CommonUtil{
-  static Future<Uint8List?> createImageFromWidget(Widget widget,
+  static Future<Uint8List?> createImageFromWidget(Widget widget,BuildContext context,
       {Duration? wait, Size? logicalSize, Size? imageSize}) async {
     final RenderRepaintBoundary repaintBoundary = RenderRepaintBoundary();
 
-    logicalSize ??= ui.window.physicalSize / ui.window.devicePixelRatio;
-    imageSize ??= ui.window.physicalSize;
+    logicalSize ??= View.of(context).physicalSize / View.of(context).devicePixelRatio;
+    imageSize ??= View.of(context).physicalSize;
 
     // assert(logicalSize.aspectRatio == imageSize.aspectRatio);
 
@@ -24,7 +26,7 @@ class CommonUtil{
         size: logicalSize,
         devicePixelRatio: 1.0,
       ),
-      view: ui.window,
+      view: View.of(context),
     );
 
     final PipelineOwner pipelineOwner = PipelineOwner();
@@ -66,7 +68,7 @@ class CommonUtil{
     await image.toByteData(format: ui.ImageByteFormat.png);
 
     var result = byteData?.buffer.asUint8List();
-    return byteData?.buffer.asUint8List();
+    return result;
   }
 
   Future<void> loadFont(String font) async{
@@ -117,5 +119,21 @@ class CommonUtil{
       route += '$key=${value.toString()}';
     });
     return route;
+  }
+
+  static void setStatusBarColor(Color color){
+      if(PlatformUtil.isWeb){
+        js.context.callMethod('setMetaThemeColor', [color.toStatusHex()]);
+      }else{
+
+      }
+  }
+
+  bool useWhiteForeground(Color backgroundColor) =>
+      1.05 / (backgroundColor.computeLuminance() + 0.05) > 4.5;
+}
+extension ColorExtension on Color{
+  String toStatusHex() {
+    return '#${(value & 0xFFFFFF).toRadixString(16).padLeft(6, '0').toUpperCase()}';
   }
 }

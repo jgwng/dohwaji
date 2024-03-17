@@ -1,13 +1,11 @@
 import 'package:dohwaji/core/resources.dart';
 import 'package:dohwaji/core/routes.dart';
 import 'package:dohwaji/init_setting.dart';
-import 'package:dohwaji/ui/home_page.dart';
 import 'package:dohwaji/util/common_util.dart';
 import 'package:dohwaji/util/platform_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_web_frame/flutter_web_frame.dart';
-import 'package:get/get.dart';
 
 void main() async{
   await initAppSetting();
@@ -34,7 +32,7 @@ class MyApp extends StatelessWidget {
 
   Widget buildApp() {
     return MaterialApp.router(
-      title: 'Flutter Demo',
+      title: '도화지',
       routeInformationParser: appRouter.routeInformationParser,
       routerDelegate: appRouter.routerDelegate,
       routeInformationProvider: appRouter.routeInformationProvider,

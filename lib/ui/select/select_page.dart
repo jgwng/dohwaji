@@ -1,11 +1,16 @@
 import 'package:dohwaji/core/resources.dart';
 import 'package:dohwaji/core/routes.dart';
-import 'package:dohwaji/util/common_util.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class GridViewPage extends StatelessWidget {
-  const GridViewPage({super.key});
+class ImageSelectPage extends StatefulWidget {
+  const ImageSelectPage({super.key});
+  @override
+  _ImageSelectPageState createState() => _ImageSelectPageState();
+}
+
+class _ImageSelectPageState extends State<ImageSelectPage>{
+
 
   @override
   Widget build(BuildContext context) {

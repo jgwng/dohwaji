@@ -21,3 +21,7 @@ function rightInset() {
    var rightPadding = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sar"));
    return rightPadding;
 }
+
+function setMetaThemeColor(color) {
+   document.querySelector('meta[name="theme-color"]').setAttribute("content", color);
+}
