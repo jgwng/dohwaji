@@ -87,6 +87,7 @@ class _FloodFillRasterState extends State<FloodFillRaster> with SingleTickerProv
             size: Size(_image2!.width.toDouble(), _image2!.height.toDouble()),
             painter: ImagePainter(_image2!),
           ),
+          context,
           imageSize: Size(_image2!.width.toDouble(), _image2!.height.toDouble()),
           logicalSize: Size(_image2!.width.toDouble(), _image2!.height.toDouble())
       );
@@ -196,6 +197,7 @@ class _FloodFillRasterState extends State<FloodFillRaster> with SingleTickerProv
            size: Size(_image2!.width.toDouble(), _image2!.height.toDouble()),
            painter: ImagePainter(_image2!),
          ),
+         context,
          imageSize: Size(_image2!.width.toDouble(), _image2!.height.toDouble()),
          logicalSize: Size(_image2!.width.toDouble(), _image2!.height.toDouble())
      );
