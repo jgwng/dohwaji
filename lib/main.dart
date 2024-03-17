@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
         //초기 StatusBar 색상 설정 되는 값
         primarySwatch: CommonUtil().createMaterialColor(AppThemes.backgroundColor),
+        pageTransitionsTheme:  pageTransitionTheme,
         useMaterial3: false,
         scaffoldBackgroundColor: Colors.white,
         fontFamilyFallback: const ['Noto Sans SC'],
