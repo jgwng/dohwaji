@@ -49,7 +49,7 @@ class DefaultButton extends StatelessWidget {
           height: height ?? 56,
           width: width ?? MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-              color: buttonColor ?? const Color(0xff7D5A50),
+              color: buttonColor ?? AppThemes.pointColor,
 
               borderRadius: BorderRadius.circular(10)),
           alignment: Alignment.center,
