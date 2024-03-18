@@ -3,6 +3,11 @@
 # Variables
 VARIABLE1 :=  getting the dependencies
 
+ci:
+	@read -p "Enter Commit Message: " message && \
+	(echo "Your commit message is: $$message" && \
+	git add . && \
+	git commit -m "$$message")
 
 format:
 	@dart format .
