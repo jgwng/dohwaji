@@ -4,10 +4,11 @@
 VARIABLE1 :=  getting the dependencies
 
 ci:
-	@read -p "Enter Commit Message: " message && \
+	@read -p "Commit 메세지를 입력해주세요 : " message && \
 	(echo "Your commit message is: $$message" && \
 	git add . && \
-	git commit -m "$$message")
+	git commit -m "$$message" && \
+	git push origin main)
 
 format:
 	@dart format .
