@@ -51,6 +51,20 @@ class _FloodFillRasterState extends State<FloodFillRaster> with SingleTickerProv
   AnimationController? _controller;
   RxBool isCheckColorMode = false.obs;
   bool isInitialized = true;
+  int colorIndex = 0;
+
+  List<Color> colorList = [
+    Colors.red,
+    Colors.yellow,
+    Colors.green,
+    Colors.blue,
+    Colors.purple,
+    Colors.amber,
+    Colors.deepPurple,
+    Colors.pink,
+    Colors.lightGreen,
+    Colors.tealAccent
+  ];
 
   @override
   void initState() {
@@ -239,82 +253,118 @@ class _FloodFillRasterState extends State<FloodFillRaster> with SingleTickerProv
         child: CircularProgressIndicator(),
       );
     }
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          drawingWidget(),
-          InkWell(
-            onTap: () async{
-              _capturePng();
-            },
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 24,vertical: 8),
-              decoration: BoxDecoration(
-                  color:const Color.fromRGBO(240, 163, 70, 1.0),
-                  borderRadius: BorderRadius.circular(8.0)
-              ),
-              child: const Text('이미지 저장',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                ),),
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            border: Border.all(color: const Color(0xffeeeeee)),
+            borderRadius: BorderRadius.circular(8)
           ),
-         Row(
-           children: [
-             InkWell(
-               onTap: () async{
+          child: drawingWidget(),
+        ),
+        const SizedBox(height: 16,),
+        SizedBox(
+          width: 332,
+          child: GridView.builder(
+            shrinkWrap: true,
+            itemBuilder: (ctx,index ) => InkWell(
+              onTap: (){
+                setState(() {
+                  colorIndex = index;
+                });
+              },
+              child: Container(
+                height: 60,
+                width: 60,
+                decoration: BoxDecoration(
+                    color: colorList[index],
+                    borderRadius: BorderRadius.circular(8.0)
+                ),
+                child: (index == colorIndex) ?  Icon(
+                  Icons.check,color: CommonUtil.useWhiteForeground(colorList[index]) ? Colors.black : Colors.white,
+                ) : const SizedBox(),
+              ),
+            ),
+            itemCount: 10, gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 5,
+              childAspectRatio: 60/60,
+              mainAxisSpacing: 4,
+              crossAxisSpacing: 4,
+          ),
+          ),
+        ),
+        InkWell(
+          onTap: () async{
+            _capturePng();
+          },
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 24,vertical: 8),
+            decoration: BoxDecoration(
+                color:const Color.fromRGBO(240, 163, 70, 1.0),
+                borderRadius: BorderRadius.circular(8.0)
+            ),
+            child: const Text('이미지 저장',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+              ),),
+          ),
+        ),
+       Row(
+         children: [
+           InkWell(
+             onTap: () async{
 
-                 _capturePng();
-                 return;
-                 // var testResult = await imageToBytes(_image2!);
-                 // var list = testResult?.buffer.asUint32List();
+               _capturePng();
+               return;
+               // var testResult = await imageToBytes(_image2!);
+               // var list = testResult?.buffer.asUint32List();
 
-                 // list = Uint8List.fromList(list!);
-                 // // Uint8List? _image = await _fetchNetworkToUint8List();
+               // list = Uint8List.fromList(list!);
+               // // Uint8List? _image = await _fetchNetworkToUint8List();
 
-               },
-               child: Container(
-                 height: 60,
-                 padding: const EdgeInsets.symmetric(horizontal: 24,vertical: 8),
-                 decoration: BoxDecoration(
-                     color:const Color.fromRGBO(240, 163, 70, 1.0),
-                     borderRadius: BorderRadius.circular(8.0)
-                 ),
-                 child: const Text('이미지 업로드 테스트',
+             },
+             child: Container(
+               height: 60,
+               padding: const EdgeInsets.symmetric(horizontal: 24,vertical: 8),
+               decoration: BoxDecoration(
+                   color:const Color.fromRGBO(240, 163, 70, 1.0),
+                   borderRadius: BorderRadius.circular(8.0)
+               ),
+               child: const Text('이미지 업로드 테스트',
+                 textAlign: TextAlign.center,
+                 style: TextStyle(
+                   color: Colors.white,
+                   fontSize: 20,
+                 ),),
+             ),
+           ),
+           InkWell(
+             onTap: () async{
+               isCheckColorMode.toggle();
+             },
+             child: Container(
+               padding: const EdgeInsets.symmetric(horizontal: 24,vertical: 8),
+               decoration: BoxDecoration(
+                   color:const Color.fromRGBO(240, 163, 70, 1.0),
+                   borderRadius: BorderRadius.circular(8.0)
+               ),
+               child:  Obx((){
+                 return Text(isCheckColorMode.isTrue ? "색상값 확인" : "색상값 변경",
                    textAlign: TextAlign.center,
-                   style: TextStyle(
+                   style: const TextStyle(
                      color: Colors.white,
                      fontSize: 20,
-                   ),),
-               ),
+                   ),);
+               }),
              ),
-             InkWell(
-               onTap: () async{
-                 isCheckColorMode.toggle();
-               },
-               child: Container(
-                 padding: const EdgeInsets.symmetric(horizontal: 24,vertical: 8),
-                 decoration: BoxDecoration(
-                     color:const Color.fromRGBO(240, 163, 70, 1.0),
-                     borderRadius: BorderRadius.circular(8.0)
-                 ),
-                 child:  Obx((){
-                   return Text(isCheckColorMode.isTrue ? "색상값 확인" : "색상값 변경",
-                     textAlign: TextAlign.center,
-                     style: const TextStyle(
-                       color: Colors.white,
-                       fontSize: 20,
-                     ),);
-                 }),
-               ),
-             )
-           ],
-         )
-        ],
-      ),
+           )
+         ],
+       )
+      ],
     );
   }
   Widget drawingWidget(){
@@ -324,16 +374,17 @@ class _FloodFillRasterState extends State<FloodFillRaster> with SingleTickerProv
         width: 300,
         height: 300,
         alignment: Alignment.centerLeft,
+
         child: FittedBox(
           child: GestureDetector(
             onTapDown: _onTapDown,
-            child: CustomPaint(
+            child:CustomPaint(
               size: Size(_image!.width.toDouble(), _image!.height.toDouble()),
               painter: ImageTransitionPainter(
                   image1: _image1!,
                   image2: _image2!,
                   animationValue: _controller!.value
-                  ),
+              ),
             ),
           ),
         ),
@@ -405,10 +456,12 @@ class ImageTransitionPainter extends CustomPainter {
     final paint = Paint();
     // Draw the first image
     paint.color = Color.fromRGBO(255, 0, 0, 1-animationValue);
+
+
     canvas.drawImage(image1, Offset.zero, paint);
 
     // Draw the second image with opacity based on the animation valuezzz
-    paint.color = Color.fromRGBO(255, 0, 0, 1);
+    paint.color = const Color.fromRGBO(255, 0, 0, 1);
     canvas.drawImage(image2, Offset.zero, paint);
   }
 

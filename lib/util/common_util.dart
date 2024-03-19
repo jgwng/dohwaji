@@ -129,7 +129,7 @@ class CommonUtil{
       }
   }
 
-  bool useWhiteForeground(Color backgroundColor) =>
+  static bool useWhiteForeground(Color backgroundColor) =>
       1.05 / (backgroundColor.computeLuminance() + 0.05) > 4.5;
 }
 extension ColorExtension on Color{
