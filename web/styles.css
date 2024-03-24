@@ -13,4 +13,32 @@ body {
     justify-content: center;
 }
 
+.row {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#flutter-view {
+    width: 320px;
+    height: 480px;
+    background-color: lightgrey; /* Temporary background color for visibility */
+    border: 1px solid black; /* Temporary border for visibility */
+}
+
+@media screen and (max-width: 768px) {
+  .show-large {
+    display: none;
+  }
+
+  .show-small {
+      display: none;
+  }
+  .responsive {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+      }
+}
+
 transition: opacity 0.4s ease-out;

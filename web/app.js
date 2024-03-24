@@ -1,3 +1,22 @@
+window.addEventListener('load', function(ev) {
+      // Download main.dart.js
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: async function(engineInitializer) {
+           const appRunner = await engineInitializer.initializeEngine();
+           var loaderContent = document.querySelector('#loader');
+           loaderContent.style.opacity = "0";
+           await delay();
+           appRunner.runApp().then((_) => {
+            document.querySelector('meta[name="viewport"]').setAttribute('content', "width=device-width, initial-scale=1.0, viewport-fit=cover");
+          });
+        }
+      });
+    });
+
+
 function delay(time){
     return new Promise(resolve => setTimeout(resolve,time));
 }

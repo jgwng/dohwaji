@@ -49,7 +49,6 @@ class _FloodFillRasterState extends State<FloodFillRaster> with SingleTickerProv
   ui.Image? _image2;
 
   AnimationController? _controller;
-  RxBool isCheckColorMode = false.obs;
   bool isInitialized = true;
   int colorIndex = 0;
 
@@ -154,24 +153,19 @@ class _FloodFillRasterState extends State<FloodFillRaster> with SingleTickerProv
     final Offset localPosition = details.localPosition;
     final int x = localPosition.dx.toInt();
     final int y = localPosition.dy.toInt();
-    const ui.Color newColor = Colors.yellow;
 
-    if(isCheckColorMode.value){
-      _isWorking = false;
-    }else{
-      final image = await ImageFloodFillQueueImpl(_image1!).fill(x, y, newColor);
-      if(image == null) return;
-      setState(() {
-        _image = image;
-        _image2 = image;
-        _controller!.forward().then((value){
-          _controller!.reset();
-          _image1 = image;
+    final image = await ImageFloodFillQueueImpl(_image1!).fill(x, y, colorList[colorIndex]);
+    if(image == null) return;
+    setState(() {
+      _image = image;
+      _image2 = image;
+      _controller!.forward().then((value){
+        _controller!.reset();
+        _image1 = image;
 
-        });
-        _isWorking = false;
       });
-    }
+      _isWorking = false;
+    });
    }
   Future<img.Image?> convertUiImageToImagePackageImage(ui.Image uiImage) async {
     // Convert ui.Image to ByteData
@@ -342,26 +336,7 @@ class _FloodFillRasterState extends State<FloodFillRaster> with SingleTickerProv
                  ),),
              ),
            ),
-           InkWell(
-             onTap: () async{
-               isCheckColorMode.toggle();
-             },
-             child: Container(
-               padding: const EdgeInsets.symmetric(horizontal: 24,vertical: 8),
-               decoration: BoxDecoration(
-                   color:const Color.fromRGBO(240, 163, 70, 1.0),
-                   borderRadius: BorderRadius.circular(8.0)
-               ),
-               child:  Obx((){
-                 return Text(isCheckColorMode.isTrue ? "색상값 확인" : "색상값 변경",
-                   textAlign: TextAlign.center,
-                   style: const TextStyle(
-                     color: Colors.white,
-                     fontSize: 20,
-                   ),);
-               }),
-             ),
-           )
+
          ],
        )
       ],
@@ -453,15 +428,19 @@ class ImageTransitionPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint();
-    // Draw the first image
-    paint.color = Color.fromRGBO(255, 0, 0, 1-animationValue);
-
-
+    final Paint paint = Paint();
+    // Draw the first image with decreasing opacity
+    paint.colorFilter = ui.ColorFilter.mode(
+      Colors.white.withOpacity(1), // Decrease opacity as the animation progresses
+      BlendMode.modulate,
+    );
     canvas.drawImage(image1, Offset.zero, paint);
 
-    // Draw the second image with opacity based on the animation valuezzz
-    paint.color = const Color.fromRGBO(255, 0, 0, 1);
+    // Draw the second image with increasing opacity
+    paint.colorFilter = ui.ColorFilter.mode(
+      Colors.white.withOpacity(animationValue), // Increase opacity as the animation progresses
+      BlendMode.modulate,
+    );
     canvas.drawImage(image2, Offset.zero, paint);
   }
 

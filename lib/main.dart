@@ -18,15 +18,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    if (PlatformUtil.isWeb) {
-      return FlutterWebFrame(
-        maximumSize: const Size(600,800),
-        backgroundColor: AppThemes.mobileBackgroundColor,
-        builder: (context){
-          return buildApp();
-        },
-      ).animate().fadeIn(duration: 400.ms);
-    }
+    // if (PlatformUtil.isWeb) {
+    //   return FlutterWebFrame(
+    //     maximumSize: const Size(600,800),
+    //     backgroundColor: AppThemes.mobileBackgroundColor,
+    //     builder: (context){
+    //       return buildApp();
+    //     },
+    //   ).animate().fadeIn(duration: 400.ms);
+    // }
     return buildApp();
   }
 
