@@ -48,12 +48,12 @@ GoRouter appRouter = GoRouter(
       path: AppRoutes.intro,
       name: AppRoutes.intro,
       // builder: (context, state) => MyHomePage(title: 'testtest',),
-      builder: (context, state) => IntroPage(),
+      builder: (context, state) => const IntroPage(),
     ),
     GoRoute(
       path: AppRoutes.select,
       name: AppRoutes.select,
-      builder: (context, state) => ImageSelectPage(),
+      builder: (context, state) => const ImageSelectPage(),
     ),
     GoRoute(
       path: AppRoutes.coloring,
@@ -65,3 +65,5 @@ GoRouter appRouter = GoRouter(
     ),
   ],
 );
+
+BuildContext get globalContext => appRouter.routerDelegate.navigatorKey.currentState!.context;

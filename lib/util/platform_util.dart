@@ -1,8 +1,12 @@
+import 'package:dohwaji/core/routes.dart';
 import 'package:dohwaji/interface/common_interface.dart';
+import 'package:dohwaji/ui/flood_fill/image_painter.dart';
+import 'package:dohwaji/util/common_util.dart';
 import 'package:dohwaji/util/general/generic_platform_specific.dart';
 import 'package:dohwaji/util/web/web_platform_specific.dart';
-
+import 'dart:ui' as ui;
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PlatformUtil {
@@ -52,5 +56,20 @@ class PlatformUtil {
 
   static void removeEventListener(String type, Function? listener) {
     _platformInterface.removeEventListener(type, listener);
+  }
+
+  static void downloadImage(ui.Image? image) async{
+    if(image == null) return;
+    Size imageSize = Size(image.width.toDouble(), image.height.toDouble());
+    Uint8List? resultData = await CommonUtil.createImageFromWidget(
+        CustomPaint(
+          size: imageSize,
+          painter: ImagePainter(image),
+        ),
+        globalContext,
+        imageSize: imageSize,
+        logicalSize: imageSize);
+
+    _platformInterface.downloadImage(resultData);
   }
 }

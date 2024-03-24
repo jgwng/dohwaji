@@ -1,8 +1,9 @@
 // web_platform_specific.dart
-import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:dohwaji/interface/common_interface.dart';
 import 'package:get/get.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 class GeneralUtil extends PlatformInterface {
   @override
@@ -29,4 +30,11 @@ class GeneralUtil extends PlatformInterface {
 
   @override
   void removeEventListener(String type, Function? listener) {}
+
+  @override
+  void downloadImage(Uint8List? image) async{
+    if(image == null) return;
+
+    await ImageGallerySaver.saveImage(image,quality: 100);
+  }
 }

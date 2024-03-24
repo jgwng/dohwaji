@@ -1,11 +1,12 @@
 import 'dart:async';
+import 'package:dohwaji/core/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AlertToast {
   static void show({required String msg, int seconds = 2}) async {
     OverlayEntry _overlay = OverlayEntry(builder: (_) => Toast(msg: msg));
-    Overlay.of(Get.overlayContext!)!.insert(_overlay);
+    Overlay.of(globalContext).insert(_overlay);
     await Future.delayed(Duration(seconds: seconds));
     _overlay.remove();
   }

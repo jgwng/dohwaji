@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
 class TornPaper extends StatelessWidget {
+  const TornPaper({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Custom Painted Torn Paper')),
+      appBar: AppBar(title: const Text('Custom Painted Torn Paper')),
       body: Center(
         child: CustomPaint(
           painter: TornPaperPainter(),
-          size: Size(300, 100),
+          size: const Size(300, 100),
         ),
       ),
     );
@@ -26,7 +28,7 @@ class TornPaperPainter extends CustomPainter {
 
     // Create the irregular top edge
     final double topEdgeControlHeight = size.width * 0.05;
-    final int topSplits = 20;
+    const int topSplits = 20;
     for (int i = 0; i < topSplits; i++) {
       final bool isOdd = i.isOdd;
       final double dy = (size.height / topSplits) * (i + 1);
@@ -39,7 +41,7 @@ class TornPaperPainter extends CustomPainter {
 
     // Create the irregular bottom edge
     final double bottomEdgeControlHeight = size.height * 0.1;
-    final int bottomSplits = 10;
+    const int bottomSplits = 10;
     for (int i = bottomSplits; i >= 0; i--) {
       final bool isOdd = i.isOdd;
       final double dy = (size.height / bottomSplits) * i;

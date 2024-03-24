@@ -1,25 +1,22 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:dohwaji/ui/flood_fill/image_flood_fill_queue_impl.dart';
+import 'package:dohwaji/ui/flood_fill/image_painter.dart';
 import 'package:dohwaji/util/alert_toast.dart';
 import 'package:dohwaji/util/common_util.dart';
 import 'package:dohwaji/util/platform_util.dart';
 import 'package:dohwaji/util/storage_util.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/rendering.dart';
-import 'package:get/get.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image/image.dart' as img;
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:dohwaji/ui/download/image_download_dialog.dart';
 
 class FloodFillRasterScreen extends StatelessWidget {
   FloodFillRasterScreen({super.key, required this.index});
+
   final String index;
 
   @override
@@ -36,7 +33,9 @@ class FloodFillRasterScreen extends StatelessWidget {
 
 class FloodFillRaster extends StatefulWidget {
   const FloodFillRaster({super.key, required this.imageIndex});
+
   final String imageIndex;
+
   @override
   State<FloodFillRaster> createState() => _FloodFillRasterState();
 }
@@ -199,34 +198,35 @@ class _FloodFillRasterState extends State<FloodFillRaster>
 
   Future<void> _capturePng() async {
     try {
-      showImageDownloadDialog(context: context, downloadImage: _image2);
+      PlatformUtil.downloadImage(_image2);
+
       return;
       // RenderRepaintBoundary boundary = globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
       // ui.Image image = await boundary.toImage();
       // ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
       // Uint8List pngBytes = byteData!.buffer.asUint8List();
 
-      Uint8List? result = await CommonUtil.createImageFromWidget(
-          CustomPaint(
-            size: Size(_image2!.width.toDouble(), _image2!.height.toDouble()),
-            painter: ImagePainter(_image2!),
-          ),
-          context,
-          imageSize:
-              Size(_image2!.width.toDouble(), _image2!.height.toDouble()),
-          logicalSize:
-              Size(_image2!.width.toDouble(), _image2!.height.toDouble()));
+      // Uint8List? result = await CommonUtil.createImageFromWidget(
+      //     CustomPaint(
+      //       size: Size(_image2!.width.toDouble(), _image2!.height.toDouble()),
+      //       painter: ImagePainter(_image2!),
+      //     ),
+      //     context,
+      //     imageSize:
+      //         Size(_image2!.width.toDouble(), _image2!.height.toDouble()),
+      //     logicalSize:
+      //         Size(_image2!.width.toDouble(), _image2!.height.toDouble()));
 
       // // ByteData? data =  await imageToBytes(_image2!);
       // // Uint8List? result = data?.buffer.asUint8List();
-      print(result.toString());
-      if (result != null) {
-        await FirebaseStorage.instance
-            .ref("test/${DateTime.now().toIso8601String()}.jpeg")
-            .putData(result);
-
-        AlertToast.show(msg: 'uploadDone');
-      }
+      // print(result.toString());
+      // if (result != null) {
+      //   await FirebaseStorage.instance
+      //       .ref("test/${DateTime.now().toIso8601String()}.jpeg")
+      //       .putData(result);
+      //
+      //   AlertToast.show(msg: 'uploadDone');
+      // }
     } catch (e) {
       AlertToast.show(msg: e.toString(), seconds: 10);
     }
@@ -280,16 +280,25 @@ class _FloodFillRasterState extends State<FloodFillRaster>
               child: Container(
                 height: 60,
                 width: 60,
+                alignment: Alignment.center,
                 decoration: BoxDecoration(
                     color: colorList[index],
                     borderRadius: BorderRadius.circular(8.0)),
                 child: (index == colorIndex)
-                    ? Icon(
-                        Icons.check,
-                        color: CommonUtil.useWhiteForeground(colorList[index])
-                            ? Colors.black
-                            : Colors.white,
-                      )
+                    ? FittedBox(
+                  child: SizedBox(
+                    width: 28,
+                    height: 28,
+                    child: SvgPicture.asset(
+                      CommonUtil.useWhiteForeground(colorList[index])
+                          ? 'assets/icons/ic_32_check_white.svg'
+                          : 'assets/icons/ic_32_check_black.svg',
+                      width: 28,
+                      height: 28,
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                )
                     : const SizedBox(),
               ),
             ),
@@ -396,57 +405,5 @@ class _FloodFillRasterState extends State<FloodFillRaster>
         ),
       );
     }
-  }
-}
-
-class ImagePainter extends CustomPainter {
-  final ui.Image image;
-
-  const ImagePainter(this.image);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    canvas.drawImage(
-        image, Offset.zero, Paint()..filterQuality = FilterQuality.high);
-  }
-
-  @override
-  bool shouldRepaint(ImagePainter oldDelegate) => true;
-}
-
-class ImageTransitionPainter extends CustomPainter {
-  final ui.Image image1;
-  final ui.Image image2;
-  final double animationValue;
-
-  ImageTransitionPainter({
-    required this.image1,
-    required this.image2,
-    required this.animationValue,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Paint paint = Paint();
-    // Draw the first image with decreasing opacity
-    paint.colorFilter = ui.ColorFilter.mode(
-      Colors.white
-          .withOpacity(1), // Decrease opacity as the animation progresses
-      BlendMode.modulate,
-    );
-    canvas.drawImage(image1, Offset.zero, paint);
-
-    // Draw the second image with increasing opacity
-    paint.colorFilter = ui.ColorFilter.mode(
-      Colors.white.withOpacity(
-          animationValue), // Increase opacity as the animation progresses
-      BlendMode.modulate,
-    );
-    canvas.drawImage(image2, Offset.zero, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant ImageTransitionPainter oldDelegate) {
-    return oldDelegate.animationValue != animationValue;
   }
 }

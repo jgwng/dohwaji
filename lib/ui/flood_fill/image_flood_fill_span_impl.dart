@@ -21,10 +21,6 @@ class ImageFloodFillSpanImpl extends FloodFill<ui.Image, ui.Color> {
 
     var s = <List<int>>[];
 
-    print('isBlack == ${targetColor == Colors.black}');
-    print('targetColor == $targetColor');
-    print('newColor == $newColor');
-
     bool isAlmostBlack = isAlmostSameColor(
         pixelColor: targetColor, checkColor: Colors.black, threshold: 33);
     bool isAlmostSameWithBlack = isColorSimilarToBlack(targetColor);

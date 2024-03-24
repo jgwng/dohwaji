@@ -3,7 +3,7 @@
 # Variables
 VARIABLE1 :=  getting the dependencies
 
-ci:
+commit:
 	@read -p "Commit 메세지를 입력해주세요 : " message && \
 	(echo "Your commit message is: $$message" && \
 	git add . && \

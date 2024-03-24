@@ -81,26 +81,6 @@ ui.Color colorFromIntRGBA(int uint32Rgba) {
   int b = (uint32Rgba >> 8) & 0xFF;
   int a = uint32Rgba & 0xFF;
 
-  Color standardColor = Colors.yellow;
-  // print(colorToUint32Rgba(standardColor));
-  // print( getIntRGBAValue(standardColor));
-  // print(uint32Rgba);
-  // print('---------');
-  // print('${standardColor.red}, ${standardColor.green}, ${standardColor.blue}, ${standardColor.alpha}');
-  // print('$r, $g, $b, $a');
-  // print('${img.uint32ToRed(uint32Rgba)}, ${img.uint32ToGreen(uint32Rgba)}, ${img.uint32ToBlue(uint32Rgba)}, ${img.uint32ToAlpha(uint32Rgba)}');
-  // print('${standardColor.alpha}, ${standardColor.red}, ${standardColor.green}, ${standardColor.blue}');
-  //
-  //
-  // print(ui.Color.fromARGB(a, r, g, b));
-  // print(ui.Color.fromARGB(img.uint32ToAlpha(uint32Rgba), img.uint32ToRed(uint32Rgba), img.uint32ToGreen(uint32Rgba), img.uint32ToBlue(uint32Rgba)));
-  //
-  // print(ui.Color.fromARGB(a, r, g, b) == standardColor);
-  // print(ui.Color.fromARGB(a, r, g, b).value == standardColor.value);
-  // print(ui.Color.fromARGB(img.uint32ToAlpha(uint32Rgba), img.uint32ToRed(uint32Rgba), img.uint32ToGreen(uint32Rgba), img.uint32ToBlue(uint32Rgba)) == standardColor);
-  // print(ui.Color.fromARGB(img.uint32ToAlpha(uint32Rgba), img.uint32ToRed(uint32Rgba), img.uint32ToGreen(uint32Rgba), img.uint32ToBlue(uint32Rgba)).value == standardColor.value);
-
-  // Convert to ARGB format and create a Color object
   return ui.Color.fromARGB(a, r, g, b);
 }
 

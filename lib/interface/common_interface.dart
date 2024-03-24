@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 abstract class PlatformInterface {
   void useWebSpecificFeature();
 
@@ -10,4 +12,6 @@ abstract class PlatformInterface {
   void addEventListener(String type, Function? listener);
 
   void removeEventListener(String type, Function? listener);
+
+  void downloadImage(Uint8List? image);
 }

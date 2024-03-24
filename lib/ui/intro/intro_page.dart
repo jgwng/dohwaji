@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class IntroPage extends StatefulWidget {
+  const IntroPage({super.key});
+
   @override
   _IntroPageState createState() => _IntroPageState();
 }
@@ -58,7 +60,7 @@ class _IntroPageState extends State<IntroPage> {
                     btnText: '색칠하러 가기',
                   ),
                 ),
-                DohwaJiCopyRightInfo()
+                const DohwaJiCopyRightInfo()
               ],
             )
           ],

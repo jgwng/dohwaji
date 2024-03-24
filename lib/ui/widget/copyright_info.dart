@@ -2,6 +2,8 @@ import 'package:dohwaji/core/resources.dart';
 import 'package:flutter/material.dart';
 
 class DohwaJiCopyRightInfo extends StatelessWidget {
+  const DohwaJiCopyRightInfo({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(

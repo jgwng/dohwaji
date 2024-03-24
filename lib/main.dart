@@ -11,7 +11,7 @@ void main() async {
   await initAppSetting();
   runApp(const MyApp());
 }
-
+final snackbarKey = GlobalKey<ScaffoldMessengerState>();
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

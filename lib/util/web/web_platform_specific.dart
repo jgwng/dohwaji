@@ -3,6 +3,9 @@ import 'dart:convert';
 import 'dart:html' as html;
 
 import 'package:dohwaji/interface/common_interface.dart';
+import 'package:dohwaji/ui/download/image_download_dialog.dart';
+import 'package:dohwaji/util/platform_util.dart';
+import 'package:flutter/foundation.dart';
 
 class WebUtil extends PlatformInterface {
   @override
@@ -56,5 +59,29 @@ class WebUtil extends PlatformInterface {
         listener();
       }
     });
+  }
+
+  @override
+  void downloadImage(Uint8List? image){
+    if(image == null) return;
+    if(PlatformUtil.isDesktopWeb == true){
+      final base64data = base64Encode(image);
+
+      // then we create and AnchorElement with the html package
+      final a = html.AnchorElement(href: 'data:image/jpeg;base64,$base64data');
+
+      // set the name of the file we want the image to get
+      // downloaded to
+      a.download = 'download.jpg';
+
+      // and we click the AnchorElement which downloads the image
+      a.click();
+      // finally we remove the AnchorElement
+      a.remove();
+    }else{
+      showImageDownloadDialog(downloadImage: image);
+    }
+
+
   }
 }

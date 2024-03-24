@@ -44,7 +44,7 @@ class _ImageSelectPageState extends State<ImageSelectPage> {
                         },
                         child: Container(
                           alignment: Alignment.center,
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
