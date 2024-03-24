@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:dohwaji/ui/download/image_download_dialog.dart';
 
 class FloodFillRasterScreen extends StatelessWidget {
   FloodFillRasterScreen({super.key,required this.index});
@@ -193,7 +194,8 @@ class _FloodFillRasterState extends State<FloodFillRaster> with SingleTickerProv
 
   Future<void> _capturePng() async {
    try{
-
+     showImageDownloadDialog(context:context,downloadImage: _image2);
+     return;
      // RenderRepaintBoundary boundary = globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
      // ui.Image image = await boundary.toImage();
      // ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
@@ -384,20 +386,6 @@ class _FloodFillRasterState extends State<FloodFillRaster> with SingleTickerProv
         ),
       );
     }
-    return  RepaintBoundary(
-      key: globalKey,
-      child: Container(
-        width: 300,
-        height: 300,
-              child: FittedBox(
-                child: CustomPaint(
-                  size: Size(_image!.width.toDouble(), _image!.height.toDouble()),
-                  painter: ImagePainter(_image!),
-                ),
-              ),
-      ),
-    );
-
   }
 }
 

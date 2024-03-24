@@ -53,6 +53,7 @@ dependencies:
 
   #Web
   flutter_web_frame: 1.0.0
+  flutter_svg: 2.0.10+1
 
 dev_dependencies:
   flutter_test:
@@ -77,6 +78,7 @@ flutter:
   uses-material-design: false
   assets:
     - assets/images/
+    - assets/icons/
   fonts:
     - family: Roboto
       fonts:
