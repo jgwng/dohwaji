@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:dohwaji/interface/common_interface.dart';
 import 'package:get/get.dart';
 
-class GeneralUtil extends PlatformInterface{
+class GeneralUtil extends PlatformInterface {
   @override
   void useWebSpecificFeature() {
     print("This is a web-specific feature.");
@@ -12,28 +12,21 @@ class GeneralUtil extends PlatformInterface{
 
   /// Works for `Web` only.
   @override
-  Future<void> saveAsSVG(String svgCode) async {
-
-  }
+  Future<void> saveAsSVG(String svgCode) async {}
 
   @override
-  bool get isPWAMode{
+  bool get isPWAMode {
     return false;
   }
 
   @override
-  int get statusBarHeight{
+  int get statusBarHeight {
     return Get.mediaQuery.padding.top.toInt();
   }
 
   @override
-  void addEventListener(String type, Function? listener){
-
-  }
+  void addEventListener(String type, Function? listener) {}
 
   @override
-  void removeEventListener(String type, Function? listener){
-
-  }
-
+  void removeEventListener(String type, Function? listener) {}
 }

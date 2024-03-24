@@ -13,7 +13,6 @@ class IntroPage extends StatefulWidget {
 }
 
 class _IntroPageState extends State<IntroPage> {
-
   List<String> introTitleList = [
     '색깔로 채워지는\n행복한 순간들을 함께해요',
     '색칠로 마법 같은 이야기를\n시작해 볼까요?',
@@ -33,7 +32,6 @@ class _IntroPageState extends State<IntroPage> {
 
   @override
   void dispose() {
-
     super.dispose();
   }
 
@@ -54,7 +52,7 @@ class _IntroPageState extends State<IntroPage> {
                   padding: const EdgeInsets.only(bottom: 30),
                   child: DefaultButton(
                     horizontalMargin: 24,
-                    onTap: () async{
+                    onTap: () async {
                       context.go('/select');
                     },
                     btnText: '색칠하러 가기',
@@ -69,19 +67,19 @@ class _IntroPageState extends State<IntroPage> {
     );
   }
 
-  Widget title(){
+  Widget title() {
     String? title;
     double? fontSize;
-    if(PlatformUtil.isDesktopWeb){
+    if (PlatformUtil.isDesktopWeb) {
       title = '오늘은 어떤 색을 사용해 볼까?\n너의 상상력을 마음껏 펼쳐봐!';
       fontSize = 32;
-    }else{
+    } else {
       title = introTitleList[titleIndex];
       fontSize = 24;
     }
     return Container(
       padding: const EdgeInsets.only(left: 30),
-      child:  Text(
+      child: Text(
         title,
         textAlign: TextAlign.left,
         style: TextStyle(
@@ -92,6 +90,4 @@ class _IntroPageState extends State<IntroPage> {
       ),
     );
   }
-
-
 }

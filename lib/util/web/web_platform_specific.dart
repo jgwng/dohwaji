@@ -4,7 +4,7 @@ import 'dart:html' as html;
 
 import 'package:dohwaji/interface/common_interface.dart';
 
-class WebUtil extends PlatformInterface{
+class WebUtil extends PlatformInterface {
   @override
   void useWebSpecificFeature() {
     // Use dart:html features here
@@ -23,7 +23,7 @@ class WebUtil extends PlatformInterface{
   }
 
   @override
-  bool get isPWAMode{
+  bool get isPWAMode {
     const mqStandAlone = '(display-mode: standalone)';
     if (html.window.matchMedia(mqStandAlone).matches) {
       return true;
@@ -33,26 +33,26 @@ class WebUtil extends PlatformInterface{
   }
 
   @override
-  int get statusBarHeight{
-    var  windowHeight = html.window.innerHeight;
+  int get statusBarHeight {
+    var windowHeight = html.window.innerHeight;
     var documentHeight = html.document.documentElement?.clientHeight;
     var statusbar = (windowHeight ?? 0) - (documentHeight ?? 0);
     return statusbar;
   }
 
   @override
-  void addEventListener(String type, Function? listener){
-    html.window.addEventListener(type, (event) async{
-      if(listener != null){
-          listener();
+  void addEventListener(String type, Function? listener) {
+    html.window.addEventListener(type, (event) async {
+      if (listener != null) {
+        listener();
       }
     });
   }
 
   @override
-  void removeEventListener(String type, Function? listener){
-    html.window.removeEventListener(type, (event) async{
-      if(listener != null){
+  void removeEventListener(String type, Function? listener) {
+    html.window.removeEventListener(type, (event) async {
+      if (listener != null) {
         listener();
       }
     });

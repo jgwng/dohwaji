@@ -5,7 +5,11 @@ class FloodFillSpanImpl extends FloodFill<List<List<int>>, int> {
 
   // Check if the point is inside the canvas and matches the target color
   bool _isInside(int x, int y, int targetColor) {
-    return x >= 0 && y >= 0 && x < image.length && y < image[0].length && image[x][y] == targetColor;
+    return x >= 0 &&
+        y >= 0 &&
+        x < image.length &&
+        y < image[0].length &&
+        image[x][y] == targetColor;
   }
 
   // Set a point to the replacement color

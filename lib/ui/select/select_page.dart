@@ -9,9 +9,7 @@ class ImageSelectPage extends StatefulWidget {
   _ImageSelectPageState createState() => _ImageSelectPageState();
 }
 
-class _ImageSelectPageState extends State<ImageSelectPage>{
-
-
+class _ImageSelectPageState extends State<ImageSelectPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,13 +34,13 @@ class _ImageSelectPageState extends State<ImageSelectPage>{
                       crossAxisCount: 2,
                       mainAxisSpacing: 10,
                       crossAxisSpacing: 10,
-                      childAspectRatio: 100/100
-                  ),
+                      childAspectRatio: 100 / 100),
                   delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
+                    (BuildContext context, int index) {
                       return InkWell(
-                        onTap: (){
-                          context.goNamed(AppRoutes.coloring,queryParameters: {'index': '$index'});
+                        onTap: () {
+                          context.goNamed(AppRoutes.coloring,
+                              queryParameters: {'index': '$index'});
                         },
                         child: Container(
                           alignment: Alignment.center,
@@ -50,23 +48,19 @@ class _ImageSelectPageState extends State<ImageSelectPage>{
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                  color: const Color(0xffe6e6e6)
-                              )
-                          ),
+                              border:
+                                  Border.all(color: const Color(0xffe6e6e6))),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Image.asset(
                               'assets/images/example_image_$index.jpg',
-
                             ),
                           ),
                         ),
                       );
                     },
                     childCount: 8,
-                  )
-              ),
+                  )),
             ],
           ),
         ),

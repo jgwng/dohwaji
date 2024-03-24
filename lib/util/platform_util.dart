@@ -6,8 +6,8 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 class PlatformUtil {
-
-  static PlatformInterface get _platformInterface => (kIsWeb) ? WebUtil() : GeneralUtil();
+  static PlatformInterface get _platformInterface =>
+      (kIsWeb) ? WebUtil() : GeneralUtil();
 
   static bool get isWeb {
     return kIsWeb;
@@ -43,7 +43,7 @@ class PlatformUtil {
   }
 
   static bool get isPWA {
-   return _platformInterface.isPWAMode;
+    return _platformInterface.isPWAMode;
   }
 
   static void addEventListener(String type, Function? listener) {

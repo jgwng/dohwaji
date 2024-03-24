@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_web_frame/flutter_web_frame.dart';
 
-void main() async{
+void main() async {
   await initAppSetting();
   runApp(const MyApp());
 }
@@ -15,14 +15,13 @@ void main() async{
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     if (PlatformUtil.isWeb) {
       return FlutterWebFrame(
-        maximumSize: const Size(600,800),
+        maximumSize: const Size(600, 800),
         backgroundColor: AppThemes.mobileBackgroundColor,
-        builder: (context){
+        builder: (context) {
           return buildApp();
         },
       ).animate().fadeIn(duration: 400.ms);
@@ -43,8 +42,9 @@ class MyApp extends StatelessWidget {
         hoverColor: Colors.transparent,
         brightness: Brightness.light,
         //초기 StatusBar 색상 설정 되는 값
-        primarySwatch: CommonUtil().createMaterialColor(AppThemes.backgroundColor),
-        pageTransitionsTheme:  pageTransitionTheme,
+        primarySwatch:
+            CommonUtil().createMaterialColor(AppThemes.backgroundColor),
+        pageTransitionsTheme: pageTransitionTheme,
         useMaterial3: false,
         scaffoldBackgroundColor: Colors.white,
         fontFamilyFallback: const ['Noto Sans SC'],
@@ -53,4 +53,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

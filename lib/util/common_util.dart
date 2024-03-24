@@ -8,12 +8,14 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:js' as js;
 
-class CommonUtil{
-  static Future<Uint8List?> createImageFromWidget(Widget widget,BuildContext context,
+class CommonUtil {
+  static Future<Uint8List?> createImageFromWidget(
+      Widget widget, BuildContext context,
       {Duration? wait, Size? logicalSize, Size? imageSize}) async {
     final RenderRepaintBoundary repaintBoundary = RenderRepaintBoundary();
 
-    logicalSize ??= View.of(context).physicalSize / View.of(context).devicePixelRatio;
+    logicalSize ??=
+        View.of(context).physicalSize / View.of(context).devicePixelRatio;
     imageSize ??= View.of(context).physicalSize;
 
     // assert(logicalSize.aspectRatio == imageSize.aspectRatio);
@@ -37,7 +39,7 @@ class CommonUtil{
     renderView.prepareInitialFrame();
 
     final RenderObjectToWidgetElement<RenderBox> rootElement =
-    RenderObjectToWidgetAdapter<RenderBox>(
+        RenderObjectToWidgetAdapter<RenderBox>(
       container: repaintBoundary,
       child: Directionality(
         textDirection: TextDirection.ltr,
@@ -65,29 +67,29 @@ class CommonUtil{
     final ui.Image image = await repaintBoundary.toImage(
         pixelRatio: imageSize.width / logicalSize.width);
     final ByteData? byteData =
-    await image.toByteData(format: ui.ImageByteFormat.png);
+        await image.toByteData(format: ui.ImageByteFormat.png);
 
     var result = byteData?.buffer.asUint8List();
     return result;
   }
 
-  Future<void> loadFont(String font) async{
+  Future<void> loadFont(String font) async {
     FontLoader loader = FontLoader(font);
     // loader.addFont(rootBundle.load('assets/fonts/${qrFonts.fontFileName}'));
     loader.addFont(_fetchFont(font));
     await loader.load();
   }
 
-  Future<ByteData> _fetchFont(String fontFileName) async{
-    try{
-      final response = await http.get(
-          Uri.parse('https://cdn.jsdelivr.net/gh/jgwng/web_fonts/$fontFileName.woff'));
-      if(response.statusCode == 200){
+  Future<ByteData> _fetchFont(String fontFileName) async {
+    try {
+      final response = await http.get(Uri.parse(
+          'https://cdn.jsdelivr.net/gh/jgwng/web_fonts/$fontFileName.woff'));
+      if (response.statusCode == 200) {
         return ByteData.view(response.bodyBytes.buffer);
-      }else{
+      } else {
         throw Exception('Failed to load font');
       }
-    }catch(e){
+    } catch (e) {
       throw Exception(e);
     }
   }
@@ -113,7 +115,7 @@ class CommonUtil{
     return MaterialColor(color.value, swatch);
   }
 
-  static String urlWithParams(String route, Map<String, dynamic> parameters){
+  static String urlWithParams(String route, Map<String, dynamic> parameters) {
     route = '$route?';
     parameters.forEach((key, value) {
       route += '$key=${value.toString()}';
@@ -121,18 +123,17 @@ class CommonUtil{
     return route;
   }
 
-  static void setStatusBarColor(Color color){
-      if(PlatformUtil.isWeb){
-        js.context.callMethod('setMetaThemeColor', [color.toStatusHex()]);
-      }else{
-
-      }
+  static void setStatusBarColor(Color color) {
+    if (PlatformUtil.isWeb) {
+      js.context.callMethod('setMetaThemeColor', [color.toStatusHex()]);
+    } else {}
   }
 
   static bool useWhiteForeground(Color backgroundColor) =>
       1.05 / (backgroundColor.computeLuminance() + 0.05) > 4.5;
 }
-extension ColorExtension on Color{
+
+extension ColorExtension on Color {
   String toStatusHex() {
     return '#${(value & 0xFFFFFF).toRadixString(16).padLeft(6, '0').toUpperCase()}';
   }

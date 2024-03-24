@@ -10,7 +10,7 @@ import 'package:dohwaji/util/alert_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 Future<void> showImageDownloadDialog(
-{required BuildContext context, required ui.Image? downloadImage}) async {
+    {required BuildContext context, required ui.Image? downloadImage}) async {
   await showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -20,8 +20,6 @@ Future<void> showImageDownloadDialog(
     },
   );
 }
-
-
 
 class ImageDownloadDialog extends StatefulWidget {
   ImageDownloadDialog({required this.downloadImage});
@@ -53,7 +51,7 @@ class _ImageDownloadState extends State<ImageDownloadDialog> {
     // ignore: undefined_prefixed_name
     ui.platformViewRegistry.registerViewFactory(
       'initId',
-          (int viewId) {
+      (int viewId) {
         return _iframeElement;
       },
     );
@@ -62,38 +60,37 @@ class _ImageDownloadState extends State<ImageDownloadDialog> {
       viewType: initId,
     );
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      loadDownloadImage().then((value){
-        try{
-          if(value == null) return;
-          var url =
-          Uri.dataFromBytes(value, mimeType: 'image/png').toString();
+      loadDownloadImage().then((value) {
+        try {
+          if (value == null) return;
+          var url = Uri.dataFromBytes(value, mimeType: 'image/png').toString();
           setState(() {
             dataUrl = url;
             boxHeight = 300;
 
-            _iframeElement.srcdoc =
-                imageDocHtml(dataUrl, boxWidth, boxHeight);
+            _iframeElement.srcdoc = imageDocHtml(dataUrl, boxWidth, boxHeight);
             _iframeElement.height = '$boxHeight';
           });
-        }catch(e){
-          AlertToast.show(msg:e.toString());
+        } catch (e) {
+          AlertToast.show(msg: e.toString());
         }
       });
     });
-
   }
 
-  Future<Uint8List?> loadDownloadImage() async{
-    if(widget.downloadImage == null) return null;
+  Future<Uint8List?> loadDownloadImage() async {
+    if (widget.downloadImage == null) return null;
     Uint8List? result = await CommonUtil.createImageFromWidget(
         CustomPaint(
-          size: Size(widget.downloadImage!.width.toDouble(), widget.downloadImage!.height.toDouble()),
+          size: Size(widget.downloadImage!.width.toDouble(),
+              widget.downloadImage!.height.toDouble()),
           painter: ImagePainter(widget.downloadImage!),
         ),
         context,
-        imageSize: Size(widget.downloadImage!.width.toDouble(), widget.downloadImage!.height.toDouble()),
-        logicalSize: Size(widget.downloadImage!.width.toDouble(), widget.downloadImage!.height.toDouble())
-    );
+        imageSize: Size(widget.downloadImage!.width.toDouble(),
+            widget.downloadImage!.height.toDouble()),
+        logicalSize: Size(widget.downloadImage!.width.toDouble(),
+            widget.downloadImage!.height.toDouble()));
     return result;
   }
 
@@ -101,14 +98,14 @@ class _ImageDownloadState extends State<ImageDownloadDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       contentPadding: EdgeInsets.all(12),
-      content:  Column(
+      content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
             height: 28,
             alignment: Alignment.centerRight,
-            child:SvgPicture.asset(
-                'assets/icons/ic_32_close.svg',
+            child: SvgPicture.asset(
+              'assets/icons/ic_32_close.svg',
             ),
           ),
           SizedBox(
@@ -117,11 +114,8 @@ class _ImageDownloadState extends State<ImageDownloadDialog> {
           Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(
-                    color: const Color(0xffeeeeee)
-                )
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 32,vertical: 16),
+                border: Border.all(color: const Color(0xffeeeeee))),
+            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
             child: FittedBox(
               child: AnimatedOpacity(
                 opacity: dataUrl.isEmpty ? 0.0 : 1.0,
@@ -133,9 +127,12 @@ class _ImageDownloadState extends State<ImageDownloadDialog> {
           const SizedBox(
             height: 40,
           ),
-          const Text('캡쳐하거나 꾹 눌러 저장하세요! PC라면 마우스 우클릭!',style: TextStyle(
-            fontSize: 16,
-          ),),
+          const Text(
+            '캡쳐하거나 꾹 눌러 저장하세요! PC라면 마우스 우클릭!',
+            style: TextStyle(
+              fontSize: 16,
+            ),
+          ),
         ],
       ),
     );
@@ -165,10 +162,8 @@ img {
     ''';
   }
 
-
-
-  Widget downloadImagePreview(){
-    if(dataUrl.isEmpty){
+  Widget downloadImagePreview() {
+    if (dataUrl.isEmpty) {
       return Container(
         width: 300,
         height: boxHeight,
@@ -184,6 +179,7 @@ img {
     );
   }
 }
+
 class ImagePainter extends CustomPainter {
   final ui.Image image;
 
@@ -191,7 +187,8 @@ class ImagePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawImage(image, Offset.zero, Paint()..filterQuality = FilterQuality.high);
+    canvas.drawImage(
+        image, Offset.zero, Paint()..filterQuality = FilterQuality.high);
   }
 
   @override

@@ -2,7 +2,7 @@ import 'dart:collection';
 
 import 'package:dohwaji/ui/flood_fill/flood_fill_interface.dart';
 
-class Point{
+class Point {
   final int x;
   final int y;
 

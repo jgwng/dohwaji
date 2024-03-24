@@ -6,8 +6,6 @@ import 'package:dohwaji/util/web/web_platform_specific.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
   final String title;
@@ -20,7 +18,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   double bottom = 0;
   @override
-  void initState(){
+  void initState() {
     bottom = bottomInset();
   }
 
@@ -32,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: PlatformSafeArea(
-        child:  Column(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             const Text(
@@ -58,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Future<void> onTapButton() async{
-    await Future.delayed(Duration(seconds: 1),(){});
+  Future<void> onTapButton() async {
+    await Future.delayed(Duration(seconds: 1), () {});
   }
 }

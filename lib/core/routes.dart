@@ -5,7 +5,7 @@ import 'package:dohwaji/util/platform_util.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class AppRoutes{
+class AppRoutes {
   static String intro = '/';
   static String select = '/select';
   static String coloring = '/coloring';
@@ -16,27 +16,32 @@ class NoTransitionsBuilder extends PageTransitionsBuilder {
 
   @override
   Widget buildTransitions<T>(
-      PageRoute<T>? route,
-      BuildContext? context,
-      Animation<double> animation,
-      Animation<double> secondaryAnimation,
-      Widget? child,
-      ) {
+    PageRoute<T>? route,
+    BuildContext? context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget? child,
+  ) {
     // only return the child without warping it with animations
     return child!;
   }
 }
 
-PageTransitionsTheme get pageTransitionTheme{
+PageTransitionsTheme get pageTransitionTheme {
   return PageTransitionsTheme(
     builders: {
-      TargetPlatform.android: (PlatformUtil.isWeb) ? const NoTransitionsBuilder() : const ZoomPageTransitionsBuilder(),
-      TargetPlatform.iOS: (PlatformUtil.isWeb) ? const NoTransitionsBuilder() :const CupertinoPageTransitionsBuilder(),
+      TargetPlatform.android: (PlatformUtil.isWeb)
+          ? const NoTransitionsBuilder()
+          : const ZoomPageTransitionsBuilder(),
+      TargetPlatform.iOS: (PlatformUtil.isWeb)
+          ? const NoTransitionsBuilder()
+          : const CupertinoPageTransitionsBuilder(),
       TargetPlatform.macOS: const NoTransitionsBuilder(),
       TargetPlatform.windows: const NoTransitionsBuilder()
     },
   );
 }
+
 GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
@@ -53,10 +58,9 @@ GoRouter appRouter = GoRouter(
     GoRoute(
       path: AppRoutes.coloring,
       name: AppRoutes.coloring,
-      builder: (context, GoRouterState state){
+      builder: (context, GoRouterState state) {
         return FloodFillRasterScreen(
-            index: state.uri.queryParameters['index'] ?? ''
-        );
+            index: state.uri.queryParameters['index'] ?? '');
       },
     ),
   ],

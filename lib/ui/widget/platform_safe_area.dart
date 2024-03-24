@@ -2,16 +2,15 @@ import 'package:dohwaji/util/device_padding.dart';
 import 'package:dohwaji/util/platform_util.dart';
 import 'package:flutter/cupertino.dart';
 
-class PlatformSafeArea extends StatefulWidget{
-  PlatformSafeArea({
-    super.key,
-    this.top,
-    this.bottom,
-    this.left,
-    this.right,
-    this.maintainBottomViewPadding,
-    this.child
-  });
+class PlatformSafeArea extends StatefulWidget {
+  PlatformSafeArea(
+      {super.key,
+      this.top,
+      this.bottom,
+      this.left,
+      this.right,
+      this.maintainBottomViewPadding,
+      this.child});
   final bool? top;
   final bool? bottom;
   final bool? left;
@@ -23,23 +22,20 @@ class PlatformSafeArea extends StatefulWidget{
   _PlatformSafeAreaState createState() => _PlatformSafeAreaState();
 }
 
-class _PlatformSafeAreaState extends State<PlatformSafeArea>{
+class _PlatformSafeAreaState extends State<PlatformSafeArea> {
   double bottom = 0;
   @override
-  void initState(){
+  void initState() {
     super.initState();
     bottom = bottomInset();
   }
 
-
   @override
   Widget build(BuildContext context) {
-    if(PlatformUtil.isPWA){
+    if (PlatformUtil.isPWA) {
       return Container(
-        padding: EdgeInsets.only(
-          bottom: (widget.bottom ?? true) ? bottom : 0
-        ),
-        child:   widget.child ?? Container(),
+        padding: EdgeInsets.only(bottom: (widget.bottom ?? true) ? bottom : 0),
+        child: widget.child ?? Container(),
       );
     }
     return SafeArea(

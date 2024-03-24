@@ -1,6 +1,7 @@
 import 'package:dohwaji/interface/storage_interface.dart';
 import 'dart:html';
-class WebStorageUtil extends StorageInterface{
+
+class WebStorageUtil extends StorageInterface {
   @override
   void clearStorage() {
     window.localStorage.clear();
@@ -20,7 +21,7 @@ class WebStorageUtil extends StorageInterface{
 
   @override
   void saveData(String key, String data) {
-    window.localStorage.addAll({key : data});
+    window.localStorage.addAll({key: data});
   }
 
   @override
@@ -28,5 +29,4 @@ class WebStorageUtil extends StorageInterface{
     bool hasData = window.localStorage.containsKey(key);
     return hasData;
   }
-
 }

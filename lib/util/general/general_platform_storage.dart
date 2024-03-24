@@ -1,6 +1,6 @@
 import 'package:dohwaji/interface/storage_interface.dart';
 
-class GeneralStorageUtil extends StorageInterface{
+class GeneralStorageUtil extends StorageInterface {
   @override
   void clearStorage() {
     // TODO: implement clear
@@ -26,6 +26,4 @@ class GeneralStorageUtil extends StorageInterface{
   bool contains(String key) {
     return false;
   }
-
-
 }

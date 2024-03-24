@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class AppFonts{
+class AppFonts {
   static const String bold = 'Suite Bold';
   static const String medium = 'Noto Sans SC';
   static const String semiBold = 'Pretendard-SemiBold';
@@ -14,9 +14,8 @@ class AppThemes {
   static const Color pointColor = Color(0xff2B6747);
 
   static const Color disableColor = Color.fromRGBO(178, 178, 178, 1.0);
-  static const Color noticeColor =  Color.fromARGB(255, 77, 82, 86);
-  static const Color hintColor =  Color.fromARGB(255,169, 175, 179);
-
+  static const Color noticeColor = Color.fromARGB(255, 77, 82, 86);
+  static const Color hintColor = Color.fromARGB(255, 169, 175, 179);
 
   static const buttonTextColor = Color(0xFFF6F5EE);
   static const mobileBackgroundColor = Color.fromRGBO(238, 238, 241, 1.0);

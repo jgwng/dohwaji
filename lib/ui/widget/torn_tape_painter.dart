@@ -37,14 +37,13 @@ class TornPaperPainter extends CustomPainter {
     // Draw the right side down
     path.lineTo(size.width, size.height);
 
-
     // Create the irregular bottom edge
     final double bottomEdgeControlHeight = size.height * 0.1;
     final int bottomSplits = 10;
     for (int i = bottomSplits; i >= 0; i--) {
       final bool isOdd = i.isOdd;
       final double dy = (size.height / bottomSplits) * i;
-      final double dx = size.width-(isOdd ? bottomEdgeControlHeight : 0);
+      final double dx = size.width - (isOdd ? bottomEdgeControlHeight : 0);
       path.lineTo(dx, dy);
     }
 

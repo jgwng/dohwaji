@@ -7,15 +7,15 @@ typedef FutureCallback = Future<void> Function();
 class DefaultButton extends StatelessWidget {
   DefaultButton(
       {Key? key,
-        required this.onTap,
-        this.btnText,
-        this.isReady,
-        this.width,
-        this.height,
-        this.buttonColor,
-        this.horizontalMargin,
-        this.fontFamily,
-        this.bottomMargin = 20})
+      required this.onTap,
+      this.btnText,
+      this.isReady,
+      this.width,
+      this.height,
+      this.buttonColor,
+      this.horizontalMargin,
+      this.fontFamily,
+      this.bottomMargin = 20})
       : super(key: key);
 
   final FutureCallback onTap;
@@ -32,8 +32,8 @@ class DefaultButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () async{
-        if(isNetworking.isTrue) return;
+      onTap: () async {
+        if (isNetworking.isTrue) return;
         isNetworking.value = true;
         await onTap.call();
         isNetworking.value = false;
@@ -50,11 +50,10 @@ class DefaultButton extends StatelessWidget {
           width: width ?? MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
               color: buttonColor ?? AppThemes.pointColor,
-
               borderRadius: BorderRadius.circular(10)),
           alignment: Alignment.center,
-          child: Obx((){
-            if(isNetworking.value){
+          child: Obx(() {
+            if (isNetworking.value) {
               return const FittedBox(
                 child: SizedBox(
                   width: 24,
@@ -69,7 +68,8 @@ class DefaultButton extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: fontFamily ?? AppFonts.medium,
-                  fontSize: 20,));
+                  fontSize: 20,
+                ));
           }),
         ),
       ),
