@@ -7,6 +7,7 @@ import 'package:dohwaji/util/common_util.dart';
 import 'package:dohwaji/util/platform_util.dart';
 import 'package:dohwaji/util/storage_util.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:image/image.dart' as img;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -42,7 +43,7 @@ class FloodFillRaster extends StatefulWidget {
 class _FloodFillRasterState extends State<FloodFillRaster>
     with SingleTickerProviderStateMixin {
   ui.Image? _image;
-  bool _isWorking = false;
+  RxBool isWorking = false.obs;
   ui.Image? _image1;
   ui.Image? _image2;
 
@@ -149,12 +150,11 @@ class _FloodFillRasterState extends State<FloodFillRaster>
   }
 
   void _onTapDown(TapDownDetails details) async {
-    if (_isWorking == true) return;
-    _isWorking = true;
+    if (isWorking.isTrue) return;
+    isWorking.value = true;
     final Offset localPosition = details.localPosition;
     final int x = localPosition.dx.toInt();
     final int y = localPosition.dy.toInt();
-
     final image = await ImageFloodFillQueueImpl(_image1!)
         .fill(x, y, colorList[colorIndex]);
     if (image == null) return;
@@ -165,7 +165,7 @@ class _FloodFillRasterState extends State<FloodFillRaster>
         _controller!.reset();
         _image1 = image;
       });
-      _isWorking = false;
+      isWorking.value = false;
     });
   }
 

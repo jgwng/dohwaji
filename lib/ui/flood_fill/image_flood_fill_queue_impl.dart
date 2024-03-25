@@ -8,6 +8,7 @@ import 'dart:collection';
 class ImageFloodFillQueueImpl extends FloodFill<ui.Image, ui.Color> {
   ImageFloodFillQueueImpl(ui.Image image) : super(image);
 
+
   @override
   Future<ui.Image?> fill(int startX, int startY, ui.Color newColor) async {
     ByteData? byteData = await imageToBytes(image);
