@@ -3,7 +3,6 @@ import 'dart:ui' as ui;
 
 import 'package:dohwaji/ui/flood_fill/image_flood_fill_queue_impl.dart';
 import 'package:dohwaji/ui/flood_fill/image_painter.dart';
-import 'package:dohwaji/util/alert_toast.dart';
 import 'package:dohwaji/util/common_util.dart';
 import 'package:dohwaji/util/platform_util.dart';
 import 'package:dohwaji/util/storage_util.dart';
@@ -228,7 +227,7 @@ class _FloodFillRasterState extends State<FloodFillRaster>
       //   AlertToast.show(msg: 'uploadDone');
       // }
     } catch (e) {
-      AlertToast.show(msg: e.toString(), seconds: 10);
+      CommonUtil.showToast(msg: e.toString(),context: context, seconds: 10);
     }
   }
 
@@ -291,8 +290,8 @@ class _FloodFillRasterState extends State<FloodFillRaster>
                     height: 28,
                     child: SvgPicture.asset(
                       CommonUtil.useWhiteForeground(colorList[index])
-                          ? 'assets/icons/ic_32_check_white.svg'
-                          : 'assets/icons/ic_32_check_black.svg',
+                          ? 'assets/icons/ic_32_check_black.svg'
+                          : 'assets/icons/ic_32_check_white.svg',
                       width: 28,
                       height: 28,
                       fit: BoxFit.fitWidth,
@@ -386,24 +385,5 @@ class _FloodFillRasterState extends State<FloodFillRaster>
         ),
       ),
     );
-    if (_image2 == null) {
-      return RepaintBoundary(
-        key: globalKey,
-        child: Container(
-          width: 300,
-          height: 300,
-          alignment: Alignment.centerLeft,
-          child: FittedBox(
-            child: GestureDetector(
-              onTapDown: _onTapDown,
-              child: CustomPaint(
-                size: Size(_image!.width.toDouble(), _image!.height.toDouble()),
-                painter: ImagePainter(_image!),
-              ),
-            ),
-          ),
-        ),
-      );
-    }
   }
 }

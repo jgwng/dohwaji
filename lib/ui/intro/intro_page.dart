@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:dohwaji/core/resources.dart';
+import 'package:dohwaji/core/routes.dart';
 import 'package:dohwaji/ui/widget/copyright_info.dart';
 import 'package:dohwaji/ui/widget/default_button.dart';
 import 'package:dohwaji/util/platform_util.dart';
@@ -55,7 +56,7 @@ class _IntroPageState extends State<IntroPage> {
                   child: DefaultButton(
                     horizontalMargin: 24,
                     onTap: () async {
-                      context.go('/select');
+                      context.go(AppRoutes.select);
                     },
                     btnText: '색칠하러 가기',
                   ),

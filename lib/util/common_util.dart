@@ -1,5 +1,7 @@
 import 'dart:ui' as ui;
 
+import 'package:dohwaji/ui/widget/color_snack_bar.dart';
+import 'package:dohwaji/ui/widget/color_toast.dart';
 import 'package:dohwaji/util/platform_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -127,7 +129,21 @@ class CommonUtil {
       js.context.callMethod('setMetaThemeColor', [color.toStatusHex()]);
     } else {}
   }
+  static void showToast({required String msg, required BuildContext context, int seconds = 2}) async {
+    OverlayEntry _overlay = OverlayEntry(builder: (_) => ColorToast(msg: msg));
+    Overlay.of(context).insert(_overlay);
+    await Future.delayed(Duration(seconds: seconds));
+    _overlay.remove();
+  }
 
+  static void showSnackBar(
+      {required String msg,
+        required BuildContext context,
+        int seconds = 2}) async {
+    OverlayEntry _overlay =
+    OverlayEntry(builder: (_) => ColorSnackbar(msg: msg));
+    Overlay.of(context).insert(_overlay);
+  }
   static bool useWhiteForeground(Color backgroundColor) =>
       1.05 / (backgroundColor.computeLuminance() + 0.05) > 4.5;
 }
