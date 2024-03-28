@@ -1,3 +1,7 @@
+window.flutterConfiguration = {
+   canvasKitBaseUrl: "./canvaskit/"
+};
+
 window.addEventListener('load', function(ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({

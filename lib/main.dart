@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
         pageTransitionsTheme: pageTransitionTheme,
         useMaterial3: false,
         scaffoldBackgroundColor: Colors.white,
-        fontFamilyFallback: const ['Noto Sans SC'],
+        fontFamilyFallback: const ['Noto Sans SC', "Noto Sans Symbols"],
         canvasColor: Colors.white,
       ),
     );
