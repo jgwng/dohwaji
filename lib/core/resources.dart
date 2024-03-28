@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppFonts {
-  static const String bold = 'Suite Bold';
+  static const String bold = 'SandBox Bold';
   static const String medium = 'Noto Sans SC';
-  static const String semiBold = 'Pretendard-SemiBold';
   static const List<String> fontFamilyFallback =  ['Noto Sans SC', "Noto Sans Symbols"];
 }
 

@@ -88,7 +88,6 @@ class _IntroPageState extends State<IntroPage> {
         style: TextStyle(
             fontSize: fontSize,
             color: AppThemes.textColor,
-            fontWeight: FontWeight.bold,
             fontFamily: AppFonts.bold),
       ),
     );

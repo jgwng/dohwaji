@@ -1,5 +1,6 @@
 import 'package:dohwaji/core/resources.dart';
 import 'package:dohwaji/core/routes.dart';
+import 'package:dohwaji/core/size_config.dart';
 import 'package:dohwaji/init_setting.dart';
 import 'package:dohwaji/util/common_util.dart';
 import 'package:dohwaji/util/platform_util.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     if (PlatformUtil.isWeb) {
       return FlutterWebFrame(
-        maximumSize: const Size(600, 800),
+        maximumSize: SizeConfig().webMaxSize,
         backgroundColor: AppThemes.mobileBackgroundColor,
         builder: (context) {
           return buildApp();
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
       routerDelegate: appRouter.routerDelegate,
       routeInformationProvider: appRouter.routeInformationProvider,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppThemes.pointColor),
         highlightColor: Colors.transparent,
         splashColor: Colors.transparent,
         hoverColor: Colors.transparent,
