@@ -11,7 +11,7 @@ void main() async {
   await initAppSetting();
   runApp(const MyApp());
 }
-final snackbarKey = GlobalKey<ScaffoldMessengerState>();
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -46,9 +46,9 @@ class MyApp extends StatelessWidget {
             CommonUtil().createMaterialColor(AppThemes.backgroundColor),
         pageTransitionsTheme: pageTransitionTheme,
         useMaterial3: false,
-        scaffoldBackgroundColor: Colors.white,
-        fontFamilyFallback: const ['Noto Sans SC', "Noto Sans Symbols"],
-        canvasColor: Colors.white,
+        scaffoldBackgroundColor: AppThemes.backgroundColor,
+        fontFamilyFallback: AppFonts.fontFamilyFallback,
+        canvasColor: AppThemes.backgroundColor,
       ),
     );
   }
