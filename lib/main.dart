@@ -19,6 +19,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (PlatformUtil.isWeb) {
+      if(PlatformUtil.isDesktopWeb == false){
+        return  buildApp().animate().fadeIn(duration: 400.ms);
+      }
       return FlutterWebFrame(
         maximumSize: SizeConfig().webMaxSize,
         backgroundColor: AppThemes.mobileBackgroundColor,

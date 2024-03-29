@@ -1,5 +1,20 @@
 window.flutterConfiguration = {
-   canvasKitBaseUrl: "./canvaskit/"
+   canvasKitBaseUrl: "./canvaskit/",
+   buildConfig: {
+       builds: [
+         {
+           compileTarget: "dart2wasm",
+           renderer: "skwasm",
+           mainWasmPath: "main.dart.wasm",
+           jsSupportRuntimePath: "main.dart.mjs"
+         },
+         {
+           compileTarget: "dart2js",
+           renderer: "canvaskit",
+           mainJsPath: "main.dart.js"
+         }
+       ]
+     }
 };
 
 window.addEventListener('load', function(ev) {
