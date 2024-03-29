@@ -1,12 +1,10 @@
+
 import 'package:dohwaji/core/routes.dart';
 import 'package:dohwaji/util/platform_util.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:firebase_storage/firebase_storage.dart';
 class ColoringPreview extends StatefulWidget {
   ColoringPreview({required this.index});
 
@@ -17,14 +15,13 @@ class ColoringPreview extends StatefulWidget {
 }
 
 class _ColoringPreviewState extends State<ColoringPreview> {
+  Uint8List? coloringImage;
+  String? imageUrl;
+
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async{
     // Adjust the provider based on the image type
-    if(PlatformUtil.isWeb){
-      precacheImage(NetworkImage(assetUrl), context);
-    }else{
-      precacheImage(AssetImage(assetUrl), context);
-    }
+    precacheImage(AssetImage(assetUrl), context);
     super.didChangeDependencies();
   }
 
@@ -44,8 +41,7 @@ class _ColoringPreviewState extends State<ColoringPreview> {
             border: Border.all(color: const Color(0xffe6e6e6))),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: (PlatformUtil.isWeb)
-              ? Image.network(assetUrl) : Image.asset(assetUrl),
+          child: Image.asset(assetUrl),
         ),
       ),
     );
