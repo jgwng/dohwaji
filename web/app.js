@@ -1,22 +1,3 @@
-window.flutterConfiguration = {
-   canvasKitBaseUrl: "./canvaskit/",
-   buildConfig: {
-       builds: [
-         {
-           compileTarget: "dart2wasm",
-           renderer: "skwasm",
-           mainWasmPath: "main.dart.wasm",
-           jsSupportRuntimePath: "main.dart.mjs"
-         },
-         {
-           compileTarget: "dart2js",
-           renderer: "canvaskit",
-           mainJsPath: "main.dart.js"
-         }
-       ]
-     }
-};
-
 window.addEventListener('load', function(ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
@@ -24,7 +5,25 @@ window.addEventListener('load', function(ev) {
           serviceWorkerVersion: serviceWorkerVersion,
         },
         onEntrypointLoaded: async function(engineInitializer) {
-           const appRunner = await engineInitializer.initializeEngine();
+            const config =  {
+                              canvasKitBaseUrl: "./canvaskit/",
+                              buildConfig: {
+                                  builds: [
+                                    {
+                                      compileTarget: "dart2wasm",
+                                      renderer: "skwasm",
+                                      mainWasmPath: "main.dart.wasm",
+                                      jsSupportRuntimePath: "main.dart.mjs"
+                                    },
+                                    {
+                                      compileTarget: "dart2js",
+                                      renderer: "canvaskit",
+                                      mainJsPath: "main.dart.js"
+                                    }
+                                  ]
+                                }
+                           };
+           const appRunner = await engineInitializer.initializeEngine(config);
            var loaderContent = document.querySelector('#loader');
            loaderContent.style.opacity = "0";
            await delay();

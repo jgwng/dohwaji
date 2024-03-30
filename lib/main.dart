@@ -4,6 +4,7 @@ import 'package:dohwaji/core/size_config.dart';
 import 'package:dohwaji/init_setting.dart';
 import 'package:dohwaji/util/common_util.dart';
 import 'package:dohwaji/util/platform_util.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_web_frame/flutter_web_frame.dart';
@@ -18,8 +19,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (PlatformUtil.isWeb) {
-      if(PlatformUtil.isDesktopWeb == false){
+    if (kIsWeb) {
+      if(defaultTargetPlatform == TargetPlatform.android ||defaultTargetPlatform == TargetPlatform.iOS){
         return  buildApp().animate().fadeIn(duration: 400.ms);
       }
       return FlutterWebFrame(

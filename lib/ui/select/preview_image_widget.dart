@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:universal_html/html.dart';
 class ColoringPreview extends StatefulWidget {
   ColoringPreview({required this.index});
 
@@ -16,12 +17,15 @@ class ColoringPreview extends StatefulWidget {
 
 class _ColoringPreviewState extends State<ColoringPreview> {
   Uint8List? coloringImage;
-  String? imageUrl;
 
   @override
   void didChangeDependencies() async{
     // Adjust the provider based on the image type
-    precacheImage(AssetImage(assetUrl), context);
+    if(PlatformUtil.isWeb){
+      precacheImage(NetworkImage(webAssetUrl), context);
+    }else{
+      precacheImage(AssetImage(assetUrl), context);
+    }
     super.didChangeDependencies();
   }
 
@@ -41,11 +45,12 @@ class _ColoringPreviewState extends State<ColoringPreview> {
             border: Border.all(color: const Color(0xffe6e6e6))),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: Image.asset(assetUrl),
+          child: (PlatformUtil.isWeb) ? Image.network(webAssetUrl) : Image.asset(assetUrl),
         ),
       ),
     );
   }
 
+  String get webAssetUrl => '${window.location.origin}/assets/$assetUrl';
   String get assetUrl => 'assets/images/example_image_${widget.index}.jpg';
 }

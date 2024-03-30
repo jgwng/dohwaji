@@ -29,11 +29,14 @@
 
   <title>도화지</title>
   <link rel="manifest" href="manifest.json">
+  <link rel="preload" href="main.dart.js" as="script">
+  <link rel="preload" href="logo/icon_192.png" as="image">
   <link rel="stylesheet" type='text/css' href="styles.css">
+
+
   <script src="app.js" defer></script>
-<!--  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>-->
-<!--  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>-->
-<!--  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-functions.js"></script>-->
+<!--  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js" defer></script>-->
+<!--  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-storage.js" defer></script>-->
   <script>
     // The value below is injected by flutter build, do not touch.
     const serviceWorkerVersion = null;
@@ -45,6 +48,7 @@
   <div class="splash">
     <img
             id="loader"
+            width="192" height="192"
             src="logo/icon_192.png"
     />
   </div>
