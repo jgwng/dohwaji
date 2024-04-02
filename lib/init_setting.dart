@@ -1,4 +1,5 @@
 import 'package:dohwaji/firebase_options.dart';
+import 'package:dohwaji/util/common_util.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -21,4 +22,8 @@ Future<void> initAppSetting() async {
   //   binding.allowFirstFrame();
   // });
   GestureBinding.instance.resamplingEnabled = false;
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    CommonUtil.runJSFunction('removeSplashLogo', null);
+  });
+
 }

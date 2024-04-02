@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     if (kIsWeb) {
       if(defaultTargetPlatform == TargetPlatform.android ||defaultTargetPlatform == TargetPlatform.iOS){
-        return  buildApp().animate().fadeIn(duration: 400.ms);
+        return  buildApp();
       }
       return FlutterWebFrame(
         maximumSize: SizeConfig().webMaxSize,
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         builder: (context) {
           return buildApp();
         },
-      ).animate().fadeIn(duration: 400.ms);
+      );
     }
     return buildApp();
   }

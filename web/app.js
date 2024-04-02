@@ -24,9 +24,6 @@ window.addEventListener('load', function(ev) {
                                 }
                            };
            const appRunner = await engineInitializer.initializeEngine(config);
-           var loaderContent = document.querySelector('#loader');
-           loaderContent.style.opacity = "0";
-           await delay();
            appRunner.runApp().then((_) => {
             document.querySelector('meta[name="viewport"]').setAttribute('content', "width=device-width, initial-scale=1.0, viewport-fit=cover");
           });
@@ -60,5 +57,13 @@ function rightInset() {
 }
 
 function setMetaThemeColor(color) {
+   console.log(color);
    document.querySelector('meta[name="theme-color"]').setAttribute("content", color);
+}
+
+async function removeSplashLogo() {
+   var loaderContent = document.querySelector('#loader');
+   loaderContent.style.transition = "opacity 0.4s ease-out";
+   loaderContent.style.opacity = "0";
+   await delay();
 }

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'dart:js' as js;
+import 'package:universal_html/html.dart' as html;
 
 class CommonUtil {
   static Future<Uint8List?> createImageFromWidget(
@@ -126,8 +126,11 @@ class CommonUtil {
 
   static void setStatusBarColor(Color color) {
     if (PlatformUtil.isWeb) {
-      js.context.callMethod('setMetaThemeColor', [color.toStatusHex()]);
-    } else {}
+      CommonUtil.runJSFunction('setMetaThemeColor', color.toStatusHex());
+      // js.context.callMethod('setMetaThemeColor', [color.toStatusHex()]);
+    } else {
+
+    }
   }
   static void showToast({required String msg, required BuildContext context, int seconds = 2}) async {
     OverlayEntry _overlay = OverlayEntry(builder: (_) => ColorToast(msg: msg));
@@ -146,6 +149,30 @@ class CommonUtil {
   }
   static bool useWhiteForeground(Color backgroundColor) =>
       1.05 / (backgroundColor.computeLuminance() + 0.05) > 4.5;
+
+
+
+
+
+  static void runJSFunction(String fnName,dynamic parameter){
+    // Create a script element
+    final script = html.ScriptElement()
+      ..type = 'application/javascript';
+
+    // Correctly serialize the parameter, assuming it's a string for this context
+    final parameterSerialized = parameter is String ? "'$parameter'" : parameter.toString();
+
+    // Set the script content to call the function with the parameter
+    script.text = '$fnName($parameterSerialized);';
+
+    // Append the script to the document body to execute it
+    html.document.body?.children.add(script);
+
+    // Remove the script element after a short delay to ensure execution
+    Future.delayed(const Duration(milliseconds: 10), () {
+      script.remove();
+    });
+  }
 }
 
 extension ColorExtension on Color {
