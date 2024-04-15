@@ -51,13 +51,18 @@ class _IntroPageState extends State<IntroPage> {
               children: [
                 const SizedBox(height: 60),
                 title(),
+                const Opacity(
+                  opacity: 0.0,
+                  child: Text('🏆'),
+                ),
                 const Spacer(),
                 Container(
                   padding: const EdgeInsets.only(bottom: 30),
                   child: DefaultButton(
                     horizontalMargin: 24,
                     onTap: () async {
-                      context.go(AppRoutes.select);
+                      var result = await context.push(AppRoutes.select);
+                      print('result : $result');
                     },
                     btnText: '색칠하러 가기',
                   ),

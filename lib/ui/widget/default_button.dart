@@ -66,7 +66,7 @@ class DefaultButton extends StatelessWidget {
             }
             return Text(btnText ?? '',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: AppThemes.buttonTextColor,
                   fontFamily: fontFamily ?? AppFonts.medium,
                   fontSize: 20,
                 ));
