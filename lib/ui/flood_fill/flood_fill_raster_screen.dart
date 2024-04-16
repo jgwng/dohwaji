@@ -1,46 +1,33 @@
 import 'dart:io';
 import 'dart:ui' as ui;
 
+import 'package:dohwaji/ui/bottom_sheet/yn_select_bottom_sheet.dart';
 import 'package:dohwaji/ui/flood_fill/image_flood_fill_queue_impl.dart';
 import 'package:dohwaji/ui/flood_fill/image_painter.dart';
+import 'package:dohwaji/ui/widget/color_app_bar.dart';
+import 'package:dohwaji/ui/widget/platform_safe_area.dart';
 import 'package:dohwaji/util/common_util.dart';
 import 'package:dohwaji/util/platform_util.dart';
 import 'package:dohwaji/util/storage_util.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image/image.dart' as img;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 
-class FloodFillRasterScreen extends StatelessWidget {
-  FloodFillRasterScreen({super.key, required this.index});
 
-  final String index;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xffffffff),
-      appBar: AppBar(
-        title: const Text('색칠하기'),
-      ),
-      body: Center(child: FloodFillRaster(imageIndex: index)),
-    );
-  }
-}
-
-class FloodFillRaster extends StatefulWidget {
-  const FloodFillRaster({super.key, required this.imageIndex});
+class FloodFillRasterScreen extends StatefulWidget {
+  const FloodFillRasterScreen({super.key, required this.imageIndex});
 
   final String imageIndex;
 
   @override
-  State<FloodFillRaster> createState() => _FloodFillRasterState();
+  State<FloodFillRasterScreen> createState() => _FloodFillRasterState();
 }
 
-class _FloodFillRasterState extends State<FloodFillRaster>
+class _FloodFillRasterState extends State<FloodFillRasterScreen>
     with SingleTickerProviderStateMixin {
   ui.Image? _image;
   RxBool isWorking = false.obs;
@@ -49,6 +36,7 @@ class _FloodFillRasterState extends State<FloodFillRaster>
 
   AnimationController? _controller;
   bool isInitialized = true;
+  bool isDirty = false;
   int colorIndex = 0;
 
   List<Color> colorList = [
@@ -152,6 +140,9 @@ class _FloodFillRasterState extends State<FloodFillRaster>
   void _onTapDown(TapDownDetails details) async {
     if (isWorking.isTrue) return;
     isWorking.value = true;
+    if(isDirty == false){
+      isDirty = true;
+    }
     final Offset localPosition = details.localPosition;
     final int x = localPosition.dx.toInt();
     final int y = localPosition.dy.toInt();
@@ -186,46 +177,10 @@ class _FloodFillRasterState extends State<FloodFillRaster>
 
   GlobalKey globalKey = GlobalKey();
 
-  void _saveNetworkImage() async {
-    String path =
-        'https://firebasestorage.googleapis.com/v0/b/goo2geul-ea689.appspot.com/o/test%2F2024-03-06T00%3A20%3A55.523.jpeg?alt=media&token=26ee44d8-859a-4940-9d10-78824c9d14a4';
-    var result = await http.get(Uri.parse(path));
-    final saveResult =
-        await ImageGallerySaver.saveImage(result.bodyBytes, quality: 100);
-    print(result);
-  }
 
   Future<void> _capturePng() async {
     try {
       PlatformUtil.downloadImage(_image2);
-
-      return;
-      // RenderRepaintBoundary boundary = globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
-      // ui.Image image = await boundary.toImage();
-      // ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-      // Uint8List pngBytes = byteData!.buffer.asUint8List();
-
-      // Uint8List? result = await CommonUtil.createImageFromWidget(
-      //     CustomPaint(
-      //       size: Size(_image2!.width.toDouble(), _image2!.height.toDouble()),
-      //       painter: ImagePainter(_image2!),
-      //     ),
-      //     context,
-      //     imageSize:
-      //         Size(_image2!.width.toDouble(), _image2!.height.toDouble()),
-      //     logicalSize:
-      //         Size(_image2!.width.toDouble(), _image2!.height.toDouble()));
-
-      // // ByteData? data =  await imageToBytes(_image2!);
-      // // Uint8List? result = data?.buffer.asUint8List();
-      // print(result.toString());
-      // if (result != null) {
-      //   await FirebaseStorage.instance
-      //       .ref("test/${DateTime.now().toIso8601String()}.jpeg")
-      //       .putData(result);
-      //
-      //   AlertToast.show(msg: 'uploadDone');
-      // }
     } catch (e) {
       CommonUtil.showToast(msg: e.toString(),context: context, seconds: 10);
     }
@@ -248,6 +203,36 @@ class _FloodFillRasterState extends State<FloodFillRaster>
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      body: PlatformSafeArea(
+        child: Column(
+          children: [
+            ColorAppBar(
+              onTap: () async{
+                if(isDirty == false){
+                  context.pop();
+                }else{
+                  bool? result = await showYNSelectBottomSheet(
+                    title: '그리고 있던 그림을 저장할까요?',
+                    content: '저장하면 다음에 이어 그릴수 있어요!'
+                  );
+                  if(result == true){
+                    context.pop();
+                  }
+                }
+              },
+              title: '색칠하기',
+            ),
+            Expanded(
+              child: buildBody(),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildBody(){
     if (_image == null) {
       return const Center(
         child: CircularProgressIndicator(),
@@ -344,7 +329,7 @@ class _FloodFillRasterState extends State<FloodFillRaster>
               child: Container(
                 height: 60,
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
                 decoration: BoxDecoration(
                     color: const Color.fromRGBO(240, 163, 70, 1.0),
                     borderRadius: BorderRadius.circular(8.0)),
@@ -363,7 +348,6 @@ class _FloodFillRasterState extends State<FloodFillRaster>
       ],
     );
   }
-
   Widget drawingWidget() {
     return RepaintBoundary(
       key: globalKey,

@@ -1,7 +1,6 @@
 import 'package:dohwaji/core/resources.dart';
 import 'package:dohwaji/core/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 Future<bool?> showYNSelectBottomSheet(
     {required String title, required String content}) async {

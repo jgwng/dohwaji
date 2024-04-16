@@ -3,10 +3,8 @@ import 'package:dohwaji/core/routes.dart';
 import 'package:dohwaji/core/size_config.dart';
 import 'package:dohwaji/init_setting.dart';
 import 'package:dohwaji/util/common_util.dart';
-import 'package:dohwaji/util/platform_util.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_web_frame/flutter_web_frame.dart';
 
 void main() async {

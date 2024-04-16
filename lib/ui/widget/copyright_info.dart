@@ -3,7 +3,6 @@ import 'dart:html';
 import 'package:dohwaji/core/resources.dart';
 import 'package:dohwaji/util/platform_util.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class DohwaJiCopyRightInfo extends StatelessWidget {
   const DohwaJiCopyRightInfo({super.key});
@@ -18,7 +17,7 @@ class DohwaJiCopyRightInfo extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(
-            'Designed and developed by',
+            'Design & develop by',
             style: TextStyle(
                 color: Color(0xff666666),
                 fontFamily: AppFonts.medium,

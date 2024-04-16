@@ -4,7 +4,6 @@ import 'package:dohwaji/core/resources.dart';
 import 'package:dohwaji/core/routes.dart';
 import 'package:dohwaji/ui/widget/copyright_info.dart';
 import 'package:dohwaji/ui/widget/default_button.dart';
-import 'package:dohwaji/util/common_util.dart';
 import 'package:dohwaji/util/platform_util.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -27,10 +26,7 @@ class _IntroPageState extends State<IntroPage> {
   int titleIndex = 0;
   @override
   void initState() {
-    // const loader = SvgAssetLoader('assets/svgs/check.svg');
-    // svg.cache.putIfAbsent(loader.cacheKey(null), () => loader.loadBytes(null));
     titleIndex = Random().nextInt(introTitleList.length);
-
     super.initState();
   }
 
@@ -51,18 +47,13 @@ class _IntroPageState extends State<IntroPage> {
               children: [
                 const SizedBox(height: 60),
                 title(),
-                const Opacity(
-                  opacity: 0.0,
-                  child: Text('🏆'),
-                ),
                 const Spacer(),
                 Container(
                   padding: const EdgeInsets.only(bottom: 30),
                   child: DefaultButton(
                     horizontalMargin: 24,
                     onTap: () async {
-                      var result = await context.push(AppRoutes.select);
-                      print('result : $result');
+                      context.push(AppRoutes.select);
                     },
                     btnText: '색칠하러 가기',
                   ),
