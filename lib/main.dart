@@ -1,11 +1,8 @@
 import 'package:dohwaji/core/resources.dart';
 import 'package:dohwaji/core/routes.dart';
-import 'package:dohwaji/core/size_config.dart';
 import 'package:dohwaji/init_setting.dart';
 import 'package:dohwaji/util/common_util.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_web_frame/flutter_web_frame.dart';
 
 void main() async {
   await initAppSetting();
@@ -17,18 +14,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (kIsWeb) {
-      if(defaultTargetPlatform == TargetPlatform.android ||defaultTargetPlatform == TargetPlatform.iOS){
-        return  buildApp();
-      }
-      return FlutterWebFrame(
-        maximumSize: SizeConfig().webMaxSize,
-        backgroundColor: AppThemes.mobileBackgroundColor,
-        builder: (context) {
-          return buildApp();
-        },
-      );
-    }
     return buildApp();
   }
 

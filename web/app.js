@@ -1,11 +1,13 @@
 window.addEventListener('load', function(ev) {
       // Download main.dart.js
+      let target = document.querySelector("#flutter-view");
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
         },
         onEntrypointLoaded: async function(engineInitializer) {
             const config =  {
+                            hostElement: target,
                               canvasKitBaseUrl: "./canvaskit/",
                               buildConfig: {
                                   builds: [
@@ -62,8 +64,16 @@ function setMetaThemeColor(color) {
 }
 
 async function removeSplashLogo() {
-   var loaderContent = document.querySelector('#loader');
-   loaderContent.style.transition = "opacity 0.4s ease-out";
-   loaderContent.style.opacity = "0";
-   await delay();
+      document.querySelector('meta[name="viewport"]').setAttribute('content', "width=device-width, initial-scale=1.0, viewport-fit=cover");
+      var loaderContent = document.querySelector('.splash');
+      var flutterView = document.getElementById('flutter-view');
+      // Fade out the splash screen
+      loaderContent.style.opacity = "0";
+      setTimeout(function () {
+          loaderContent.style.display = "none"; // Hide splash completely after fade out
+          flutterView.style.display = "flex";  // Show the Flutter view
+          setTimeout(function () {
+              flutterView.style.opacity = "1";  // Fade in the Flutter view
+          }, 10); // short delay to ensure it starts after display change
+      }, 400); // This timeout duration should match the CSS opacity transition duration
 }

@@ -1,17 +1,41 @@
 body {
-    background-color: #FFFAFA;
+    background-color: #EEEEF1;
     height: 100vh;
     width: 100vw;
     margin: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
 .splash {
     background-color: #FFFAFA;
+    position: absolute;
     height: 100%;
     width: 100%;
+    opacity: 1;
+    transition: opacity 0.4s ease-out;
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1;
+}
+
+#flutter-view {
+    max-width: 600px;
+    width: 100%;
+    height: 100%;
+    background-color: #FFFAFA;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease-out;
+}
+
+@media screen and (min-width: 1024px) {  /* Adjust this value if needed */
+    #flutter-view {
+        min-width: 400px; /* Minimum width set for desktop screens */
+    }
 }
 
 .row {
@@ -19,27 +43,17 @@ body {
     justify-content: space-evenly;
 }
 
-#flutter-view {
-    width: 320px;
-    height: 480px;
-    background-color: lightgrey; /* Temporary background color for visibility */
-    border: 1px solid black; /* Temporary border for visibility */
-}
-
 @media screen and (max-width: 768px) {
-  .show-large {
-    display: none;
-  }
-
-  .show-small {
-      display: none;
-  }
-  .responsive {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-      }
+    .show-large {
+        display: none;
+    }
+    .show-small {
+        display: none;
+    }
+    .responsive {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 }
-
-transition: opacity 0.4s ease-out;
