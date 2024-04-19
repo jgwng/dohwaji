@@ -1,37 +1,43 @@
 window.addEventListener('load', function(ev) {
-      // Download main.dart.js
-      let target = document.querySelector("#flutter-view");
-      _flutter.loader.loadEntrypoint({
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-        },
-        onEntrypointLoaded: async function(engineInitializer) {
-            const config =  {
-                            hostElement: target,
-                              canvasKitBaseUrl: "./canvaskit/",
-                              buildConfig: {
-                                  builds: [
-                                    {
-                                      compileTarget: "dart2wasm",
-                                      renderer: "skwasm",
-                                      mainWasmPath: "main.dart.wasm",
-                                      jsSupportRuntimePath: "main.dart.mjs"
-                                    },
-                                    {
-                                      compileTarget: "dart2js",
-                                      renderer: "canvaskit",
-                                      mainJsPath: "main.dart.js"
-                                    }
-                                  ]
+  // Download main.dart.js
+  let target = document.querySelector("#flutter-view");
+
+  // Check if the user is on a mobile device (Android/iOS)
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+  _flutter.loader.loadEntrypoint({
+    serviceWorker: {
+      serviceWorkerVersion: serviceWorkerVersion,
+    },
+    onEntrypointLoaded: async function(engineInitializer) {
+        const config = {
+                          // Set hostElement based on device type
+                          hostElement: isMobile ? null : target,
+                          canvasKitBaseUrl: "./canvaskit/",
+                          buildConfig: {
+                              builds: [
+                                {
+                                  compileTarget: "dart2wasm",
+                                  renderer: "skwasm",
+                                  mainWasmPath: "main.dart.wasm",
+                                  jsSupportRuntimePath: "main.dart.mjs"
+                                },
+                                {
+                                  compileTarget: "dart2js",
+                                  renderer: "canvaskit",
+                                  mainJsPath: "main.dart.js"
                                 }
-                           };
-           const appRunner = await engineInitializer.initializeEngine(config);
-           appRunner.runApp().then((_) => {
-            document.querySelector('meta[name="viewport"]').setAttribute('content', "width=device-width, initial-scale=1.0, viewport-fit=cover");
-          });
-        }
+                              ]
+                            }
+                       };
+       const appRunner = await engineInitializer.initializeEngine(config);
+       appRunner.runApp().then((_) => {
+        document.querySelector('meta[name="viewport"]').setAttribute('content', "width=device-width, initial-scale=1.0, viewport-fit=cover");
       });
-    });
+    }
+  });
+});
+
 
 
 function delay(time){
