@@ -1,10 +1,8 @@
 import 'package:dohwaji/firebase_options.dart';
 import 'package:dohwaji/util/common_util.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:universal_html/html.dart';
 
 //앱 시작하기전 초기 세팅 해주는 함수
 Future<void> initAppSetting() async {
@@ -23,12 +21,6 @@ Future<void> initAppSetting() async {
   //   ]);
   //   binding.allowFirstFrame();
   // });
-  // if(kIsWeb){
-  //   var currentOrientation = window.screen?.orientation;
-  //   if(currentOrientation != null){
-  //     currentOrientation.lock("portrait");
-  //   }
-  // }
   GestureBinding.instance.resamplingEnabled = false;
   WidgetsBinding.instance.addPostFrameCallback((_) {
     CommonUtil.runJSFunction('removeSplashLogo', null);

@@ -173,6 +173,32 @@ class CommonUtil {
       script.remove();
     });
   }
+
+  static void savePageParam(Map<String, dynamic> params) {
+    Future.delayed(const Duration(milliseconds: 500), () {
+      final nowUrl = html.window.location.href;
+      final index =
+          nowUrl.indexOf(html.window.location.host) + html.window.location.host.length;
+
+      Map<String, String> strMap = {};
+      for (final key in params.keys) {
+        final value = params[key];
+        if (value == null) continue;
+        strMap[key] = value.toString();
+      }
+
+      String path = html.window.location.href.substring(index, nowUrl.length);
+      String uri = Uri(path: '', queryParameters: strMap).toString();
+
+      if (path.contains('?')) {
+        final deleteIndex = path.indexOf('?');
+        final deleteStr = path.substring(deleteIndex, path.length);
+        path = path.replaceAll(deleteStr, '');
+      }
+
+      html.window.history.replaceState(null, '', '$path$uri');
+    });
+  }
 }
 
 extension ColorExtension on Color {

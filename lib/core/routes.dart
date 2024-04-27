@@ -1,3 +1,4 @@
+import 'package:dohwaji/core/route_observer.dart';
 import 'package:dohwaji/ui/flood_fill/flood_fill_raster_screen.dart';
 import 'package:dohwaji/ui/intro/intro_page.dart';
 import 'package:dohwaji/ui/select/select_page.dart';
@@ -43,6 +44,7 @@ PageTransitionsTheme get pageTransitionTheme {
 }
 
 GoRouter appRouter = GoRouter(
+  observers: [ColorRouteObserver()],
   routes: [
     GoRoute(
       path: AppRoutes.intro,

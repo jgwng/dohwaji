@@ -6,6 +6,7 @@ import 'package:dohwaji/ui/widget/copyright_info.dart';
 import 'package:dohwaji/ui/widget/default_button.dart';
 import 'package:dohwaji/util/platform_util.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class IntroPage extends StatefulWidget {
@@ -53,7 +54,8 @@ class _IntroPageState extends State<IntroPage> {
                   child: DefaultButton(
                     horizontalMargin: 24,
                     onTap: () async {
-                      context.push(AppRoutes.select);
+                      // context.push(AppRoutes.select);
+                      Get.toNamed(AppRoutes.select,arguments: {'intro' : 'intro'});
                     },
                     btnText: '색칠하러 가기',
                   ),
