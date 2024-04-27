@@ -19,10 +19,7 @@ import 'package:http/http.dart' as http;
 
 
 class FloodFillRasterScreen extends StatefulWidget {
-  const FloodFillRasterScreen({super.key, required this.imageIndex});
-
-  final String imageIndex;
-
+  const FloodFillRasterScreen({super.key});
   @override
   State<FloodFillRasterScreen> createState() => _FloodFillRasterState();
 }
@@ -38,6 +35,7 @@ class _FloodFillRasterState extends State<FloodFillRasterScreen>
   bool isInitialized = true;
   bool isDirty = false;
   int colorIndex = 0;
+  int _imageIndex = -1;
 
   List<Color> colorList = [
     Colors.red,
@@ -55,6 +53,7 @@ class _FloodFillRasterState extends State<FloodFillRasterScreen>
   @override
   void initState() {
     super.initState();
+    _imageIndex = Get.arguments?['index'] ?? -1;
     _loadImage().then((image) {
       setState(() {
         _image = image;
@@ -110,15 +109,16 @@ class _FloodFillRasterState extends State<FloodFillRasterScreen>
     if (colorImage == null) {
       // const url =
       //     'https://sun9-77.userapi.com/impg/BiGYCxYxSuZgeILSzA0dtPcNC7935fdhpW36rg/e3jk6CqTwkw.jpg?size=1372x1372&quality=95&sign=2afb3d42765f8777879e06c314345303&type=album';
-      // // final http.Response result = await http.get(Uri.parse('https://upload.wikimedia.org/wikipedia/commons/b/b4/Chess_ndd45.svg'));
 
       // final response = await http.get(Uri.parse(url));
-      int index = int.tryParse(widget.imageIndex ?? '0') ?? -1;
-      if (index < 0) index = 0;
+      if (_imageIndex < 0) _imageIndex = 0;
+      final http.Response result = await http.get(Uri.parse('https://cdn.jsdelivr.net/gh/jgwng/dohwaji/assets/images/example_image_$_imageIndex.jpg'));
+      //
+      // final ByteData testData = await rootBundle
+      //     .load('assets/images/example_image_$_imageIndex.jpg');
+      // colorImage = testData.buffer.asUint8List();
 
-      final ByteData testData = await rootBundle
-          .load('assets/images/example_image_${index ?? 0}.jpg');
-      colorImage = testData.buffer.asUint8List();
+      colorImage = result.bodyBytes;
     }
 
     // _photo = img.decodeImage(list);
@@ -210,14 +210,14 @@ class _FloodFillRasterState extends State<FloodFillRasterScreen>
             ColorAppBar(
               onTap: () async{
                 if(isDirty == false){
-                  context.pop();
+                  Get.back();
                 }else{
                   bool? result = await showYNSelectBottomSheet(
                     title: '그리고 있던 그림을 저장할까요?',
                     content: '저장하면 다음에 이어 그릴수 있어요!'
                   );
                   if(result == true){
-                    context.pop();
+                    Get.back();
                   }
                 }
               },

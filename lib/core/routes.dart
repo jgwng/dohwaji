@@ -61,8 +61,7 @@ GoRouter appRouter = GoRouter(
       path: AppRoutes.coloring,
       name: AppRoutes.coloring,
       builder: (context, GoRouterState state) {
-        return FloodFillRasterScreen(
-            imageIndex: state.uri.queryParameters['index'] ?? '');
+        return FloodFillRasterScreen();
       },
     ),
   ],

@@ -4,6 +4,7 @@ import 'package:dohwaji/core/routes.dart';
 import 'package:dohwaji/util/platform_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:universal_html/html.dart';
 class ColoringPreview extends StatefulWidget {
@@ -29,8 +30,9 @@ class _ColoringPreviewState extends State<ColoringPreview> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.pushNamed(AppRoutes.coloring,
-            queryParameters: {'index': '${widget.index}'});
+        Get.toNamed(AppRoutes.coloring,arguments: {'index': widget.index});
+        // context.pushNamed(AppRoutes.coloring,
+        //     queryParameters: {'index': '${widget.index}'});
       },
       child: Container(
         alignment: Alignment.center,

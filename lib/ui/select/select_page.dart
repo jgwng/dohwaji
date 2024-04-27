@@ -3,8 +3,9 @@ import 'package:dohwaji/ui/select/preview_image_widget.dart';
 import 'package:dohwaji/ui/widget/color_app_bar.dart';
 import 'package:dohwaji/ui/widget/platform_safe_area.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:universal_html/html.dart' as html;
 class ImageSelectPage extends StatefulWidget {
   const ImageSelectPage({super.key});
   @override
@@ -12,6 +13,15 @@ class ImageSelectPage extends StatefulWidget {
 }
 
 class _ImageSelectPageState extends State<ImageSelectPage> {
+
+
+  @override
+  void initState(){
+    super.initState();
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +30,7 @@ class _ImageSelectPageState extends State<ImageSelectPage> {
         child: Column(
           children: [
             ColorAppBar(
-              onTap: context.pop,
+              onTap: Get.back,
               title: '이미지 선택',
             ),
             Expanded(
