@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
   Widget buildApp() {
     return GetMaterialApp(
       navigatorKey: navigatorKey,
+      title: '도화지',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: AppThemes.pointColor),
         highlightColor: Colors.transparent,

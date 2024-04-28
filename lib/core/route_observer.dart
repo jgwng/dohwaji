@@ -39,7 +39,7 @@ class ColorRouteObserver extends RouteObserver<PageRoute<dynamic>> {
     if (route is MaterialPageRoute) {
 
       String newUrl = '${html.window.location.origin}/#${route.settings.name ?? ''}';
-      if ((route.settings.name ?? '') != '/') {
+      if (previousRoute != null) {
         html.window.history.pushState(null, '도화지', newUrl);
         hashList.add('#${route.settings.name ?? ''}');
         lastPath = newUrl;
