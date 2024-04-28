@@ -196,7 +196,7 @@ class CommonUtil {
         path = path.replaceAll(deleteStr, '');
       }
 
-      html.window.history.replaceState(null, '도화지', '$path$uri');
+      html.window.history.pushState(null, '도화지', '$path$uri');
     });
   }
 }

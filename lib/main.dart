@@ -3,21 +3,18 @@ import 'package:dohwaji/core/resources.dart';
 import 'package:dohwaji/core/route_observer.dart';
 import 'package:dohwaji/core/routes.dart';
 import 'package:dohwaji/init_setting.dart';
-import 'package:dohwaji/ui/select/select_page.dart';
 import 'package:dohwaji/util/common_util.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'ui/flood_fill/flood_fill_raster_screen.dart';
 import 'package:url_strategy/url_strategy.dart';
-import 'ui/intro/intro_page.dart';
 
 void main() async {
   await initAppSetting();
   setHashUrlStrategy();
   runApp(const MyApp());
 }
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -45,11 +42,7 @@ class MyApp extends StatelessWidget {
         fontFamilyFallback: AppFonts.fontFamilyFallback,
         canvasColor: AppThemes.backgroundColor,
       ),
-      routes: {
-        AppRoutes.intro: (_) => IntroPage(),
-        AppRoutes.select: (_) => ImageSelectPage(),
-        AppRoutes.coloring: (_) => FloodFillRasterScreen(),
-      },
+      routes: colorRoutes,
       initialRoute: '/',
       initialBinding: GlobalBinding(),
       builder: (context, child) {

@@ -1,7 +1,6 @@
-import 'dart:js';
 
 import 'package:dohwaji/core/route_observer.dart';
-import 'package:dohwaji/main.dart';
+import 'package:dohwaji/core/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:html' as html;

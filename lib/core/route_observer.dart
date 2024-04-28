@@ -1,9 +1,5 @@
-import 'package:dohwaji/core/routes.dart';
-import 'package:dohwaji/main.dart';
-import 'package:dohwaji/util/common_util.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:universal_html/html.dart' as html;
 class ColorRouteObserver extends RouteObserver<PageRoute<dynamic>> {
   static final ColorRouteObserver _instance = ColorRouteObserver._internal();
@@ -37,19 +33,14 @@ class ColorRouteObserver extends RouteObserver<PageRoute<dynamic>> {
     super.didPush(route, previousRoute);
     isBack = false;
     if (route is MaterialPageRoute) {
-
-      String newUrl = '${html.window.location.origin}/#${route.settings.name ?? ''}';
+      String newUrl = currentUrl(route);
       if (previousRoute != null) {
-        html.window.history.pushState(null, '도화지', newUrl);
+        savePageParam(Get.arguments ?? {});
         hashList.add('#${route.settings.name ?? ''}');
         lastPath = newUrl;
       }else{
         hashList.add('');
       }
-      // if ((route.settings.name ?? '') != '/') {
-      //   CommonUtil.savePageParam(Get.arguments ?? {});
-      //   lastPath = newUrl;
-      // }
     }
 
     _saveScreenView(
@@ -63,8 +54,9 @@ class ColorRouteObserver extends RouteObserver<PageRoute<dynamic>> {
   void didReplace({Route<dynamic>? newRoute, Route<dynamic>? oldRoute}) {
     super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
     if (newRoute is MaterialPageRoute) {
-      String newUrl = '${html.window.location.origin}/#${newRoute.settings.name ?? ''}';
+      String newUrl = currentUrl(newRoute);
       html.window.history.pushState(null, '도화지', newUrl);
+      savePageParam(Get.arguments ?? {});
       hashList.last = '#${newRoute.settings.name ?? ''}';
       lastPath = newUrl;
     }
@@ -82,7 +74,7 @@ class ColorRouteObserver extends RouteObserver<PageRoute<dynamic>> {
     if(route is MaterialPageRoute){
       isBack = true;
       hashList.removeLast();
-      lastPath = '${html.window.location.origin}/#${previousRoute?.settings.name ?? ''}';
+      lastPath = currentUrl(previousRoute);
     }
     _saveScreenView(
       newRoute: checkPageRoute(previousRoute),
@@ -94,12 +86,40 @@ class ColorRouteObserver extends RouteObserver<PageRoute<dynamic>> {
   @override
   void didRemove(Route<dynamic> route, Route<dynamic>? previousRoute) {
     super.didRemove(route, previousRoute);
-
-
     _saveScreenView(
       newRoute: checkPageRoute(previousRoute),
       oldRoute: checkPageRoute(route),
       routeType: 'remove',
     );
   }
+
+  String currentUrl(Route<dynamic>? route){
+    return  '${html.window.location.origin}/#${route?.settings.name ?? ''}';
+  }
+  void savePageParam(Map<String, dynamic> params) {
+    Future.delayed(const Duration(milliseconds: 500), () {
+      final nowUrl = html.window.location.href;
+      final index =
+          nowUrl.indexOf(html.window.location.host) + html.window.location.host.length;
+
+      Map<String, String> strMap = {};
+      for (final key in params.keys) {
+        final value = params[key];
+        if (value == null) continue;
+        strMap[key] = value.toString();
+      }
+
+      String path = html.window.location.href.substring(index, nowUrl.length);
+      String uri = Uri(path: '', queryParameters: strMap).toString();
+
+      if (path.contains('?')) {
+        final deleteIndex = path.indexOf('?');
+        final deleteStr = path.substring(deleteIndex, path.length);
+        path = path.replaceAll(deleteStr, '');
+      }
+
+      html.window.history.pushState(null, '도화지', '$path$uri');
+    });
+  }
+
 }
