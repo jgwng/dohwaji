@@ -1,5 +1,6 @@
 import 'dart:ui' as ui;
 
+import 'package:dohwaji/core/route_observer.dart';
 import 'package:dohwaji/ui/widget/color_snack_bar.dart';
 import 'package:dohwaji/ui/widget/color_toast.dart';
 import 'package:dohwaji/util/platform_util.dart';
@@ -174,31 +175,6 @@ class CommonUtil {
     });
   }
 
-  static void savePageParam(Map<String, dynamic> params) {
-    Future.delayed(const Duration(milliseconds: 500), () {
-      final nowUrl = html.window.location.href;
-      final index =
-          nowUrl.indexOf(html.window.location.host) + html.window.location.host.length;
-
-      Map<String, String> strMap = {};
-      for (final key in params.keys) {
-        final value = params[key];
-        if (value == null) continue;
-        strMap[key] = value.toString();
-      }
-
-      String path = html.window.location.href.substring(index, nowUrl.length);
-      String uri = Uri(path: '', queryParameters: strMap).toString();
-
-      if (path.contains('?')) {
-        final deleteIndex = path.indexOf('?');
-        final deleteStr = path.substring(deleteIndex, path.length);
-        path = path.replaceAll(deleteStr, '');
-      }
-
-      html.window.history.pushState(null, '도화지', '$path$uri');
-    });
-  }
 }
 
 extension ColorExtension on Color {

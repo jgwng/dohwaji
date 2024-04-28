@@ -31,9 +31,7 @@ class GlobalController extends GetxController{
          print(e.toString());
        }
      }else{
-
        window.history.replaceState(null, '도화지', ColorRouteObserver().lastPath);
-       print('history : ${window.history}');
      }
     });
   }

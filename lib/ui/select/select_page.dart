@@ -4,8 +4,6 @@ import 'package:dohwaji/ui/widget/color_app_bar.dart';
 import 'package:dohwaji/ui/widget/platform_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
-import 'package:universal_html/html.dart' as html;
 class ImageSelectPage extends StatefulWidget {
   const ImageSelectPage({super.key});
   @override
@@ -18,9 +16,7 @@ class _ImageSelectPageState extends State<ImageSelectPage> {
   @override
   void initState(){
     super.initState();
-
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +32,7 @@ class _ImageSelectPageState extends State<ImageSelectPage> {
             Expanded(
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
+                //웹에서 스크롤바 노출 시키지 않도록 설정
                 child: ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
                   child: CustomScrollView(
