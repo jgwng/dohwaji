@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui' as ui;
 
+import 'package:dohwaji/core/routes.dart';
 import 'package:dohwaji/ui/bottom_sheet/yn_select_bottom_sheet.dart';
 import 'package:dohwaji/ui/flood_fill/image_flood_fill_queue_impl.dart';
 import 'package:dohwaji/ui/flood_fill/image_painter.dart';
@@ -19,7 +20,8 @@ import 'package:http/http.dart' as http;
 
 
 class FloodFillRasterScreen extends StatefulWidget {
-  const FloodFillRasterScreen({super.key});
+  const FloodFillRasterScreen({super.key,required this.state});
+  final GoRouterState state;
   @override
   State<FloodFillRasterScreen> createState() => _FloodFillRasterState();
 }
@@ -53,7 +55,8 @@ class _FloodFillRasterState extends State<FloodFillRasterScreen>
   @override
   void initState() {
     super.initState();
-    _imageIndex = Get.arguments?['index'] ?? -1;
+    Map<String,dynamic> params = widget.state.uri.queryParameters;
+    _imageIndex = int.tryParse(params['index']) ?? -1;
     _loadImage().then((image) {
       setState(() {
         _image = image;

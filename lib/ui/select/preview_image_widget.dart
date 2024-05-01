@@ -30,9 +30,9 @@ class _ColoringPreviewState extends State<ColoringPreview> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.coloring,arguments: {'index': widget.index});
-        // context.pushNamed(AppRoutes.coloring,
-        //     queryParameters: {'index': '${widget.index}'});
+        // Get.toNamed(AppRoutes.coloring,arguments: {'index': widget.index});
+        context.pushNamed(AppRoutes.coloring,
+            queryParameters: {'index': '${widget.index}'});
       },
       child: Container(
         alignment: Alignment.center,
