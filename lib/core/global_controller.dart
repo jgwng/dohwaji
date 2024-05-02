@@ -13,47 +13,41 @@ class GlobalBinding extends Bindings{
     Get.put(GlobalController());
   }
 }
-class GlobalController extends GetxController{
+class GlobalController extends GetxController {
   bool? isBack = false;
 
   @override
-  void onInit(){
+  void onInit() {
     initWebSetting();
   }
 
 
-  void initWebSetting(){
-    if(PlatformUtil.isWeb == false) return;
+  void initWebSetting() {
+    if (PlatformUtil.isWeb == false) return;
 
-    if(PlatformUtil.isDesktopWeb){
+    if (false) {
       html.window.history.pushState(null, '도화지', html.window.location.href);
       html.window.onPopState.listen((event) {
-
         html.window.history.go(1);
       });
-    }else{
+    } else {
       html.window.onPopState.listen((PopStateEvent event) {
         var hash = window.location.hash;
-        if(ColorRouteObserver().hashList.contains(hash)){
-          try{
+        if (ColorRouteObserver().hashList.contains(hash)) {
+          try {
             if (navigatorKey.currentState?.canPop() ?? false) {
               navigatorKey.currentState?.pop();
             } else {
               debugPrint("Attempted to pop when no routes could be popped.");
             }
-
-          }catch(e){
+          } catch (e) {
             print(e.toString());
           }
-        }else{
-           window.history.replaceState(null, '도화지', ColorRouteObserver().lastPath);
+        } else {
+          window.history.replaceState(
+              null, '도화지', ColorRouteObserver().lastPath);
         }
       });
     }
-
   }
-
-
-
-
 }

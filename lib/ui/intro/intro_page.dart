@@ -57,8 +57,9 @@ class _IntroPageState extends State<IntroPage> {
                   child: DefaultButton(
                     horizontalMargin: 24,
                     onTap: () async {
-                      context.push(AppRoutes.select);
-                      // Get.rootDelegate.toNamed(AppRoutes.select,arguments: {'intro' : 'intro'});
+                      // context.push(AppRoutes.select);
+                      //context.pushNamed(AppRoutes.select);
+                      Get.toNamed(AppRoutes.select);
                     },
                     btnText: '색칠하러 가기',
                   ),

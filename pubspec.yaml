@@ -30,7 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  flutter_web_plugins:
+    sdk: flutter
   #Flutter
   flutter_animate: ^4.5.0
   image: ^4.1.7

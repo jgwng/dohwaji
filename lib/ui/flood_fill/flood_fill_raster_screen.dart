@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:ui' as ui;
 
-import 'package:dohwaji/core/routes.dart';
 import 'package:dohwaji/ui/bottom_sheet/yn_select_bottom_sheet.dart';
 import 'package:dohwaji/ui/flood_fill/image_flood_fill_queue_impl.dart';
 import 'package:dohwaji/ui/flood_fill/image_painter.dart';
@@ -20,8 +19,7 @@ import 'package:http/http.dart' as http;
 
 
 class FloodFillRasterScreen extends StatefulWidget {
-  const FloodFillRasterScreen({super.key,required this.state});
-  final GoRouterState state;
+  const FloodFillRasterScreen({super.key});
   @override
   State<FloodFillRasterScreen> createState() => _FloodFillRasterState();
 }
@@ -55,8 +53,7 @@ class _FloodFillRasterState extends State<FloodFillRasterScreen>
   @override
   void initState() {
     super.initState();
-    Map<String,dynamic> params = widget.state.uri.queryParameters;
-    _imageIndex = int.tryParse(params['index']) ?? -1;
+    _imageIndex = Get.arguments?['index'] ?? -1;
     _loadImage().then((image) {
       setState(() {
         _image = image;
@@ -92,9 +89,9 @@ class _FloodFillRasterState extends State<FloodFillRasterScreen>
           ),
           context,
           imageSize:
-              Size(_image2!.width.toDouble(), _image2!.height.toDouble()),
+          Size(_image2!.width.toDouble(), _image2!.height.toDouble()),
           logicalSize:
-              Size(_image2!.width.toDouble(), _image2!.height.toDouble()));
+          Size(_image2!.width.toDouble(), _image2!.height.toDouble()));
       if (result != null) {
         String list = String.fromCharCodes(result);
         LocalStorage().save('list', list);
@@ -166,7 +163,7 @@ class _FloodFillRasterState extends State<FloodFillRasterScreen>
   Future<img.Image?> convertUiImageToImagePackageImage(ui.Image uiImage) async {
     // Convert ui.Image to ByteData
     final ByteData? byteData =
-        await uiImage.toByteData(format: ui.ImageByteFormat.png);
+    await uiImage.toByteData(format: ui.ImageByteFormat.png);
     if (byteData == null) return null;
 
     // Convert ByteData to Uint8List
@@ -192,7 +189,7 @@ class _FloodFillRasterState extends State<FloodFillRasterScreen>
   Future<Uint8List?> _fetchNetworkToUint8List() async {
     try {
       http.Response _response =
-          await http.get(Uri.parse("https://picsum.photos/200/300/?blur"));
+      await http.get(Uri.parse("https://picsum.photos/200/300/?blur"));
       if (_response.statusCode == 200) {
         Uint8List _unit8List = _response.bodyBytes;
         return _unit8List;
@@ -216,8 +213,8 @@ class _FloodFillRasterState extends State<FloodFillRasterScreen>
                   Get.back();
                 }else{
                   bool? result = await showYNSelectBottomSheet(
-                    title: '그리고 있던 그림을 저장할까요?',
-                    content: '저장하면 다음에 이어 그릴수 있어요!'
+                      title: '그리고 있던 그림을 저장할까요?',
+                      content: '저장하면 다음에 이어 그릴수 있어요!'
                   );
                   if(result == true){
                     Get.back();

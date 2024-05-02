@@ -36,9 +36,9 @@ class ColorRouteObserver extends RouteObserver<PageRoute<dynamic>> {
     if (route is PageRoute) {
       String newUrl = currentUrl(route);
       if (previousRoute != null) {
-        Map<String,dynamic> params = route.settings.arguments as Map<String, dynamic>;
-        savePageParam(route,params);
-
+        html.window.history.pushState(null, '도화지', newUrl);
+        hashList.add('#${route.settings.name ?? ''}');
+        lastPath = newUrl;
       }else{
         hashList.add('');
       }
@@ -119,7 +119,7 @@ class ColorRouteObserver extends RouteObserver<PageRoute<dynamic>> {
       String uri = Uri(path: '', queryParameters: strMap).toString();
 
       if(params.isEmpty) uri = '';
-      html.window.history.replaceState(null, '도화지', '$nowUrl$uri');
+      html.window.history.pushState(null, '도화지', '$nowUrl$uri');
       String newHash = '#${route?.settings.name ?? ''}$uri';
       if(hashList.contains(newHash) == false){
         hashList.add(newHash);

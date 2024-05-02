@@ -3,9 +3,6 @@ import 'package:dohwaji/core/resources.dart';
 import 'package:dohwaji/core/route_observer.dart';
 import 'package:dohwaji/core/routes.dart';
 import 'package:dohwaji/init_setting.dart';
-import 'package:dohwaji/ui/flood_fill/flood_fill_raster_screen.dart';
-import 'package:dohwaji/ui/intro/intro_page.dart';
-import 'package:dohwaji/ui/select/select_page.dart';
 import 'package:dohwaji/util/common_util.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,10 +24,8 @@ class MyApp extends StatelessWidget {
   }
 
   Widget buildApp() {
-    return GetMaterialApp.router(
-      routeInformationParser: appRouter.routeInformationParser,
-      routerDelegate: appRouter.routerDelegate,
-      routeInformationProvider: appRouter.routeInformationProvider,
+    return GetMaterialApp(
+      navigatorKey: navigatorKey,
       title: '도화지',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: AppThemes.pointColor),
@@ -40,13 +35,15 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
         //초기 StatusBar 색상 설정 되는 값
         primarySwatch:
-            CommonUtil().createMaterialColor(AppThemes.backgroundColor),
+        CommonUtil().createMaterialColor(AppThemes.backgroundColor),
         pageTransitionsTheme: pageTransitionTheme,
         useMaterial3: false,
         scaffoldBackgroundColor: AppThemes.backgroundColor,
         fontFamilyFallback: AppFonts.fontFamilyFallback,
         canvasColor: AppThemes.backgroundColor,
       ),
+      routes: colorRoutes,
+      initialRoute: '/',
       initialBinding: GlobalBinding(),
       builder: (context, child) {
         return MediaQuery(
@@ -54,7 +51,7 @@ class MyApp extends StatelessWidget {
           child: child ?? Container(),
         );
       },
-      // navigatorObservers: [ColorRouteObserver()],
+      navigatorObservers: [ColorRouteObserver()],
     );
   }
 }

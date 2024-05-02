@@ -4,6 +4,7 @@ import 'package:dohwaji/ui/intro/intro_page.dart';
 import 'package:dohwaji/ui/select/select_page.dart';
 import 'package:dohwaji/util/platform_util.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRoutes {
@@ -42,31 +43,13 @@ PageTransitionsTheme get pageTransitionTheme {
     },
   );
 }
-GoRouter appRouter = GoRouter(
-  navigatorKey: navigatorKey,
-  observers: [ColorRouteObserver()],
-  routes: [
-    GoRoute(
-      path: AppRoutes.intro,
-      name: AppRoutes.intro,
-      builder: (context, state) => const IntroPage(),
-    ),
-    GoRoute(
-      path: AppRoutes.select,
-      name: AppRoutes.select,
-      builder: (context, state) => const ImageSelectPage(),
-    ),
-    GoRoute(
-      path: AppRoutes.coloring,
-      name: AppRoutes.coloring,
-      builder: (context, GoRouterState state) {
-        return FloodFillRasterScreen(
-          state: state,
-        );
-      },
-    ),
-  ],
-);
+
+Map<String, WidgetBuilder> colorRoutes = {
+  AppRoutes.intro: (_) => const IntroPage(),
+  AppRoutes.select: (_) => const ImageSelectPage(),
+  AppRoutes.coloring: (_) => const FloodFillRasterScreen(),
+};
+
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 BuildContext get globalContext => navigatorKey.currentState!.context;

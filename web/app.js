@@ -1,3 +1,6 @@
+document.oncontextmenu = function(){
+  return false;
+};
 window.addEventListener('load', function(ev) {
   // Download main.dart.js
   let target = document.querySelector("#flutter-view");
