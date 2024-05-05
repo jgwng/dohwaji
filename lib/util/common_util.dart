@@ -1,6 +1,5 @@
 import 'dart:ui' as ui;
 
-import 'package:dohwaji/core/route_observer.dart';
 import 'package:dohwaji/ui/widget/color_snack_bar.dart';
 import 'package:dohwaji/ui/widget/color_toast.dart';
 import 'package:dohwaji/util/platform_util.dart';

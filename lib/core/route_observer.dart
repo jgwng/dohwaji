@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:universal_html/html.dart' as html;
 class ColorRouteObserver extends RouteObserver<PageRoute<dynamic>> {
   static final ColorRouteObserver _instance = ColorRouteObserver._internal();

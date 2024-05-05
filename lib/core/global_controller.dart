@@ -25,7 +25,7 @@ class GlobalController extends GetxController {
   void initWebSetting() {
     if (PlatformUtil.isWeb == false) return;
 
-    if (false) {
+    if (PlatformUtil.isDesktopWeb) {
       html.window.history.pushState(null, '도화지', html.window.location.href);
       html.window.onPopState.listen((event) {
         html.window.history.go(1);

@@ -1,12 +1,9 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dohwaji/core/routes.dart';
-import 'package:dohwaji/util/platform_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
-import 'package:universal_html/html.dart';
 class ColoringPreview extends StatefulWidget {
   ColoringPreview({required this.index});
 

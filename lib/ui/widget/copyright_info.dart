@@ -1,4 +1,4 @@
-import 'dart:html';
+import 'package:universal_html/html.dart';
 
 import 'package:dohwaji/core/resources.dart';
 import 'package:dohwaji/util/platform_util.dart';

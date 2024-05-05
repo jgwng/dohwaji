@@ -7,8 +7,6 @@ import 'package:dohwaji/ui/widget/default_button.dart';
 import 'package:dohwaji/util/platform_util.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
-import 'package:universal_html/html.dart' as html;
 
 class IntroPage extends StatefulWidget {
   const IntroPage({super.key});
