@@ -1,6 +1,6 @@
 import 'package:dohwaji/ui/bottom_sheet/yn_select_bottom_sheet.dart';
-import 'package:dohwaji/ui/flood_fill/image_flood_fill_queue_impl.dart';
-import 'package:dohwaji/ui/flood_fill/image_painter.dart';
+import 'package:dohwaji/ui/flood_fill/util/image_flood_fill_queue_impl.dart';
+import 'package:dohwaji/ui/flood_fill/helper/image_painter.dart';
 import 'package:dohwaji/util/common_util.dart';
 import 'package:dohwaji/util/platform_util.dart';
 import 'package:dohwaji/util/storage_util.dart';
@@ -155,8 +155,21 @@ class FloodFillController extends GetxController with GetSingleTickerProviderSta
           content: '저장하면 다음에 이어 그릴수 있어요!'
       );
       if(result == true){
-        Get.back();
+        var result = await convertUiImageToUint8List();
+        Get.back(result: result);
       }
     }
   }
+
+  Future<Uint8List?> convertUiImageToUint8List() async{
+    final ByteData? byteData =
+    await (image2.value)!.toByteData(format: ui.ImageByteFormat.png);
+    if (byteData == null) return null;
+
+    // Convert ByteData to Uint8List
+    final Uint8List list = byteData.buffer.asUint8List();
+    return list;
+  }
+
+
 }

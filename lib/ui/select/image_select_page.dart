@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dohwaji/core/resources.dart';
+import 'package:dohwaji/ui/select/image_select_controller.dart';
 import 'package:dohwaji/ui/select/preview_image_widget.dart';
 import 'package:dohwaji/ui/widget/color_app_bar.dart';
 import 'package:dohwaji/ui/widget/platform_safe_area.dart';
@@ -12,10 +14,12 @@ class ImageSelectPage extends StatefulWidget {
 
 class _ImageSelectPageState extends State<ImageSelectPage> {
 
+  late ImageSelectController controller;
 
   @override
   void initState(){
     super.initState();
+    controller = Get.put<ImageSelectController>(ImageSelectController());
   }
 
   @override
@@ -42,6 +46,42 @@ class _ImageSelectPageState extends State<ImageSelectPage> {
                           height: 80,
                         ),
                       ),
+                      SliverToBoxAdapter(
+                        child: Obx((){
+                          if(controller.recentImageList.isEmpty){
+                            return const SizedBox();
+                          }
+
+                          return SizedBox(
+                            height: 160,
+                            child: ListView.separated(
+                              padding: const EdgeInsets.only(bottom: 40),
+                              separatorBuilder: (ctx,i){
+                                return const SizedBox(
+                                  width: 16,
+                                );
+                              },
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (ctx,index){
+                                return Container(
+                                  alignment: Alignment.center,
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: const Color(0xffe6e6e6))),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.memory(controller.recentImageList[index]),
+                                  ),
+                                );
+                              },
+                              itemCount: controller.recentImageList.length,
+                            ),
+                          );
+                        }),
+                      ),
                       SliverGrid(
                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
@@ -64,4 +104,8 @@ class _ImageSelectPageState extends State<ImageSelectPage> {
       ),
     );
   }
+
+  String get webAssetUrl => 'https://cdn.jsdelivr.net/gh/jgwng/dohwaji/$assetUrl';
+  String get assetUrl => 'assets/images/example_image_1.jpg';
+
 }

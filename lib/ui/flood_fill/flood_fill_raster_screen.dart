@@ -1,5 +1,5 @@
 import 'package:dohwaji/ui/flood_fill/flood_fill_controller.dart';
-import 'package:dohwaji/ui/flood_fill/image_painter.dart';
+import 'package:dohwaji/ui/flood_fill/helper/image_painter.dart';
 import 'package:dohwaji/ui/widget/color_app_bar.dart';
 import 'package:dohwaji/ui/widget/platform_safe_area.dart';
 import 'package:dohwaji/ui/widget/torn_tape_painter.dart';

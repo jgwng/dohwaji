@@ -1,6 +1,6 @@
 import 'package:dohwaji/ui/flood_fill/flood_fill_raster_screen.dart';
 import 'package:dohwaji/ui/intro/intro_page.dart';
-import 'package:dohwaji/ui/select/select_page.dart';
+import 'package:dohwaji/ui/select/image_select_page.dart';
 import 'package:dohwaji/util/platform_util.dart';
 import 'package:flutter/material.dart';
 

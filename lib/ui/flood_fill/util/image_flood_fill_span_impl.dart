@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:dohwaji/ui/flood_fill/flood_fill_interface.dart';
-import 'package:dohwaji/ui/flood_fill/image_helper.dart';
+import 'package:dohwaji/ui/flood_fill/util/flood_fill_interface.dart';
+import 'package:dohwaji/ui/flood_fill/helper/image_helper.dart';
 import 'package:flutter/material.dart';
 
 class ImageFloodFillSpanImpl extends FloodFill<ui.Image, ui.Color> {

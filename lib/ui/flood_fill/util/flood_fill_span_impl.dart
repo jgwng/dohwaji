@@ -1,4 +1,4 @@
-import 'package:dohwaji/ui/flood_fill/flood_fill_interface.dart';
+import 'package:dohwaji/ui/flood_fill/util/flood_fill_interface.dart';
 
 class FloodFillSpanImpl extends FloodFill<List<List<int>>, int> {
   const FloodFillSpanImpl(List<List<int>> image) : super(image);

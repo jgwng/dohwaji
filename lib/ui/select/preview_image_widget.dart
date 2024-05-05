@@ -1,6 +1,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dohwaji/core/routes.dart';
+import 'package:dohwaji/ui/select/image_select_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -27,8 +28,8 @@ class _ColoringPreviewState extends State<ColoringPreview> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-         Get.toNamed(AppRoutes.coloring,arguments: {'index': widget.index});
-        //context.goNamed(AppRoutes.coloring, queryParameters: {'index': '${widget.index}'});
+        final controller =Get.find<ImageSelectController>();
+        controller.onTapColorImage(widget.index);
       },
       child: Container(
         alignment: Alignment.center,
