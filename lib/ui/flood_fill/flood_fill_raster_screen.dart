@@ -1,9 +1,11 @@
+import 'package:dohwaji/core/route_observer.dart';
 import 'package:dohwaji/ui/flood_fill/flood_fill_controller.dart';
 import 'package:dohwaji/ui/flood_fill/helper/image_painter.dart';
 import 'package:dohwaji/ui/widget/color_app_bar.dart';
 import 'package:dohwaji/ui/widget/platform_safe_area.dart';
 import 'package:dohwaji/ui/widget/torn_tape_painter.dart';
 import 'package:dohwaji/util/common_util.dart';
+import 'package:dohwaji/util/storage_util.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -18,20 +20,12 @@ class FloodFillRasterScreen extends StatefulWidget {
 class _FloodFillRasterState extends State<FloodFillRasterScreen> {
   RxBool isWorking = false.obs;
   late FloodFillController controller;
-
+  String? tag;
   @override
   void initState() {
     super.initState();
-    int imageIndex = Get.arguments?['index'] ?? -1;
-    if(imageIndex != -1){
-      controller = Get.put<FloodFillController>(FloodFillController(),tag: '$imageIndex');
-    }
-
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
+    tag = DateTime.now().toIso8601String();
+    controller = Get.put<FloodFillController>(FloodFillController(),tag: tag);
   }
 
   @override

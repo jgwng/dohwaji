@@ -64,16 +64,22 @@ class _ImageSelectPageState extends State<ImageSelectPage> {
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (ctx,index){
-                                return Container(
-                                  alignment: Alignment.center,
-                                  padding: const EdgeInsets.all(8),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
+                                return InkWell(
+                                  onTap: () async{
+                                    final controller =Get.find<ImageSelectController>();
+                                    controller.onTapSavedImage(index);
+                                  },
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    padding: const EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(color: const Color(0xffe6e6e6))),
+                                    child: ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(color: const Color(0xffe6e6e6))),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Image.memory(controller.recentImageList[index]),
+                                      child: Image.memory(controller.recentImageList[index]),
+                                    ),
                                   ),
                                 );
                               },

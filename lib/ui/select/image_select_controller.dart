@@ -15,5 +15,11 @@ class ImageSelectController extends GetxController{
     }
   }
 
-
+  void onTapSavedImage(int index) async{
+    var result = await Get.toNamed(AppRoutes.coloring,arguments: {'savedData': recentImageList[index]});
+    if(result is Uint8List){
+      recentImageList[index] = result;
+      recentImageList.refresh();
+    }
+  }
 }

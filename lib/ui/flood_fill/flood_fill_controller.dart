@@ -30,7 +30,7 @@ class FloodFillController extends GetxController with GetSingleTickerProviderSta
   AnimationController? fillController;
   GlobalKey imageKey = GlobalKey();
   int _imageIndex = -1;
-
+  String? tag;
 
   RxInt currentColor = 0.obs;
   RxBool isLoading = false.obs;
@@ -75,8 +75,11 @@ class FloodFillController extends GetxController with GetSingleTickerProviderSta
   Future<ui.Image> _loadImage() async {
     Uint8List? colorImage;
     bool hasTempData = LocalStorage().contain('list') ?? false;
+    bool hasSavedData = Get.arguments?['savedData'] != null;
     if (hasTempData == true) {
       colorImage = await getTempData();
+    } else if(hasSavedData){
+      colorImage = Get.arguments['savedData'];
     }
 
     if (colorImage == null) {
@@ -84,6 +87,7 @@ class FloodFillController extends GetxController with GetSingleTickerProviderSta
       final http.Response result = await http.get(Uri.parse('https://cdn.jsdelivr.net/gh/jgwng/dohwaji/assets/images/example_image_$_imageIndex.jpg'));
       colorImage = result.bodyBytes;
     }
+
 
     // _photo = img.decodeImage(list);
     final ui.Codec codec = await ui.instantiateImageCodec(colorImage);
@@ -116,7 +120,9 @@ class FloodFillController extends GetxController with GetSingleTickerProviderSta
       if (result != null) {
         String list = String.fromCharCodes(result);
         LocalStorage().save('list', list);
+        LocalStorage().save('tag', tag ?? '');
       }
+
     }
   }
 
