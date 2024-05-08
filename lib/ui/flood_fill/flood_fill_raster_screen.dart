@@ -5,6 +5,8 @@ import 'package:dohwaji/ui/widget/color_app_bar.dart';
 import 'package:dohwaji/ui/widget/platform_safe_area.dart';
 import 'package:dohwaji/ui/widget/torn_tape_painter.dart';
 import 'package:dohwaji/util/common_util.dart';
+import 'package:dohwaji/util/platform_util.dart';
+import 'package:dohwaji/util/screen_util.dart';
 import 'package:dohwaji/util/storage_util.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -37,6 +39,19 @@ class _FloodFillRasterState extends State<FloodFillRasterScreen> {
             ColorAppBar(
               onTap: controller.onTapBack,
               title: '색칠하기',
+              action: InkWell(
+                onTap: () async{
+                  await controller.capturePng();
+                },
+                child: FittedBox(
+                  child: SvgPicture.asset(
+                    'assets/icons/ic_32_download.svg',
+                    width: 24,
+                    height: 24,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
             ),
             Expanded(
               child: buildBody(),
@@ -54,32 +69,41 @@ class _FloodFillRasterState extends State<FloodFillRasterScreen> {
       children: [
         Stack(
           clipBehavior: Clip.none,
+          // alignment: Alignment.center,
           children: [
-            FittedBox(
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    border: Border.all(color: const Color(0xffeeeeee)),
-                    borderRadius: BorderRadius.circular(8)),
-                child: drawingWidget(),
-              ),
+            Container(
+              width: imageSize,
+              height: imageSize,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color.fromRGBO(27, 29, 31, 0.1),
+                      blurRadius: 10.0,
+                      offset: Offset(0, 6.0),
+                      spreadRadius: 0.0, // Adjust as needed
+                    ),
+                  ],
+                  border: Border.all(color: const Color(0xffeeeeee)),
+                  borderRadius: BorderRadius.circular(8)),
+              child: drawingWidget(),
             ),
             Positioned(
-              left: (332/2)-40,
-              top: -20,
+              left: ((imageSize/2)-50),
+              top: (-14.0).w,
               child: CustomPaint(
                 painter: TornPaperPainter(),
-                size: const Size(80, 32),
+                size: const Size(100, 40),
               ),
             )
           ],
         ),
         const SizedBox(
-          height: 16,
+          height: 32,
         ),
         SizedBox(
-          width: 332,
+          width: imageSize,
           child: GridView.builder(
             shrinkWrap: true,
             itemBuilder: (ctx, index) => InkWell(
@@ -123,51 +147,6 @@ class _FloodFillRasterState extends State<FloodFillRasterScreen> {
             ),
           ),
         ),
-        InkWell(
-          onTap: () async {
-            controller.capturePng();
-          },
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-            decoration: BoxDecoration(
-                color: const Color.fromRGBO(240, 163, 70, 1.0),
-                borderRadius: BorderRadius.circular(8.0)),
-            child: const Text(
-              '이미지 저장',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-              ),
-            ),
-          ),
-        ),
-        Row(
-          children: [
-            InkWell(
-              onTap: () async {
-                controller.capturePng();
-                return;
-              },
-              child: Container(
-                height: 60,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-                decoration: BoxDecoration(
-                    color: const Color.fromRGBO(240, 163, 70, 1.0),
-                    borderRadius: BorderRadius.circular(8.0)),
-                child: const Text(
-                  '이미지 업로드 테스트',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        )
       ],
     );
   }
@@ -176,8 +155,8 @@ class _FloodFillRasterState extends State<FloodFillRasterScreen> {
     return RepaintBoundary(
       key: controller.imageKey,
       child: Container(
-        width: 300,
-        height: 300,
+        width: imageSize,
+        height: imageSize,
         alignment: Alignment.center,
         child: Obx(() {
           if (controller.originalImage.value == null) {
@@ -201,5 +180,17 @@ class _FloodFillRasterState extends State<FloodFillRasterScreen> {
         }),
       ),
     );
+  }
+
+  double get imageSize{
+    if(PlatformUtil.isDesktopWeb == false){
+      return (Get.width-32).w;
+    }else{
+      if(ScreenUtil().screenWidth == 600){
+        return 400;
+      }else{
+        return (Get.width-32).w;
+      }
+    }
   }
 }

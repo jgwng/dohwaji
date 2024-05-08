@@ -5,6 +5,7 @@ import 'package:dohwaji/ui/select/image_select_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:universal_html/html.dart' as html;
 class ColoringPreview extends StatefulWidget {
   ColoringPreview({required this.index});
 
@@ -28,8 +29,10 @@ class _ColoringPreviewState extends State<ColoringPreview> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        final controller =Get.find<ImageSelectController>();
-        controller.onTapColorImage(widget.index);
+        double screenWidth = (html.window.innerWidth ?? 0).toDouble();
+        print('screenWidth : $screenWidth');
+        // final controller =Get.find<ImageSelectController>();
+        // controller.onTapColorImage(widget.index);
       },
       child: Container(
         alignment: Alignment.center,

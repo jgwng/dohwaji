@@ -1,26 +1,14 @@
+import 'package:dohwaji/core/resources.dart';
 import 'package:flutter/material.dart';
 
-class TornPaper extends StatelessWidget {
-  const TornPaper({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Custom Painted Torn Paper')),
-      body: Center(
-        child: CustomPaint(
-          painter: TornPaperPainter(),
-          size: const Size(300, 100),
-        ),
-      ),
-    );
-  }
-}
-
 class TornPaperPainter extends CustomPainter {
+  final Color? tapeColor;
+
+  TornPaperPainter({this.tapeColor});
+
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint paint = Paint()..color = Colors.grey.shade300;
+    final Paint paint = Paint()..color = tapeColor ?? AppThemes.pointColor;
     final Path path = Path();
 
     // Start from the top left corner
