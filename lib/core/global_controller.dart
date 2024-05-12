@@ -24,7 +24,11 @@ class GlobalController extends GetxController {
 
   void initWebSetting() {
     if (PlatformUtil.isWeb == false) return;
-
+    html.window.addEventListener('beforeinstallprompt', (e) {
+      e.preventDefault();
+      BeforeInstallPromptEvent event = e as BeforeInstallPromptEvent;
+      print('deferredPrompt Global : $event');
+    });
     if (PlatformUtil.isDesktopWeb) {
       html.window.history.pushState(null, '도화지', html.window.location.href);
       html.window.onPopState.listen((event) {
