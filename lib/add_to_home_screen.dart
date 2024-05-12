@@ -1,3 +1,5 @@
+import 'package:dohwaji/ui/widget/add_to_home_overlay.dart';
+import 'package:dohwaji/util/platform_util.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:universal_html/js.dart' as js;
@@ -20,6 +22,12 @@ void addToHomeScreen() async{
   }
 }
 
+void showA2HSOverlay(){
+   AddToHome().showOverlay();
+  // if(PlatformUtil.isPWA == false){
+  //     AddToHome().showOverlay();
+  // }
+}
 
 Future<bool?> showAddHomePageDialog(BuildContext context) async {
   return showDialog<bool>(

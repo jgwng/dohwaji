@@ -1,6 +1,8 @@
 
+import 'package:dohwaji/add_to_home_screen.dart';
 import 'package:dohwaji/core/route_observer.dart';
 import 'package:dohwaji/core/routes.dart';
+import 'package:dohwaji/util/common_util.dart';
 import 'package:dohwaji/util/platform_util.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
