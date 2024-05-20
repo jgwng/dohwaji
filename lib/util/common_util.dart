@@ -173,7 +173,8 @@ class CommonUtil {
       script.remove();
     });
   }
-
+  static ColorFilter svgFilter(Color color, {BlendMode mode = BlendMode.srcIn}) =>
+      ColorFilter.mode(color, mode);
 }
 
 extension ColorExtension on Color {

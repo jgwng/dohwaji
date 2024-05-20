@@ -42,14 +42,26 @@
   <script src="script.js" defer></script>
 </head>
 <body>
-  <div class="splash">
+<div class="container">
+  <div class="leftSide">
+
+  </div>
+  <div class ="splash">
     <img
-            id="loader"
-            width="192" height="192"
+            id="logo"
+            width="300" height="300"
             src="logo/icon_192.png"
-            style="z-index:1000"
+            style="position: absolute; margin: 0;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+           "
     />
   </div>
-  <div id="flutter-view"></div>
+  <div id="flutter-view">
+  </div>
+  <div class="rightSide"></div>
+</div>
 </body>
 </html>

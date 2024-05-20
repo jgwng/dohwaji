@@ -1,3 +1,4 @@
+import 'package:dohwaji/core/keys.dart';
 import 'package:dohwaji/ui/widget/add_to_home_overlay.dart';
 import 'package:dohwaji/util/platform_util.dart';
 import 'package:flutter/material.dart';
@@ -23,10 +24,23 @@ void addToHomeScreen() async{
 }
 
 void showA2HSOverlay(){
-   AddToHome().showOverlay();
-  // if(PlatformUtil.isPWA == false){
-  //     AddToHome().showOverlay();
-  // }
+  if(PlatformUtil.isPWA == false){
+    bool showInduceBanner = true;
+    String? hiddenDate = GetStorage().read(Keys.HIDDEN_INDUCE_BANNER);
+    if(hiddenDate != null){
+      DateTime lastHidden = DateTime.parse(hiddenDate);
+      if(DateUtils.isSameDay(lastHidden, DateUtils.dateOnly(DateTime.now())) == false){
+        showInduceBanner = true;
+      }else{
+        showInduceBanner = false;
+      }
+    }else{
+      showInduceBanner = true;
+    }
+    if(showInduceBanner == true){
+      AddToHome().showOverlay();
+    }
+  }
 }
 
 Future<bool?> showAddHomePageDialog(BuildContext context) async {
