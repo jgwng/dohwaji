@@ -74,17 +74,18 @@ class CommonUtil {
     return result;
   }
 
-  Future<void> loadFont(String font) async {
+  Future<void> loadFont(String font,String url) async {
     FontLoader loader = FontLoader(font);
     // loader.addFont(rootBundle.load('assets/fonts/${qrFonts.fontFileName}'));
-    loader.addFont(_fetchFont(font));
+    loader.addFont(_fetchFont(font,url));
     await loader.load();
   }
 
-  Future<ByteData> _fetchFont(String fontFileName) async {
+  Future<ByteData> _fetchFont(String fontFileName,String url) async {
     try {
-      final response = await http.get(Uri.parse(
-          'https://cdn.jsdelivr.net/gh/jgwng/web_fonts/$fontFileName.woff'));
+      // String url =  'https://cdn.jsdelivr.net/gh/jgwng/web_fonts/$fontFileName.woff';
+      final response = await http.get(Uri.parse(url));
+
       if (response.statusCode == 200) {
         return ByteData.view(response.bodyBytes.buffer);
       } else {
