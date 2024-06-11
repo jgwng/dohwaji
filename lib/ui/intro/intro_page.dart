@@ -49,7 +49,6 @@ class _IntroPageState extends State<IntroPage> {
               children: [
                 const SizedBox(height: 60),
                 title(),
-                Text('🐵🐒🦍🦧🐶🐕🦮🐕‍🦺🐩🐺🦊🦝🐱'),
                 const Spacer(),
                 Container(
                   padding: const EdgeInsets.only(bottom: 30),

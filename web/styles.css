@@ -1,77 +1,92 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   background-color: #F7F8F9;
-  height: 100vh;
-  width: 100vw;
-  margin: 0px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
 }
-.splash {
-    background-color: #FFFAFA;
-    position: absolute;
-    height: 100vh;
-    width: 600px;
-    opacity: 1;
-    transition: opacity 0.4s ease-out;
-    display: flex;
-    flex-direction: column; /* Change flex direction to column */
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-}
-.splash img {
-            height: 240px;
-            width: 240px;
-        }
-/* Styles for the progress bar container */
-.progress-container {
-    width: 240px;
-    height: 8px;
-    background-color: #e0e0e0;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: opacity 0.25s ease-out;
-    margin-top: 20px; /* Add some margin to separate from the image */
-}
-
-/* Styles for the progress bar */
-.progress-bar {
-    display: block;
-    height: 100%;
-    background-color: #2B6747;
-    width: 0;
-    border-radius: 10px;
-    transition: width 0.5s ease;
-}
-#flutter-view {
-  max-width: 600px;
-  width: 100%;  /* Adjust if necessary */
-  height: 100%;  /* Adjust if necessary */
-  background-color: #F7F8F9;
-  opacity: 1;
-  position: relative;  /* Maintain as is for layering purposes */
-  display: flex;  /* Ensures content within is centered */
-  justify-content: center;  /* Center horizontally */
-  align-items: center;  /* Center vertically */
-  transition: opacity 0.4s ease-out;  /* Smooth transition for fading */
-}
 
 .container {
   display: flex;
   width: 100%;
-  height: 100vh;
-  justify-content: center;  /* This ensures horizontal centering */
-  align-items: center;  /* This ensures vertical centering */
+  height: 100%;
+  justify-content: center;
+  align-items: center;
   background-color: #F0F0F3;
 }
 
-.leftSide, .rightSide {
+.splash {
+  background-color: #FFFAFA;
+  position: absolute;
   height: 100vh;
-  flex: 1;  /* Takes up equal space on both sides */
-  background-color: #F0F0F3;  /* Visible red to see dimensions */
+  width: 600px;
+  opacity: 1;
+  transition: opacity 0.4s ease-out;
   display: flex;
-  justify-content: center;  /* Center content horizontally */
-  align-items: center;  /* Center content vertically */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.splash img {
+  width: 192px;
+  height: 192px;
+}
+
+.progress-container {
+  width: 192px;
+  height: 8px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: opacity 0.25s ease-out;
+  margin-top: 40px;
+}
+
+.progress-bar {
+  display: block;
+  height: 100%;
+  background-color: #2B6747;
+  width: 0;
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+
+#flutter-view {
+  max-width: 600px;
+  width: 100%;
+  height: 100%;
+  background-color: #F7F8F9;
+  opacity: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.4s ease-out;
+}
+
+.side {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.leftSide, .rightSide {
+  flex: 1;
+  height: 100vh;
+  background-color: #F0F0F3;
+}
+
+.topSide, .bottomSide {
+  flex: 1;
+  width: 100%;
+  background-color: #FFFAFA;
 }

@@ -8,11 +8,24 @@ const progressBar = document.getElementById("progressbar");
 // Set the initial width of the progress bar to 0%.
 progress.style.width = `0%`;
 
+function getElementPosition(element) {
+            const rect = element.getBoundingClientRect();
+            return {
+                top: rect.top + window.scrollY,
+                left: rect.left + window.scrollX,
+                bottom: rect.bottom + window.scrollY,
+                right: rect.right + window.scrollX,
+                width: rect.width,
+                height: rect.height
+            };
+        }
 
 window.addEventListener('load', function(ev) {
   // Set an initial progress of 33% when the page loads.
   progress.style.width = `33%`;
-
+ const myElement = document.getElementById('logo');
+ const position = getElementPosition(myElement);
+ console.log('Element Position:', position);
   // Download main.dart.js
   let target = document.querySelector("#flutter-view");
 
@@ -49,7 +62,7 @@ window.addEventListener('load', function(ev) {
                        };
        const appRunner = await engineInitializer.initializeEngine(config);
        // Set progress to 99% before adding a delay.
-       progress.style.width = `99%`;
+       progress.style.width = `100%`;
 
        appRunner.runApp().then((_) => {
         document.querySelector('meta[name="viewport"]').setAttribute('content', "width=device-width, initial-scale=1.0, viewport-fit=cover");
