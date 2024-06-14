@@ -4,8 +4,13 @@ class AppFonts {
   static const String bold = 'SandBox Bold';
   static const String medium = 'Noto Sans SC';
   static const String emoji = 'NotoColorEmoji';
-  static const List<String> fontFamilyFallback =  ['Noto Sans SC', "Noto Sans Symbols", AppFonts.emoji];
-  static const String emojiUrl = 'https://fonts.gstatic.com/s/notocoloremoji/v25/Yq6P-KqIXTD0t4D9z1ESnKM3-HpFab5s79iz64w.ttf';
+  static const List<String> fontFamilyFallback = [
+    'Noto Sans SC',
+    "Noto Sans Symbols",
+    AppFonts.emoji
+  ];
+  static const String emojiUrl =
+      'https://fonts.gstatic.com/s/notocoloremoji/v25/Yq6P-KqIXTD0t4D9z1ESnKM3-HpFab5s79iz64w.ttf';
 }
 
 class AppThemes {

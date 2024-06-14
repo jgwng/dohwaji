@@ -8,7 +8,6 @@ import 'dart:collection';
 class ImageFloodFillQueueImpl extends FloodFill<ui.Image, ui.Color> {
   ImageFloodFillQueueImpl(ui.Image image) : super(image);
 
-
   @override
   Future<ui.Image?> fill(int startX, int startY, ui.Color newColor) async {
     ByteData? byteData = await imageToBytes(image);
@@ -40,9 +39,7 @@ class ImageFloodFillQueueImpl extends FloodFill<ui.Image, ui.Color> {
       var pixelColor =
           getPixelColor(bytes: byteData, x: x, y: y, imageWidth: width);
       if (isAlmostSameColor(
-          pixelColor: pixelColor,
-          checkColor: oldColor,
-          threshold: 90)) {
+          pixelColor: pixelColor, checkColor: oldColor, threshold: 90)) {
         setPixelColor(
             x: x,
             y: y,

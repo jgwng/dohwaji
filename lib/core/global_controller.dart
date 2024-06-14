@@ -1,4 +1,3 @@
-
 import 'package:dohwaji/add_to_home_screen.dart';
 import 'package:dohwaji/core/route_observer.dart';
 import 'package:dohwaji/core/routes.dart';
@@ -9,12 +8,14 @@ import 'package:get/get.dart';
 import 'dart:html' as html;
 
 import 'package:universal_html/html.dart';
-class GlobalBinding extends Bindings{
+
+class GlobalBinding extends Bindings {
   @override
   void dependencies() {
     Get.put(GlobalController());
   }
 }
+
 class GlobalController extends GetxController {
   bool? isBack = false;
 
@@ -22,7 +23,6 @@ class GlobalController extends GetxController {
   void onInit() {
     initWebSetting();
   }
-
 
   void initWebSetting() {
     if (PlatformUtil.isWeb == false) return;
@@ -50,8 +50,8 @@ class GlobalController extends GetxController {
             print(e.toString());
           }
         } else {
-          window.history.replaceState(
-              null, '도화지', ColorRouteObserver().lastPath);
+          window.history
+              .replaceState(null, '도화지', ColorRouteObserver().lastPath);
         }
       });
     }

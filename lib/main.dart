@@ -20,8 +20,6 @@ void main() async {
   runApp(const MyApp());
 }
 
-
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -42,7 +40,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
         //초기 StatusBar 색상 설정 되는 값
         primarySwatch:
-        CommonUtil().createMaterialColor(AppThemes.backgroundColor),
+            CommonUtil().createMaterialColor(AppThemes.backgroundColor),
         pageTransitionsTheme: pageTransitionTheme,
         useMaterial3: false,
         scaffoldBackgroundColor: AppThemes.backgroundColor,
@@ -62,7 +60,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 
 class BeforeInstallPrompt extends StatefulWidget {
   final Widget child;

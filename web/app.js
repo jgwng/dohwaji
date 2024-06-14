@@ -18,7 +18,68 @@ function getElementPosition(element) {
                 width: rect.width,
                 height: rect.height
             };
-        }
+}
+
+function checkCameraPermissions() {
+            if (navigator.permissions) {
+                navigator.permissions.query({ name: 'camera' }).then(function(permissionStatus) {
+                    // Send the permission status to Dart
+                    window.postMessage(permissionStatus.state, '*');
+
+                    // If permission is prompt, request it explicitly
+                    if (permissionStatus.state === 'prompt') {
+                        navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+                            // Permission granted
+                            window.postMessage('granted', '*');
+                            // Stop all video tracks to release the camera
+                            stream.getTracks().forEach(track => track.stop());
+                        }).catch(function(error) {
+                            // Permission denied
+                            window.postMessage('denied', '*');
+                        });
+                    }
+                }).catch(function(error) {
+                    // Error occurred
+                    window.postMessage('error', '*');
+                });
+            } else {
+                // Permissions API not supported
+                window.postMessage('Permissions API not supported', '*');
+    }
+}
+ // Function to detect if the user is on a mobile device
+function isMobile() {
+            return /Mobi|Android/i.test(navigator.userAgent);
+}
+
+        // Function to add or update an attribute in the viewport meta tag
+function updateViewportAttributes(attributesMap) {
+    var viewportMetaTag = document.querySelector('meta[name="viewport"]');
+    if (viewportMetaTag) {
+        var content = viewportMetaTag.getAttribute('content');
+        var contentObject = content.split(',').reduce((acc, curr) => {
+            var [key, val] = curr.trim().split('=');
+            acc[key] = val;
+            return acc;
+        }, {});
+
+        // Update or remove attributes based on the attributesMap
+        Object.keys(attributesMap).forEach(key => {
+            if (attributesMap[key] === null || attributesMap[key] === undefined) {
+                // Remove attribute if value is null or undefined
+                delete contentObject[key];
+            } else {
+                // Update attribute normally
+                contentObject[key] = attributesMap[key];
+            }
+        });
+
+        var newContent = Object.entries(contentObject).map(([key, val]) => `${key}=${val}`).join(', ');
+        viewportMetaTag.setAttribute('content', newContent);
+    } else {
+        console.error('Viewport meta tag not found');
+    }
+}
 
 window.addEventListener('load', function(ev) {
   // Set an initial progress of 33% when the page loads.
@@ -65,7 +126,11 @@ window.addEventListener('load', function(ev) {
        progress.style.width = `100%`;
 
        appRunner.runApp().then((_) => {
-        document.querySelector('meta[name="viewport"]').setAttribute('content', "width=device-width, initial-scale=1.0, viewport-fit=cover");
+        updateViewportAttributes({
+                   'interactive-widget': 'resizes-content',
+                   'viewport-fit': 'cover',
+                   'user-scalable': 'no'
+               });
       });
     }
   });
@@ -100,7 +165,6 @@ function setMetaThemeColor(color) {
 }
 
 async function removeSplashLogo() {
-      document.querySelector('meta[name="viewport"]').setAttribute('content', "width=device-width, initial-scale=1.0, viewport-fit=cover");
       var loaderContent = document.querySelector('.splash');
       var flutterView = document.getElementById('flutter-view');
       // Fade out the splash screen

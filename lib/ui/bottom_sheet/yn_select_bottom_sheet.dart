@@ -9,13 +9,12 @@ Future<bool?> showYNSelectBottomSheet(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(40.0)),
       ),
-      builder: (context){
+      builder: (context) {
         return SelectYNBottomSheet(
           title: title,
           content: content,
         );
-      }
-  );
+      });
   if (result != null) return result;
   return null;
 }
@@ -32,7 +31,7 @@ class SelectYNBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-          color:AppThemes.backgroundColor,
+          color: AppThemes.backgroundColor,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(40),
             topRight: Radius.circular(40),
@@ -87,16 +86,17 @@ class SelectYNBottomSheet extends StatelessWidget {
     bool isCancel = title == '아니오';
     Color? btnColor = isCancel ? Colors.transparent : AppThemes.pointColor;
     Color titleColor = isCancel ? Colors.black : Colors.white;
-    Color? borderColor = isCancel ? Color.fromRGBO(234, 234, 234, 1.0) : Colors.transparent;
+    Color? borderColor =
+        isCancel ? Color.fromRGBO(234, 234, 234, 1.0) : Colors.transparent;
     return InkWell(
       onTap: () {
-        Navigator.pop(globalContext,!isCancel);
+        Navigator.pop(globalContext, !isCancel);
       },
       child: Container(
         height: 50,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          border: Border.all(color:borderColor),
+            border: Border.all(color: borderColor),
             color: btnColor,
             borderRadius: BorderRadius.circular(12.0)),
         child: Text(

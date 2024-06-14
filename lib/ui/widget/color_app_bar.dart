@@ -4,14 +4,9 @@ import 'package:dohwaji/util/screen_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ColorAppBar extends StatelessWidget{
-  ColorAppBar(
-      {Key? key,
-         this.onTap,
-         this.title,
-         this.isClose,
-         this.action
-      }) : super(key: key);
+class ColorAppBar extends StatelessWidget {
+  ColorAppBar({Key? key, this.onTap, this.title, this.isClose, this.action})
+      : super(key: key);
 
   final VoidCallback? onTap;
   final String? title;
@@ -33,8 +28,9 @@ class ColorAppBar extends StatelessWidget{
               alignment: Alignment.center,
               child: FittedBox(
                 child: SvgPicture.asset(
-                  (isClose ?? false) ?  'assets/icons/ic_32_close.svg' :
-                  'assets/icons/ic_32_back.svg',
+                  (isClose ?? false)
+                      ? 'assets/icons/ic_32_close.svg'
+                      : 'assets/icons/ic_32_back.svg',
                   width: 32,
                   height: 32,
                   fit: BoxFit.fitWidth,
@@ -46,17 +42,18 @@ class ColorAppBar extends StatelessWidget{
             child: Center(
               child: Text(title ?? '',
                   textAlign: TextAlign.center,
-                  style:  TextStyle(
-                color: AppThemes.buttonTextColor,
-                fontFamily: AppFonts.medium,
-                fontSize: (PlatformUtil.isDesktopWeb ? 24 : 20).fs,
-              )),
+                  style: TextStyle(
+                    color: AppThemes.buttonTextColor,
+                    fontFamily: AppFonts.medium,
+                    fontSize: (PlatformUtil.isDesktopWeb ? 24 : 20).fs,
+                  )),
             ),
           ),
-          action ?? const SizedBox(
-            height: 32,
-            width: 32,
-          )
+          action ??
+              const SizedBox(
+                height: 32,
+                width: 32,
+              )
         ],
       ),
     );

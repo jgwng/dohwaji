@@ -28,7 +28,6 @@ class _IntroPageState extends State<IntroPage> {
   void initState() {
     titleIndex = Random().nextInt(introTitleList.length);
 
-
     super.initState();
   }
 

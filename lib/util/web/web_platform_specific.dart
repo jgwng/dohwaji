@@ -62,9 +62,9 @@ class WebUtil extends PlatformInterface {
   }
 
   @override
-  void downloadImage(Uint8List? image){
-    if(image == null) return;
-    if(PlatformUtil.isDesktopWeb == true){
+  void downloadImage(Uint8List? image) {
+    if (image == null) return;
+    if (PlatformUtil.isDesktopWeb == true) {
       final base64data = base64Encode(image);
 
       // then we create and AnchorElement with the html package
@@ -78,10 +78,8 @@ class WebUtil extends PlatformInterface {
       a.click();
       // finally we remove the AnchorElement
       a.remove();
-    }else{
+    } else {
       showImageDownloadDialog(downloadImage: image);
     }
-
-
   }
 }

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 Future<void> showImageDownloadDialog(
-    { required Uint8List? downloadImage}) async {
+    {required Uint8List? downloadImage}) async {
   await showDialog(
     context: globalContext,
     builder: (BuildContext context) {
@@ -40,9 +40,10 @@ class _ImageDownloadState extends State<ImageDownloadDialog> {
     initId = 'initId';
 
     _iframeElement.width = '$boxWidth';
-   _iframeElement.height = '$boxHeight';
+    _iframeElement.height = '$boxHeight';
     _iframeElement.style.border = 'none';
-    var url = Uri.dataFromBytes(widget.downloadImage!, mimeType: 'image/png').toString();
+    var url = Uri.dataFromBytes(widget.downloadImage!, mimeType: 'image/png')
+        .toString();
     dataUrl = url;
     _iframeElement.srcdoc = imageDocHtml(dataUrl, boxWidth, boxHeight);
 
@@ -84,7 +85,7 @@ class _ImageDownloadState extends State<ImageDownloadDialog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           InkWell(
-            onTap: (){
+            onTap: () {
               Navigator.pop(context);
             },
             child: Container(

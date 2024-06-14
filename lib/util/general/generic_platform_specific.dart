@@ -32,9 +32,9 @@ class GeneralUtil extends PlatformInterface {
   void removeEventListener(String type, Function? listener) {}
 
   @override
-  void downloadImage(Uint8List? image) async{
-    if(image == null) return;
+  void downloadImage(Uint8List? image) async {
+    if (image == null) return;
 
-    await ImageGallerySaver.saveImage(image,quality: 100);
+    await ImageGallerySaver.saveImage(image, quality: 100);
   }
 }

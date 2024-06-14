@@ -74,14 +74,14 @@ class CommonUtil {
     return result;
   }
 
-  Future<void> loadFont(String font,String url) async {
+  Future<void> loadFont(String font, String url) async {
     FontLoader loader = FontLoader(font);
     // loader.addFont(rootBundle.load('assets/fonts/${qrFonts.fontFileName}'));
-    loader.addFont(_fetchFont(font,url));
+    loader.addFont(_fetchFont(font, url));
     await loader.load();
   }
 
-  Future<ByteData> _fetchFont(String fontFileName,String url) async {
+  Future<ByteData> _fetchFont(String fontFileName, String url) async {
     try {
       // String url =  'https://cdn.jsdelivr.net/gh/jgwng/web_fonts/$fontFileName.woff';
       final response = await http.get(Uri.parse(url));
@@ -129,11 +129,13 @@ class CommonUtil {
     if (PlatformUtil.isWeb) {
       CommonUtil.runJSFunction('setMetaThemeColor', color.toStatusHex());
       // js.context.callMethod('setMetaThemeColor', [color.toStatusHex()]);
-    } else {
-
-    }
+    } else {}
   }
-  static void showToast({required String msg, required BuildContext context, int seconds = 2}) async {
+
+  static void showToast(
+      {required String msg,
+      required BuildContext context,
+      int seconds = 2}) async {
     OverlayEntry _overlay = OverlayEntry(builder: (_) => ColorToast(msg: msg));
     Overlay.of(context).insert(_overlay);
     await Future.delayed(Duration(seconds: seconds));
@@ -142,26 +144,23 @@ class CommonUtil {
 
   static void showSnackBar(
       {required String msg,
-        required BuildContext context,
-        int seconds = 2}) async {
+      required BuildContext context,
+      int seconds = 2}) async {
     OverlayEntry _overlay =
-    OverlayEntry(builder: (_) => ColorSnackbar(msg: msg));
+        OverlayEntry(builder: (_) => ColorSnackbar(msg: msg));
     Overlay.of(context).insert(_overlay);
   }
+
   static bool useWhiteForeground(Color backgroundColor) =>
       1.05 / (backgroundColor.computeLuminance() + 0.05) > 4.5;
 
-
-
-
-
-  static void runJSFunction(String fnName,dynamic parameter){
+  static void runJSFunction(String fnName, dynamic parameter) {
     // Create a script element
-    final script = html.ScriptElement()
-      ..type = 'application/javascript';
+    final script = html.ScriptElement()..type = 'application/javascript';
 
     // Correctly serialize the parameter, assuming it's a string for this context
-    final parameterSerialized = parameter is String ? "'$parameter'" : parameter.toString();
+    final parameterSerialized =
+        parameter is String ? "'$parameter'" : parameter.toString();
 
     // Set the script content to call the function with the parameter
     script.text = '$fnName($parameterSerialized);';
@@ -174,7 +173,9 @@ class CommonUtil {
       script.remove();
     });
   }
-  static ColorFilter svgFilter(Color color, {BlendMode mode = BlendMode.srcIn}) =>
+
+  static ColorFilter svgFilter(Color color,
+          {BlendMode mode = BlendMode.srcIn}) =>
       ColorFilter.mode(color, mode);
 }
 

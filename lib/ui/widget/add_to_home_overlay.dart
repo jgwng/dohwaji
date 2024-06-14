@@ -7,22 +7,21 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-class AddToHome{
-
+class AddToHome {
   OverlayEntry? a2hsOverlay;
 
-  void showOverlay(){
-    try{
+  void showOverlay() {
+    try {
       a2hsOverlay = OverlayEntry(
         builder: (context) => inducePopup(),
       );
       navigatorKey.currentState?.overlay?.insert(a2hsOverlay!);
-    }catch(e){
+    } catch (e) {
       debugPrint(e.toString());
     }
   }
 
-  Widget inducePopup(){
+  Widget inducePopup() {
     return Positioned(
       bottom: 0,
       left: 0,
@@ -43,9 +42,10 @@ class AddToHome{
               right: 8,
               top: 8,
               child: InkWell(
-                onTap: () async{
+                onTap: () async {
                   DateTime now = DateUtils.dateOnly(DateTime.now());
-                  await GetStorage().write(Keys.HIDDEN_INDUCE_BANNER, now.toString());
+                  await GetStorage()
+                      .write(Keys.HIDDEN_INDUCE_BANNER, now.toString());
                   a2hsOverlay?.remove();
                 },
                 child: SizedBox(

@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dohwaji/core/routes.dart';
 import 'package:dohwaji/ui/select/image_select_controller.dart';
@@ -6,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:universal_html/html.dart' as html;
+
 class ColoringPreview extends StatefulWidget {
   ColoringPreview({required this.index});
 
@@ -19,7 +19,7 @@ class _ColoringPreviewState extends State<ColoringPreview> {
   Uint8List? coloringImage;
 
   @override
-  void didChangeDependencies() async{
+  void didChangeDependencies() async {
     // Adjust the provider based on the image type
     await precacheImage(CachedNetworkImageProvider(webAssetUrl), context);
     super.didChangeDependencies();
@@ -43,13 +43,14 @@ class _ColoringPreviewState extends State<ColoringPreview> {
             border: Border.all(color: const Color(0xffe6e6e6))),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: CachedNetworkImage( imageUrl: webAssetUrl),
+          child: CachedNetworkImage(imageUrl: webAssetUrl),
         ),
       ),
     );
   }
 
   // String get webAssetUrl => '${window.location.origin}/assets/$assetUrl';
-  String get webAssetUrl => 'https://cdn.jsdelivr.net/gh/jgwng/dohwaji/$assetUrl';
+  String get webAssetUrl =>
+      'https://cdn.jsdelivr.net/gh/jgwng/dohwaji/$assetUrl';
   String get assetUrl => 'assets/images/example_image_${widget.index}.jpg';
 }

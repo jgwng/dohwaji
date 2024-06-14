@@ -58,8 +58,8 @@ class PlatformUtil {
     _platformInterface.removeEventListener(type, listener);
   }
 
-  static void downloadImage(ui.Image? image) async{
-    if(image == null) return;
+  static void downloadImage(ui.Image? image) async {
+    if (image == null) return;
     Size imageSize = Size(image.width.toDouble(), image.height.toDouble());
     Uint8List? resultData = await CommonUtil.createImageFromWidget(
         CustomPaint(

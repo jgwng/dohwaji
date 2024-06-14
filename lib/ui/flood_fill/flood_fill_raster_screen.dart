@@ -27,7 +27,7 @@ class _FloodFillRasterState extends State<FloodFillRasterScreen> {
   void initState() {
     super.initState();
     tag = DateTime.now().toIso8601String();
-    controller = Get.put<FloodFillController>(FloodFillController(),tag: tag);
+    controller = Get.put<FloodFillController>(FloodFillController(), tag: tag);
   }
 
   @override
@@ -40,7 +40,7 @@ class _FloodFillRasterState extends State<FloodFillRasterScreen> {
               onTap: controller.onTapBack,
               title: '색칠하기',
               action: InkWell(
-                onTap: () async{
+                onTap: () async {
                   await controller.capturePng();
                 },
                 child: FittedBox(
@@ -90,7 +90,7 @@ class _FloodFillRasterState extends State<FloodFillRasterScreen> {
               child: drawingWidget(),
             ),
             Positioned(
-              left: ((imageSize/2)-50),
+              left: ((imageSize / 2) - 50),
               top: (-14.0).w,
               child: CustomPaint(
                 painter: TornPaperPainter(),
@@ -182,14 +182,14 @@ class _FloodFillRasterState extends State<FloodFillRasterScreen> {
     );
   }
 
-  double get imageSize{
-    if(PlatformUtil.isDesktopWeb == false){
-      return (Get.width-32).w;
-    }else{
-      if(ScreenUtil().screenWidth == 600){
+  double get imageSize {
+    if (PlatformUtil.isDesktopWeb == false) {
+      return (Get.width - 32).w;
+    } else {
+      if (ScreenUtil().screenWidth == 600) {
         return 400;
-      }else{
-        return (Get.width-32).w;
+      } else {
+        return (Get.width - 32).w;
       }
     }
   }

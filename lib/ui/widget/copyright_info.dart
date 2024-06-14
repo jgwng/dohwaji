@@ -27,9 +27,13 @@ class DohwaJiCopyRightInfo extends StatelessWidget {
             width: 2,
           ),
           InkWell(
-            onTap: (){
-              if(PlatformUtil.isWeb){
-                window.open('https://github.com/jgwng', '', '',);
+            onTap: () {
+              if (PlatformUtil.isWeb) {
+                window.open(
+                  'https://github.com/jgwng',
+                  '',
+                  '',
+                );
               }
             },
             child: const Text(

@@ -3,49 +3,47 @@ import 'package:dohwaji/util/platform_util.dart';
 import 'package:flutter/material.dart';
 import 'package:universal_html/html.dart';
 
-
-class SizeConfig{
-  double get screenWidth{
-    if(PlatformUtil.isWeb == false){
+class SizeConfig {
+  double get screenWidth {
+    if (PlatformUtil.isWeb == false) {
       return MediaQuery.of(globalContext).size.width;
-    }else{
+    } else {
       int screenSize = window.screen?.width ?? 0;
-      if(PlatformUtil.isDesktopWeb){
-        if(screenSize > webMaxSize.width){
+      if (PlatformUtil.isDesktopWeb) {
+        if (screenSize > webMaxSize.width) {
           return webMaxSize.width;
-        }else{
+        } else {
           return screenSize.toDouble();
         }
-      }else{
+      } else {
         return (screenSize ?? 0).toDouble();
       }
     }
   }
 
-  double get screenHeight{
-    if(PlatformUtil.isWeb == false){
+  double get screenHeight {
+    if (PlatformUtil.isWeb == false) {
       return MediaQuery.of(globalContext).size.height;
-    }else{
+    } else {
       return window.screen?.height?.toDouble() ?? 0;
     }
   }
 
-  Size get webMaxSize{
-    if(PlatformUtil.isDesktopWeb){
+  Size get webMaxSize {
+    if (PlatformUtil.isDesktopWeb) {
       return const Size(600, 800);
-    }else{
-      return Size(screenWidth,screenHeight);
+    } else {
+      return Size(screenWidth, screenHeight);
     }
   }
-
 }
 
-extension FontSizeExtension on double{
-  double get fs{
-    if(PlatformUtil.isDesktopWeb){
+extension FontSizeExtension on double {
+  double get fs {
+    if (PlatformUtil.isDesktopWeb) {
       return this;
-    }else{
-      return this*(SizeConfig().screenWidth/375);
+    } else {
+      return this * (SizeConfig().screenWidth / 375);
     }
   }
 }

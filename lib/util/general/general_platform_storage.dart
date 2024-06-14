@@ -7,7 +7,7 @@ class GeneralStorageUtil extends StorageInterface {
   }
 
   @override
-  Future<String?> readData(String key) async{
+  Future<String?> readData(String key) async {
     // TODO: implement read
     throw UnimplementedError();
   }

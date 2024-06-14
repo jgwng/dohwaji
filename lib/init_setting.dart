@@ -17,7 +17,7 @@ Future<void> initAppSetting() async {
   );
 
   await GetStorage.init();
-  if(PlatformUtil.isWeb == true){
+  if (PlatformUtil.isWeb == true) {
     await Future.wait([
       CommonUtil().loadFont(AppFonts.emoji, AppFonts.emojiUrl),
     ]);
@@ -25,13 +25,13 @@ Future<void> initAppSetting() async {
 
   GestureBinding.instance.resamplingEnabled = false;
 
-  if(PlatformUtil.isWeb){
-    WidgetsBinding.instance.addPostFrameCallback((_) async{
+  if (PlatformUtil.isWeb) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       CommonUtil.runJSFunction('removeSplashLogo', null);
 
-      if(PlatformUtil.isDesktopWeb){
+      if (PlatformUtil.isDesktopWeb) {
         addToHomeScreen();
-      } else if(PlatformUtil.isIOSWeb && PlatformUtil.isPWA == false){
+      } else if (PlatformUtil.isIOSWeb && PlatformUtil.isPWA == false) {
         showA2HSOverlay();
       }
     });

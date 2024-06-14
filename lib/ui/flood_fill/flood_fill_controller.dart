@@ -10,7 +10,8 @@ import 'package:get/get.dart';
 import 'dart:ui' as ui;
 import 'package:http/http.dart' as http;
 
-class FloodFillController extends GetxController with GetSingleTickerProviderStateMixin{
+class FloodFillController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   List<Color> colorList = [
     Colors.red,
     Colors.yellow,
@@ -23,7 +24,6 @@ class FloodFillController extends GetxController with GetSingleTickerProviderSta
     Colors.lightGreen,
     Colors.tealAccent
   ];
-
 
   bool isInitialized = true;
   bool isDirty = false;
@@ -40,7 +40,7 @@ class FloodFillController extends GetxController with GetSingleTickerProviderSta
   Rx<ui.Image?> image2 = Rx<ui.Image?>(null);
 
   @override
-  void onInit(){
+  void onInit() {
     super.onInit();
 
     fillController = AnimationController(
@@ -58,7 +58,7 @@ class FloodFillController extends GetxController with GetSingleTickerProviderSta
   }
 
   @override
-  void onReady() async{
+  void onReady() async {
     isLoading.value = true;
     ui.Image? image = await _loadImage();
     originalImage.value = image;
@@ -68,26 +68,27 @@ class FloodFillController extends GetxController with GetSingleTickerProviderSta
   }
 
   @override
-  void onClose(){
+  void onClose() {
     super.onClose();
     PlatformUtil.addEventListener('beforeunload', saveTempData);
   }
+
   Future<ui.Image> _loadImage() async {
     Uint8List? colorImage;
     bool hasTempData = LocalStorage().contain('list') ?? false;
     bool hasSavedData = Get.arguments?['savedData'] != null;
     if (hasTempData == true) {
       colorImage = await getTempData();
-    } else if(hasSavedData){
+    } else if (hasSavedData) {
       colorImage = Get.arguments['savedData'];
     }
 
     if (colorImage == null) {
       if (_imageIndex < 0) _imageIndex = 0;
-      final http.Response result = await http.get(Uri.parse('https://cdn.jsdelivr.net/gh/jgwng/dohwaji/assets/images/example_image_$_imageIndex.jpg'));
+      final http.Response result = await http.get(Uri.parse(
+          'https://cdn.jsdelivr.net/gh/jgwng/dohwaji/assets/images/example_image_$_imageIndex.jpg'));
       colorImage = result.bodyBytes;
     }
-
 
     // _photo = img.decodeImage(list);
     final ui.Codec codec = await ui.instantiateImageCodec(colorImage);
@@ -107,8 +108,9 @@ class FloodFillController extends GetxController with GetSingleTickerProviderSta
 
   Future<void> saveTempData() async {
     if (isInitialized == false) {
-      if(image2.value == null) return;
-      Size imageSize = Size(image2.value!.width.toDouble(), image2.value!.height.toDouble());
+      if (image2.value == null) return;
+      Size imageSize =
+          Size(image2.value!.width.toDouble(), image2.value!.height.toDouble());
       Uint8List? result = await CommonUtil.createImageFromWidget(
           CustomPaint(
             size: imageSize,
@@ -122,12 +124,11 @@ class FloodFillController extends GetxController with GetSingleTickerProviderSta
         LocalStorage().save('list', list);
         LocalStorage().save('tag', tag ?? '');
       }
-
     }
   }
 
   void onFillColor(TapDownDetails details) async {
-    if(isDirty == false){
+    if (isDirty == false) {
       isDirty = true;
     }
     final Offset localPosition = details.localPosition;
@@ -148,34 +149,31 @@ class FloodFillController extends GetxController with GetSingleTickerProviderSta
     try {
       PlatformUtil.downloadImage(image2.value);
     } catch (e) {
-      CommonUtil.showToast(msg: e.toString(),context: Get.context!, seconds: 10);
+      CommonUtil.showToast(
+          msg: e.toString(), context: Get.context!, seconds: 10);
     }
   }
 
-  void onTapBack() async{
-    if(isDirty == false){
+  void onTapBack() async {
+    if (isDirty == false) {
       Get.back();
-    }else{
+    } else {
       bool? result = await showYNSelectBottomSheet(
-          title: '그리고 있던 그림을 저장할까요?',
-          content: '저장하면 다음에 이어 그릴수 있어요!'
-      );
-      if(result == true){
+          title: '그리고 있던 그림을 저장할까요?', content: '저장하면 다음에 이어 그릴수 있어요!');
+      if (result == true) {
         var result = await convertUiImageToUint8List();
         Get.back(result: result);
       }
     }
   }
 
-  Future<Uint8List?> convertUiImageToUint8List() async{
+  Future<Uint8List?> convertUiImageToUint8List() async {
     final ByteData? byteData =
-    await (image2.value)!.toByteData(format: ui.ImageByteFormat.png);
+        await (image2.value)!.toByteData(format: ui.ImageByteFormat.png);
     if (byteData == null) return null;
 
     // Convert ByteData to Uint8List
     final Uint8List list = byteData.buffer.asUint8List();
     return list;
   }
-
-
 }

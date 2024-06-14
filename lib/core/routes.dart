@@ -47,6 +47,5 @@ Map<String, WidgetBuilder> colorRoutes = {
   AppRoutes.coloring: (_) => const FloodFillRasterScreen(),
 };
 
-
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 BuildContext get globalContext => navigatorKey.currentState!.context;

@@ -62,8 +62,7 @@ class _ColorSnackbarState extends State<ColorSnackbar>
             style: const TextStyle(
                 fontSize: 16,
                 color: AppThemes.textColor,
-                fontFamily: AppFonts.medium
-            ),
+                fontFamily: AppFonts.medium),
             softWrap: true,
           ),
         ),

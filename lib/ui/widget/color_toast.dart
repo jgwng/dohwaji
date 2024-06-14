@@ -22,8 +22,7 @@ class ColorToast extends StatelessWidget {
           style: const TextStyle(
               fontSize: 16,
               color: AppThemes.textColor,
-              fontFamily: AppFonts.medium
-          ),
+              fontFamily: AppFonts.medium),
           softWrap: true,
         ),
       ),
