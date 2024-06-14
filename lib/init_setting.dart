@@ -17,11 +17,11 @@ Future<void> initAppSetting() async {
   );
 
   await GetStorage.init();
-  if (PlatformUtil.isWeb == true) {
-    await Future.wait([
-      CommonUtil().loadFont(AppFonts.emoji, AppFonts.emojiUrl),
-    ]);
-  }
+  // if (PlatformUtil.isWeb == true) {
+  //   await Future.wait([
+  //     CommonUtil().loadFont(AppFonts.emoji, AppFonts.emojiUrl),
+  //   ]);
+  // }
 
   GestureBinding.instance.resamplingEnabled = false;
 

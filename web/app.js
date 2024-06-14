@@ -104,7 +104,7 @@ window.addEventListener('load', function(ev) {
                           // Set hostElement based on device type
                           hostElement: isMobile ? null : target,
                           canvasKitBaseUrl: "./canvaskit/",
-                          useColorEmoji:true,
+//                          useColorEmoji:true,
                           buildConfig: {
                               builds: [
                                 {
