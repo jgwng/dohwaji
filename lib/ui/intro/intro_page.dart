@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:dohwaji/core/resources.dart';
 import 'package:dohwaji/core/routes.dart';
+import 'package:dohwaji/ui/dialog/auth_dialog.dart';
 import 'package:dohwaji/ui/widget/copyright_info.dart';
 import 'package:dohwaji/ui/widget/default_button.dart';
 import 'package:dohwaji/util/platform_util.dart';
@@ -50,16 +51,59 @@ class _IntroPageState extends State<IntroPage> {
                 title(),
                 const Spacer(),
                 Container(
-                  padding: const EdgeInsets.only(bottom: 30),
-                  child: DefaultButton(
-                    horizontalMargin: 24,
-                    onTap: () async {
-                      // context.push(AppRoutes.select);
-                      //context.pushNamed(AppRoutes.select);
-                      Get.toNamed(AppRoutes.select);
-                    },
-                    btnText: '색칠하러 가기',
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: DefaultButton(
+                          onTap: () async {
+                            showSignUpDialog(context);
+                          },
+                          btnText: '로그인',
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Flexible(
+                        child: DefaultButton(
+                          onTap: () async {
+                            showSignUpDialog(context);
+                          },
+                          btnText: '회원 가입',
+                        ),
+                      )
+                    ],
                   ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                InkWell(
+                  onTap: (){
+                    Get.toNamed(AppRoutes.select);
+                  },
+                  child: Container(
+                    height: 56,
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.symmetric(horizontal: 24),
+                    decoration: BoxDecoration(
+                      border: Border(
+                        top: BorderSide(
+                            color: Colors.grey[200]!,
+                        )
+                      )
+                    ),
+                    child: const Text('로그인하지 않고 둘러보기',style:TextStyle(
+                      color: Color(0xff828592),
+                      fontFamily: AppFonts.medium,
+                      fontSize: 16,
+                      decoration: TextDecoration.underline
+                    ),),
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
                 ),
                 const DohwaJiCopyRightInfo()
               ],
