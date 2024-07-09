@@ -15,6 +15,4 @@ abstract class PlatformInterface {
   void removeEventListener(String type, Function? listener);
 
   void downloadImage(Uint8List? image);
-
-  Widget networkImageWidget();
 }

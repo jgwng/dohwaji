@@ -1,6 +1,6 @@
 import 'package:universal_html/html.dart' as html;
 import 'dart:typed_data';
-import 'package:dohwaji/util/general/general_ui.dart' if (dart.library.html) 'package:dohwaji/util/general/web_ui.dart' as ui;
+import 'package:dohwaji/util/general/general_ui.dart' if (dart.library.html) 'package:dohwaji/util/web/web_ui.dart' as ui;
 import 'package:dohwaji/core/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

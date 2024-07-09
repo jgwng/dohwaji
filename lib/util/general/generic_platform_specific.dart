@@ -39,9 +39,4 @@ class GeneralUtil extends PlatformInterface {
     await ImageGallerySaver.saveImage(image, quality: 100);
   }
 
-  @override
-  Widget networkImageWidget(){
-    return Container();
-  }
-
 }
