@@ -2,6 +2,7 @@
 import 'dart:typed_data';
 
 import 'package:dohwaji/interface/common_interface.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 
@@ -37,4 +38,10 @@ class GeneralUtil extends PlatformInterface {
 
     await ImageGallerySaver.saveImage(image, quality: 100);
   }
+
+  @override
+  Widget networkImageWidget(){
+    return Container();
+  }
+
 }

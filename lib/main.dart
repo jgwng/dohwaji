@@ -8,11 +8,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:universal_html/js.dart' as js;
-import 'package:universal_html/html.dart';
+import 'package:universal_html/html.dart' as html;
 
 void main() async {
   await initAppSetting();
@@ -71,14 +69,14 @@ class BeforeInstallPrompt extends StatefulWidget {
 }
 
 class _BeforeInstallPrompt extends State<BeforeInstallPrompt> {
-  BeforeInstallPromptEvent? deferredPrompt;
+  html.BeforeInstallPromptEvent? deferredPrompt;
 
   @override
   void initState() {
-    window.addEventListener('beforeinstallprompt', (e) {
+    html.window.addEventListener('beforeinstallprompt', (e) {
       e.preventDefault();
       setState(() {
-        deferredPrompt = e as BeforeInstallPromptEvent;
+        deferredPrompt = e as html.BeforeInstallPromptEvent;
         print('deferredPrompt : $deferredPrompt');
       });
     });

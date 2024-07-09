@@ -3,7 +3,7 @@ import 'package:dohwaji/core/resources.dart';
 import 'package:dohwaji/ui/select/image_select_controller.dart';
 import 'package:dohwaji/ui/select/preview_image_widget.dart';
 import 'package:dohwaji/ui/widget/color_app_bar.dart';
-import 'package:dohwaji/ui/widget/platform_safe_area.dart';
+import 'package:dohwaji/util/general/general_safe_area.dart' if (dart.library.html) 'package:dohwaji/util/web/web_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

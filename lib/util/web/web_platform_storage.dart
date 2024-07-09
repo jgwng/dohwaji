@@ -1,5 +1,5 @@
 import 'package:dohwaji/interface/storage_interface.dart';
-import 'dart:html';
+import 'package:universal_html/html.dart';
 
 class WebStorageUtil extends StorageInterface {
   @override

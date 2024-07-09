@@ -2,7 +2,8 @@ import 'package:dohwaji/core/route_observer.dart';
 import 'package:dohwaji/ui/flood_fill/flood_fill_controller.dart';
 import 'package:dohwaji/ui/flood_fill/helper/image_painter.dart';
 import 'package:dohwaji/ui/widget/color_app_bar.dart';
-import 'package:dohwaji/ui/widget/platform_safe_area.dart';
+import 'package:dohwaji/util/general/general_safe_area.dart' if (dart.library.html) 'package:dohwaji/util/web/web_safe_area.dart';
+
 import 'package:dohwaji/ui/widget/torn_tape_painter.dart';
 import 'package:dohwaji/util/common_util.dart';
 import 'package:dohwaji/util/platform_util.dart';

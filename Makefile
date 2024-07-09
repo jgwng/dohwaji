@@ -5,6 +5,7 @@ VARIABLE1 :=  getting the dependencies
 
 commit:
 	set LC_ALL=ko_KR.UTF-8
+	git config --global i18n.commitencoding UTF-8
 	@read -p "Commit 메세지를 입력해주세요 : " message && \
 	(echo "Your commit message is: $$message" && \
 	git add . && \

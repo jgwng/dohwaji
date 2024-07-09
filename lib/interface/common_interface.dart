@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 abstract class PlatformInterface {
   void useWebSpecificFeature();
@@ -14,4 +15,6 @@ abstract class PlatformInterface {
   void removeEventListener(String type, Function? listener);
 
   void downloadImage(Uint8List? image);
+
+  Widget networkImageWidget();
 }

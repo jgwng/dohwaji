@@ -1,11 +1,12 @@
 // web_platform_specific.dart
 import 'dart:convert';
-import 'dart:html' as html;
-
+import 'package:universal_html/html.dart' as html;
+import 'package:dohwaji/util/general/general_ui.dart' if (dart.library.html) 'package:dohwaji/util/general/web_ui.dart' as ui;
 import 'package:dohwaji/interface/common_interface.dart';
 import 'package:dohwaji/ui/download/image_download_dialog.dart';
 import 'package:dohwaji/util/platform_util.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class WebUtil extends PlatformInterface {
   @override
@@ -81,5 +82,68 @@ class WebUtil extends PlatformInterface {
     } else {
       showImageDownloadDialog(downloadImage: image);
     }
+  }
+
+  @override
+  Widget networkImageWidget(){
+    return CachedImageWeb(
+      url: 'https://picsum.photos/250?image=9',
+      width: 300,
+      height: 300,
+      borderRadius: BorderRadius.circular(4.0),
+    );
+  }
+}
+class CachedImageWeb extends StatelessWidget {
+  final String url;
+  final double width;
+  final double height;
+  final BoxBorder? border;
+  final BorderRadius? borderRadius;
+  final bool isCircular;
+  final BoxFit? fit;
+  final Color? filterColor;
+  final FilterQuality? filterQuality;
+  final Color? placeHolderColor;
+  final Alignment? alignment;
+  final bool useCacheKey;
+
+  const CachedImageWeb({
+    super.key,
+    required this.url,
+    required this.height,
+    required this.width,
+    this.border,
+    this.borderRadius,
+    this.isCircular = false,
+    this.fit,
+    this.filterColor,
+    this.filterQuality,
+    this.placeHolderColor,
+    this.alignment,
+    this.useCacheKey = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final viewType = 'cached-image-${url.hashCode}';
+
+    ui.platformViewRegistry.registerViewFactory(
+      viewType,
+          (int viewId) {
+        final imgElement = html.ImageElement()
+          ..src = url
+          ..width = width.toInt()
+          ..height = height.toInt()
+          ..style.objectFit = fit.toString().split('.').last
+          ..style.border = border.toString()
+          ..style.borderRadius = borderRadius!.toString()
+          ..style.filter = filterColor != null ? 'filter: ${filterColor.toString()}' : '';
+
+        return imgElement;
+      },
+    );
+
+    return HtmlElementView(viewType: viewType);
   }
 }

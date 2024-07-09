@@ -1,6 +1,6 @@
-import 'dart:html';
+import 'package:universal_html/html.dart' as html;
 import 'dart:typed_data';
-import 'dart:ui' as ui;
+import 'package:dohwaji/util/general/general_ui.dart' if (dart.library.html) 'package:dohwaji/util/general/web_ui.dart' as ui;
 import 'package:dohwaji/core/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -27,7 +27,7 @@ class ImageDownloadDialog extends StatefulWidget {
 
 class _ImageDownloadState extends State<ImageDownloadDialog> {
   late Widget _iframeWidget;
-  final IFrameElement _iframeElement = IFrameElement();
+  final html.IFrameElement _iframeElement = html.IFrameElement();
   late String initId;
 
   String dataUrl = '';

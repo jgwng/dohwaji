@@ -1,4 +1,4 @@
-import 'package:universal_html/html.dart';
+import 'package:universal_html/html.dart' as html;
 
 import 'package:dohwaji/core/resources.dart';
 import 'package:dohwaji/util/platform_util.dart';
@@ -29,7 +29,7 @@ class DohwaJiCopyRightInfo extends StatelessWidget {
           InkWell(
             onTap: () {
               if (PlatformUtil.isWeb) {
-                window.open(
+                html.window.open(
                   'https://github.com/jgwng',
                   '',
                   '',

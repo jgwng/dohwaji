@@ -5,8 +5,6 @@ import 'package:dohwaji/util/common_util.dart';
 import 'package:dohwaji/util/platform_util.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'dart:html' as html;
-
 import 'package:universal_html/html.dart';
 
 class GlobalBinding extends Bindings {
@@ -26,18 +24,18 @@ class GlobalController extends GetxController {
 
   void initWebSetting() {
     if (PlatformUtil.isWeb == false) return;
-    html.window.addEventListener('beforeinstallprompt', (e) {
+    window.addEventListener('beforeinstallprompt', (e) {
       e.preventDefault();
       BeforeInstallPromptEvent event = e as BeforeInstallPromptEvent;
       print('deferredPrompt Global : $event');
     });
     if (PlatformUtil.isDesktopWeb) {
-      html.window.history.pushState(null, '도화지', html.window.location.href);
-      html.window.onPopState.listen((event) {
-        html.window.history.go(1);
+      window.history.pushState(null, '도화지', window.location.href);
+      window.onPopState.listen((event) {
+        window.history.go(1);
       });
     } else {
-      html.window.onPopState.listen((PopStateEvent event) {
+      window.onPopState.listen((PopStateEvent event) {
         var hash = window.location.hash;
         if (ColorRouteObserver().hashList.contains(hash)) {
           try {

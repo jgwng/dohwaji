@@ -72,4 +72,5 @@ class PlatformUtil {
 
     _platformInterface.downloadImage(resultData);
   }
+
 }
